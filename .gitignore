@@ -1,5 +1,11 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
 # Compiled output
 /dist
 /tmp
@@ -19,6 +25,10 @@ yarn-error.log
 *.launch
 .settings/
 *.sublime-workspace
+.springBeans
+.sts4-cache
+.apt_generated
+.factorypath
 
 # Visual Studio Code
 .vscode/*
