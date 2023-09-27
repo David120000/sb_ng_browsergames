@@ -3,6 +3,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "java",
+      "name": "SbNgBrowsergamesApplication",
+      "request": "launch",
+      "mainClass": "rd.sb_ng_browsergames.SbNgBrowsergamesApplication",
+      "projectName": "sb_ng_browsergames"
+    },
+    {
       "name": "ng serve",
       "type": "chrome",
       "request": "launch",
