@@ -1,4 +1,4 @@
-package rd.sb_ng_browsergames.service;
+package rd.sb_ng_browsergames.service.utility;
 
 import java.util.Optional;
 

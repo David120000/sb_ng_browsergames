@@ -1,1 +1,9 @@
+rd\sb_ng_browsergames\model\User.class
+rd\sb_ng_browsergames\service\AuthenticationService.class
+rd\sb_ng_browsergames\repository\UserRepository.class
+rd\sb_ng_browsergames\model\dto\AuthRequest.class
+rd\sb_ng_browsergames\service\utility\UserDetailsObjProvider.class
+rd\sb_ng_browsergames\configuration\SecurityConfig.class
 rd\sb_ng_browsergames\SbNgBrowsergamesApplication.class
+rd\sb_ng_browsergames\controller\AuthenticationController.class
+rd\sb_ng_browsergames\service\utility\JwtUtil.class
