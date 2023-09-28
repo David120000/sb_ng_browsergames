@@ -6,4 +6,6 @@ rd\sb_ng_browsergames\service\utility\UserDetailsObjProvider.class
 rd\sb_ng_browsergames\configuration\SecurityConfig.class
 rd\sb_ng_browsergames\SbNgBrowsergamesApplication.class
 rd\sb_ng_browsergames\controller\AuthenticationController.class
+rd\sb_ng_browsergames\controller\HttpRequestControllerAdvice.class
+rd\sb_ng_browsergames\httpfilter\JwtRequestFilter.class
 rd\sb_ng_browsergames\service\utility\JwtUtil.class

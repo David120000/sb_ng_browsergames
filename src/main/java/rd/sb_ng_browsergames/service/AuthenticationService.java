@@ -29,12 +29,7 @@ public class AuthenticationService {
 
     public ResponseEntity<String> authenticate(AuthRequest request) throws Exception {
 
-        try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-        }
-        catch(BadCredentialsException e) {
-            throw new Exception("User not found or the password was invalid.", e);
-        }
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 
         UserDetails user = userObjProvider.loadUserByUsername(request.getUsername());
         String jwt = jwtUtil.generateToken(user);
