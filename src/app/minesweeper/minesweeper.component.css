@@ -1,0 +1,16 @@
+:host {
+    transition: all;
+    transition-duration: 0.1s;
+}
+
+#gameContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+#gameTableContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}

@@ -7,4 +7,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'sb_ng_browsergames';
+
+  private _jwt: string | undefined;
+  
+  
+  public get jwt(): string | undefined {
+    return this._jwt;
+  }
+  
+  public set jwt(value: string | undefined) {
+    this._jwt = value;
+  }
+
+
 }

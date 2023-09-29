@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { MinesweeperComponent } from './minesweeper/minesweeper.component';
 import { TictactoeComponent } from './tictactoe/tictactoe.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HttpClientModule } from '@angular/common/http';
 
 const appRoutes: Routes = [
   { path: 'minesweeper', component: MinesweeperComponent },
@@ -26,7 +27,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
-    )
+    ),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
