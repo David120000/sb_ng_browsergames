@@ -1,0 +1,20 @@
+#pagenotfoundmsgcontainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pagenotfoundmessage {
+    font-family: Arial; 
+    font-weight: 10000;
+    color: rgb(0, 0, 46);
+    margin-bottom: 0px;
+}
+
+#Layer_1 {
+    width: 300px;
+    height: 300px;
+    translate: 100px 50px;
+    fill: rgb(0, 0, 46);
+    opacity: 0.9;
+}
