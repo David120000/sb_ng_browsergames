@@ -2,19 +2,25 @@ import { ContentTypes } from './contentTypeEnum';
 
 export class Tile {
 
+    private containerDiv: any;
     private explored: boolean;
     private flagged: boolean;
     private contentType: ContentTypes;
     private adjacentTiles: Array<Tile>;    
 
 
-    constructor() {
+    constructor(containerDiv: any) {
+        this.containerDiv = containerDiv;
         this.explored = false;
         this.flagged = false;
         this.contentType = ContentTypes.EMPTY;
         this.adjacentTiles = new Array();    
     }
 
+
+    public getContainerDiv(): any {
+        return this.containerDiv;
+    }
 
     public isExplored(): boolean {
         return this.explored;

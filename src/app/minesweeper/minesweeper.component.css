@@ -14,3 +14,36 @@
     align-items: center;
     flex-direction: column;
 }
+
+#gameTable {
+    border-style: none;
+    border-spacing: 0px;
+    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+}
+
+table, tr, td, div {
+    transition: all;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in;
+    padding: 0px;
+}
+
+.tiles-style-a {
+    width: 20px;
+    height: 20px;
+    background-color: bisque;
+    border-style: ridge;
+    border-width: 3px;
+    border-color: blanchedalmond;
+    padding: 0px;
+}
+
+.tiles-style-b {
+    width: 20px;
+    height: 20px;
+    background-color: rgb(250, 205, 150);
+    border-style: ridge;
+    border-width: 3px;
+    border-color: blanchedalmond;
+    padding: 0px;
+}
