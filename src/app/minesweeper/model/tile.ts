@@ -6,7 +6,8 @@ export class Tile {
     private explored: boolean;
     private flagged: boolean;
     private contentType: ContentTypes;
-    private adjacentTiles: Array<Tile>;    
+    private adjacentMineCount: number;
+    private adjacentTiles: Array<Tile>;   
 
 
     constructor(containerDiv: any) {
@@ -14,6 +15,7 @@ export class Tile {
         this.explored = false;
         this.flagged = false;
         this.contentType = ContentTypes.EMPTY;
+        this.adjacentMineCount = 0;
         this.adjacentTiles = new Array();    
     }
 
@@ -40,6 +42,14 @@ export class Tile {
 
     public setContentType(contentType: ContentTypes) {
         this.contentType = contentType;
+    }
+
+    public getAdjacentMineCount(): number {
+        return this.adjacentMineCount;
+    }
+
+    public setAdjacentMineCount(count: number) {
+        this.adjacentMineCount = count;
     }
 
     public getAdjacentTiles(): Array<Tile> {
