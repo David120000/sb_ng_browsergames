@@ -36,6 +36,7 @@ table, tr, td, div {
     border-width: 3px;
     border-color: blanchedalmond;
     padding: 0px;
+    text-align: center;
 }
 
 .tiles-style-b {
@@ -46,4 +47,11 @@ table, tr, td, div {
     border-width: 3px;
     border-color: blanchedalmond;
     padding: 0px;
+    text-align: center;
+}
+
+.counterText {
+    all: unset;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 14px;
 }

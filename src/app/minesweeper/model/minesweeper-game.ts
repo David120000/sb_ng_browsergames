@@ -1,3 +1,4 @@
+import { ChangeDetectorRef } from "@angular/core";
 import { ContentTypes } from "./contentTypeEnum";
 import { Tile } from "./tile";
 
@@ -9,9 +10,12 @@ export class MinesweeperGame {
   private firstClick: boolean;
   private gameFinished: boolean;
   
-  private gameTable: Array<Array<Tile>>;
+  private gameTable: Tile[][];
 
-  constructor() {
+  private changeDetectorRef: ChangeDetectorRef;
+
+
+  constructor(changeDetectorRef: ChangeDetectorRef) {
 
     this.tableSizes = new Array;
     this.tableSizes.push([24, 20]);
@@ -23,8 +27,9 @@ export class MinesweeperGame {
     this.firstClick = true;
     this.gameFinished = false;
 
-    this.gameTable = new Array;
-    this.gameTable[0] = new Array;
+    this.gameTable = [];
+
+    this.changeDetectorRef = changeDetectorRef;
   }
 
     
@@ -39,23 +44,24 @@ export class MinesweeperGame {
   }
   
 
-  public addTileToGameTable(tileDiv: any, rowPosition: number, columnPosition: number) {
+  public addTileToGameTable(tileDiv: HTMLDivElement, rowPosition: number, columnPosition: number) {
 
     let tile = new Tile(tileDiv);
 
     tile.getContainerDiv().addEventListener('click', () => {
-      alert('You just a clicked a dynamically created element! row: ' + rowPosition + ', col: ' + columnPosition);
+      this.explore(rowPosition, columnPosition);
+      // this.changeDetectorRef.markForCheck();
     });
 
     tile.getContainerDiv().addEventListener('contextmenu', () => {
-      alert('You just a RIGHT CLICKED a dynamically created element! row: ' + rowPosition + ', col: ' + columnPosition);
+      this.flagTile(rowPosition, columnPosition);
+      // this.changeDetectorRef.markForCheck();
     });
 
-    if(this.gameTable.length < rowPosition) {
-
-      this.gameTable[rowPosition] = new Array();
-      this.gameTable[rowPosition][columnPosition] = tile;
+    if(this.gameTable[rowPosition] == undefined) {
+      this.gameTable[rowPosition] = [];
     }
+    this.gameTable[rowPosition][columnPosition] = tile;
 
     if(rowPosition == this.tableSizes[this.tableSizeSelected][0] - 1 && columnPosition == this.tableSizes[this.tableSizeSelected][1] - 1) {
       this.setAdjacencyForTiles();
@@ -108,6 +114,8 @@ export class MinesweeperGame {
 
 
   private explore(rowPosition: number, columnPosition: number) {
+
+    this.changeDetectorRef.detach();
 
     if(this.gameFinished == false) {
 
@@ -164,6 +172,15 @@ export class MinesweeperGame {
 
       }
     }
+
+    this.changeDetectorRef.reattach();
+  }
+
+
+  private flagTile(rowPosition: number, columnPosition: number) {
+
+    let tile = this.gameTable[rowPosition][columnPosition];
+    tile.setFlagged( !tile.isFlagged() );
   }
 
 
@@ -174,6 +191,8 @@ export class MinesweeperGame {
       let validMinePosition = true;
 
       do {
+        validMinePosition = true;
+
         let mineRowPos = Math.floor(Math.random() * this.gameTable.length);
         let mineColPos = Math.floor(Math.random() * this.gameTable[0].length);
 
@@ -182,7 +201,7 @@ export class MinesweeperGame {
 
             if(rowToCheck >= 0 && rowToCheck < this.gameTable.length && colToCheck >= 0 && colToCheck < this.gameTable[0].length) {
               
-              if(rowToCheck == firstClickRowPosition && colToCheck == firstClickColumnPosition) {
+              if(mineRowPos == firstClickRowPosition && mineColPos == firstClickColumnPosition) {
                 validMinePosition = false;
               }
             }
@@ -245,6 +264,10 @@ export class MinesweeperGame {
   
   public getTableHorizontalSize(): number {
     return this.tableSizes[this.tableSizeSelected][0];
+  }
+
+  public getGameTable(): Array<Array<Tile>> {
+    return this.gameTable;
   }
 
   public isFirstClick(): boolean {

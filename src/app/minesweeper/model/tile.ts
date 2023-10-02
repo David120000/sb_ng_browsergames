@@ -2,7 +2,7 @@ import { ContentTypes } from './contentTypeEnum';
 
 export class Tile {
 
-    private containerDiv: any;
+    private containerDiv: HTMLDivElement;
     private explored: boolean;
     private flagged: boolean;
     private contentType: ContentTypes;
@@ -10,7 +10,7 @@ export class Tile {
     private adjacentTiles: Array<Tile>;   
 
 
-    constructor(containerDiv: any) {
+    constructor(containerDiv: HTMLDivElement) {
         this.containerDiv = containerDiv;
         this.explored = false;
         this.flagged = false;
@@ -20,7 +20,7 @@ export class Tile {
     }
 
 
-    public getContainerDiv(): any {
+    public getContainerDiv(): HTMLDivElement {
         return this.containerDiv;
     }
 
@@ -34,6 +34,10 @@ export class Tile {
 
     public isFlagged(): boolean {
         return this.flagged;
+    }
+
+    public setFlagged(newValue: boolean) {
+        this.flagged = newValue;
     }
 
     public getContentType(): ContentTypes {
