@@ -115,8 +115,6 @@ export class MinesweeperGame {
 
   private explore(rowPosition: number, columnPosition: number) {
 
-    this.changeDetectorRef.detach();
-
     if(this.gameFinished == false) {
 
       let tile = this.gameTable[rowPosition][columnPosition];
@@ -173,7 +171,6 @@ export class MinesweeperGame {
       }
     }
 
-    this.changeDetectorRef.reattach();
   }
 
 
@@ -199,11 +196,8 @@ export class MinesweeperGame {
         for(let rowToCheck = firstClickRowPosition -1; rowToCheck <= firstClickRowPosition +1; rowToCheck++) {
           for(let colToCheck = firstClickColumnPosition -1; colToCheck <= firstClickColumnPosition +1; colToCheck++) {
 
-            if(rowToCheck >= 0 && rowToCheck < this.gameTable.length && colToCheck >= 0 && colToCheck < this.gameTable[0].length) {
-              
-              if(mineRowPos == firstClickRowPosition && mineColPos == firstClickColumnPosition) {
-                validMinePosition = false;
-              }
+            if(mineRowPos == rowToCheck && mineColPos == colToCheck) {
+              validMinePosition = false;
             }
           }
         }

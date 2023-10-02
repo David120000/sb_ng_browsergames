@@ -18,10 +18,8 @@ export class MinesweeperComponent {
   private http: HttpClient;
 
   private minesweeperGame?: MinesweeperGame;
-  
-  
 
-  
+
   constructor(elementRef: ElementRef, renderer: Renderer2, changeDetectorRef: ChangeDetectorRef, http: HttpClient) { 
     this.elementRef = elementRef;
     this.renderer = renderer;
@@ -166,6 +164,11 @@ export class MinesweeperComponent {
               this.renderer.appendChild(svgFlag_g3, svgFlag_path2);
 
               this.renderer.appendChild(tile.getContainerDiv(), svgFlag);
+            }
+            else if(tile.isFlagged() == false && tile.getContainerDiv().childElementCount > 0) {
+              
+              // UNFLAG
+              
             }
           }
 

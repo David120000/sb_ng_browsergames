@@ -53,5 +53,5 @@ table, tr, td, div {
 .counterText {
     all: unset;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-size: 14px;
+    font-size: 100%;
 }
