@@ -39,6 +39,11 @@ table, tr, td, div {
     text-align: center;
 }
 
+.tiles-style-a:hover {
+    transition-duration: 0.05s;
+    background-color: white;
+}
+
 .tiles-style-b {
     width: 20px;
     height: 20px;
@@ -46,6 +51,33 @@ table, tr, td, div {
     border-style: ridge;
     border-width: 3px;
     border-color: blanchedalmond;
+    padding: 0px;
+    text-align: center;
+}
+
+.tiles-style-b:hover {
+    transition-duration: 0.05s;
+    background-color: white;
+}
+
+.tiles-explored-style-a {
+    width: 20px;
+    height: 20px;
+    background-color: #eed9c4ec;
+    border-style: solid;
+    border-width: 3px;
+    border-color: rgb(253, 241, 222);
+    padding: 0px;
+    text-align: center;
+}
+
+.tiles-explored-style-b {
+    width: 20px;
+    height: 20px;
+    background-color: #edc9afec;
+    border-style: solid;
+    border-width: 3px;
+    border-color: rgb(253, 241, 222);
     padding: 0px;
     text-align: center;
 }

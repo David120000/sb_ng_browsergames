@@ -12,10 +12,8 @@ export class MinesweeperGame {
   
   private gameTable: Tile[][];
 
-  private changeDetectorRef: ChangeDetectorRef;
 
-
-  constructor(changeDetectorRef: ChangeDetectorRef) {
+  constructor() {
 
     this.tableSizes = new Array;
     this.tableSizes.push([24, 20]);
@@ -28,8 +26,6 @@ export class MinesweeperGame {
     this.gameFinished = false;
 
     this.gameTable = [];
-
-    this.changeDetectorRef = changeDetectorRef;
   }
 
     
@@ -166,6 +162,8 @@ export class MinesweeperGame {
         else {  // <-- ContentTypes.MINE
 
           this.gameFinished = true;
+          tile.getContainerDiv().style.backgroundColor = "#FF0000";
+          this.revealOtherMines(rowPosition, columnPosition);
         }
 
       }
@@ -176,8 +174,12 @@ export class MinesweeperGame {
 
   private flagTile(rowPosition: number, columnPosition: number) {
 
-    let tile = this.gameTable[rowPosition][columnPosition];
-    tile.setFlagged( !tile.isFlagged() );
+    if(this.gameFinished == false) {
+
+      let tile = this.gameTable[rowPosition][columnPosition];
+      tile.setFlagged( !tile.isFlagged() );
+    }
+
   }
 
 
@@ -243,6 +245,37 @@ export class MinesweeperGame {
     }); 
 
     tile.setAdjacentMineCount(counter);
+  }
+
+
+  private revealOtherMines(startingRowPosition: number, startingColumnPosition: number) {
+
+    let revealRadius = 2;
+    let revealDelay = 800;
+
+    let intervalObject = setInterval(() => {
+
+      for(let row = startingRowPosition - revealRadius; row <= startingRowPosition + revealRadius; row++) {
+        for(let col = startingColumnPosition - revealRadius; col <= startingColumnPosition + revealRadius; col++) {
+  
+          if(row >= 0 && col >= 0 && row < this.gameTable.length && col < this.gameTable[0].length) {
+            
+            if(this.gameTable[row][col].getContentType() == ContentTypes.MINE) {
+              this.gameTable[row][col].setExplored(true);
+            }
+          }
+  
+          if(row == this.gameTable.length -1 && col == this.gameTable[0].length -1) {
+            clearInterval(intervalObject);
+          }
+        }
+      }
+
+      revealRadius = revealRadius + 1;
+      revealDelay = revealDelay * 0.35;
+
+    }, revealDelay);
+
   }
 
 
