@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
-import { MinesweeperGame } from './model/minesweeper-game';
 import { ContentTypes } from './model/contentTypeEnum';
+import { MinesweeperGame } from './service/minesweeper-game';
 
 
 @Component({

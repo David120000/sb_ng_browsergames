@@ -1,6 +1,6 @@
-import { ChangeDetectorRef } from "@angular/core";
-import { ContentTypes } from "./contentTypeEnum";
-import { Tile } from "./tile";
+import { ContentTypes } from "../model/contentTypeEnum";
+import { Tile } from "../model/tile";
+
 
 export class MinesweeperGame {
 
@@ -174,7 +174,7 @@ export class MinesweeperGame {
     if(this.gameFinished == false && this.tilesToExplore <= 1) {
       console.log("win");
     }
-    
+
   }
 
 

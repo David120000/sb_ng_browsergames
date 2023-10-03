@@ -64,7 +64,7 @@ table, tr, td, div {
     width: 20px;
     height: 20px;
     background-color: #eed9c4ec;
-    border-style: solid;
+    border-style: groove;
     border-width: 3px;
     border-color: #CD7F32;
     padding: 0px;
@@ -75,7 +75,7 @@ table, tr, td, div {
     width: 20px;
     height: 20px;
     background-color: #edc9afec;
-    border-style: solid;
+    border-style: groove;
     border-width: 3px;
     /* border-color: rgb(253, 241, 222); */
     border-color: #CD7F32;
