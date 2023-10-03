@@ -9,22 +9,23 @@ export class MinesweeperGame {
   private numberOfMines: number;
   private firstClick: boolean;
   private gameFinished: boolean;
+  private tilesToExplore: number;
   
   private gameTable: Tile[][];
 
 
-  constructor() {
+  constructor(tableSizeSelected: number) {
 
     this.tableSizes = new Array;
-    this.tableSizes.push([24, 20]);
-    this.tableSizes.push([18, 14]);
-    this.tableSizes.push([10, 8]);
+    this.tableSizes.push([20, 24]);
+    this.tableSizes.push([14, 18]);
+    this.tableSizes.push([8, 10]);
 
-    this.tableSizeSelected = 0;
+    this.tableSizeSelected = tableSizeSelected;
     this.numberOfMines = this.calculateNumberOfMines();
     this.firstClick = true;
     this.gameFinished = false;
-
+    this.tilesToExplore = (this.tableSizes[this.tableSizeSelected][0] * this.tableSizes[this.tableSizeSelected][1]) - this.numberOfMines;
     this.gameTable = [];
   }
 
@@ -46,12 +47,10 @@ export class MinesweeperGame {
 
     tile.getContainerDiv().addEventListener('click', () => {
       this.explore(rowPosition, columnPosition);
-      // this.changeDetectorRef.markForCheck();
     });
 
     tile.getContainerDiv().addEventListener('contextmenu', () => {
       this.flagTile(rowPosition, columnPosition);
-      // this.changeDetectorRef.markForCheck();
     });
 
     if(this.gameTable[rowPosition] == undefined) {
@@ -124,6 +123,7 @@ export class MinesweeperGame {
         }
 
         tile.setExplored(true);
+        this.tilesToExplore--;
 
         if(tile.getContentType() == ContentTypes.EMPTY) {
 
@@ -143,11 +143,13 @@ export class MinesweeperGame {
 
                   adjacentTile.setExplored(true);
                   newExploration.push(adjacentTile);
+                  this.tilesToExplore--;
                 }
                 else if(adjacentTile.getContentType() == ContentTypes.NEARBY) {
                   
                   adjacentTile.setExplored(true);
                   this.countAdjacentMines(adjacentTile);
+                  this.tilesToExplore--;
                 }
               } 
             });
@@ -169,6 +171,10 @@ export class MinesweeperGame {
       }
     }
 
+    if(this.gameFinished == false && this.tilesToExplore <= 1) {
+      console.log("win");
+    }
+    
   }
 
 
@@ -251,7 +257,7 @@ export class MinesweeperGame {
   private revealOtherMines(startingRowPosition: number, startingColumnPosition: number) {
 
     let revealRadius = 2;
-    let revealDelay = 800;
+    let revealDelay = 600;
 
     let intervalObject = setInterval(() => {
 
@@ -265,7 +271,7 @@ export class MinesweeperGame {
             }
           }
   
-          if(row == this.gameTable.length -1 && col == this.gameTable[0].length -1) {
+          if(revealRadius == this.gameTable.length -1 && revealRadius == this.gameTable[0].length -1) {
             clearInterval(intervalObject);
           }
         }

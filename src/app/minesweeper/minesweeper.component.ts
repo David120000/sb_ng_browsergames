@@ -39,7 +39,7 @@ export class MinesweeperComponent {
 
   public newGame(): MinesweeperGame {
 
-    let minesweeperGame = new MinesweeperGame();
+    let minesweeperGame = new MinesweeperGame(0);
 
     let gameTable = this.elementRef.nativeElement.querySelector('#gameTable');
 
@@ -83,7 +83,7 @@ export class MinesweeperComponent {
         for(let col = 0; col < gameTable[0].length; col++) {
           
           let tile = gameTable[row][col];
-          // console.log("the tile at [" + row + "," + col + "] is explored: " + tile.isExplored() + " or flagged: " + tile.isFlagged());
+
           if(tile.isExplored() == true) {
 
             if(tile.getContentType() == ContentTypes.NEARBY && tile.getContainerDiv().childElementCount == 0) {
