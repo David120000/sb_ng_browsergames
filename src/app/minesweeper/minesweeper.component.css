@@ -21,13 +21,26 @@
     justify-content: space-between;
     align-items: flex-end;
     flex-wrap: nowrap;
-    margin-bottom: 7px;
+    margin-bottom: 10px;
 }
 
-select {
+#tableSizeSelect {
+    height: 28px;
+    font-weight: 600;
+    color: rgb(0, 0, 46);
     padding: 2px 5px;
     margin-left: 20px;
+    border-style: groove;
+    border-width: 2px;
+    border-color: rgba(0, 0, 46, 0.4);
     border-radius: 5px;
+    background-color: rgb(238, 238, 238);
+    cursor: pointer;
+}
+
+#tableSizeSelect:hover {
+    border-color: rgba(0, 0, 46, 0.9);
+    background-color: white;
 }
 
 #newGameBtn {
@@ -46,12 +59,25 @@ select {
 
 #newGameBtn:hover {
     background-color: rgb(24, 24, 43);
-    transform: translateY(-3px);
-    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+    transform: translateY(-1px);
+    border-color: rgb(21, 21, 44);
 }
 
 #gameTime {
+    width: 75px;
+    display: inline-flex;
+    align-items: center;
+    border-style: groove;
+    border-width: 2px;
+    border-color: rgba(0, 0, 46, 0.4);
+    border-radius: 5px;
+    background-color: rgb(238, 238, 238);
     margin-right: 20px;
+}
+
+#_x32_ {
+    width: 20px;
+    padding: 2px 5px;
 }
 
 #gameTable {

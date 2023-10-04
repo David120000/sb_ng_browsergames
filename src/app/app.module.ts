@@ -7,6 +7,7 @@ import { TictactoeComponent } from './tictactoe/tictactoe.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
+import { MinesweeperTimerComponent } from './minesweeper/minesweeper-timer/minesweeper-timer.component';
 
 const appRoutes: Routes = [
   { path: 'minesweeper', component: MinesweeperComponent },
@@ -21,6 +22,7 @@ const appRoutes: Routes = [
     MinesweeperComponent,
     TictactoeComponent,
     PageNotFoundComponent,
+    MinesweeperTimerComponent,
   ],
   imports: [
     BrowserModule,

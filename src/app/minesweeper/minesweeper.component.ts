@@ -28,7 +28,7 @@ export class MinesweeperComponent {
     this.changeDetectorRef = changeDetectorRef;
     this.http = http;
 
-    this.selectedTableSize = 1;
+    this.selectedTableSize = 0;
   }
 
 
@@ -38,6 +38,7 @@ export class MinesweeperComponent {
 
   ngDoCheck() {
     this.refreshView();
+    console.log("minesweeper do check called");
   }
   
 
