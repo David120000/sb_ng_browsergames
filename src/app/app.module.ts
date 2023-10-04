@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { MinesweeperComponent } from './minesweeper/minesweeper.component';
 import { TictactoeComponent } from './tictactoe/tictactoe.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule, Routes } from '@angular/router';
 
 const appRoutes: Routes = [
   { path: 'minesweeper', component: MinesweeperComponent },
@@ -20,7 +20,7 @@ const appRoutes: Routes = [
     AppComponent,
     MinesweeperComponent,
     TictactoeComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,7 +28,7 @@ const appRoutes: Routes = [
       appRoutes,
       // { enableTracing: true } // <-- debugging purposes only
     ),
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Renderer2 } from '@angular/core';
 import { ContentTypes } from './model/contentTypeEnum';
 import { MinesweeperGame } from './service/minesweeper-game';
 
@@ -19,17 +19,21 @@ export class MinesweeperComponent {
 
   private minesweeperGame?: MinesweeperGame;
 
+  public selectedTableSize: number;
+
 
   constructor(elementRef: ElementRef, renderer: Renderer2, changeDetectorRef: ChangeDetectorRef, http: HttpClient) { 
     this.elementRef = elementRef;
     this.renderer = renderer;
     this.changeDetectorRef = changeDetectorRef;
     this.http = http;
+
+    this.selectedTableSize = 1;
   }
 
 
   ngOnInit() {
-    this.minesweeperGame = this.newGame();
+    this.minesweeperGame = this.newGameView();
   }
 
   ngDoCheck() {
@@ -37,16 +41,29 @@ export class MinesweeperComponent {
   }
   
 
-  public newGame(): MinesweeperGame {
+  public onTableSelect(tableSize: string | number) {
 
-    let minesweeperGame = new MinesweeperGame(0);
+    tableSize = Number(tableSize);
+    
+    if(this.selectedTableSize != tableSize) {
+      
+      this.selectedTableSize = tableSize;
+      this.clearView();
+      this.minesweeperGame = this.newGameView();
+    }
+  }
 
-    let gameTable = this.elementRef.nativeElement.querySelector('#gameTable');
+
+  public newGameView(): MinesweeperGame {
+
+    let minesweeperGame = new MinesweeperGame(this.selectedTableSize);
+
+    let gameTableElement = this.elementRef.nativeElement.querySelector('#gameTable');
 
     for(let row = 0; row < minesweeperGame.getTableHorizontalSize(); row++) {
       
       let tableRow = this.renderer.createElement("tr");
-      this.renderer.appendChild(gameTable, tableRow);
+      this.renderer.appendChild(gameTableElement, tableRow);
 
       for(let col = 0; col < minesweeperGame.getTableVerticalSize(); col++) {
 
@@ -217,4 +234,27 @@ export class MinesweeperComponent {
    
   }
 
+  private clearView() {
+
+    let gameTableElement = this.elementRef.nativeElement.querySelector('#gameTable');
+
+    while(gameTableElement.childElementCount > 0) {
+      this.renderer.removeChild(gameTableElement, gameTableElement.firstElementChild);
+    }
+  }
+
+  public resetGame() {
+    
+    this.clearView();
+    this.minesweeperGame = this.newGameView();
+  }
+
+  public getTableSizes(): Array<Array<number>> | undefined {
+    return this.minesweeperGame?.getTableSizes();
+  }
+
+  public getTableSizeSelected(): number {
+    return this.selectedTableSize;
+  }
+ 
 }

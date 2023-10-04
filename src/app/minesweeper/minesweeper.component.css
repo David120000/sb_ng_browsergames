@@ -15,6 +15,45 @@
     flex-direction: column;
 }
 
+#tableHeader {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: nowrap;
+    margin-bottom: 7px;
+}
+
+select {
+    padding: 2px 5px;
+    margin-left: 20px;
+    border-radius: 5px;
+}
+
+#newGameBtn {
+    padding: 5px 25px;
+    font-family: Arial;
+    font-size: 14px;
+    color: white;
+    background-color: rgb(0, 0, 46);
+    border: groove;
+    border-color: rgba(0, 0, 46, 0.4);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all;
+    transition-duration: 0.3s;
+}
+
+#newGameBtn:hover {
+    background-color: rgb(24, 24, 43);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+}
+
+#gameTime {
+    margin-right: 20px;
+}
+
 #gameTable {
     border-style: none;
     border-spacing: 0px;
@@ -23,7 +62,7 @@
 
 table, tr, td, div {
     transition: all;
-    transition-duration: 0.25s;
+    transition-duration: 0.5s;
     transition-timing-function: ease-in;
     padding: 0px;
 }

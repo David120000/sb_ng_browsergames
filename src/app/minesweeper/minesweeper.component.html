@@ -1,5 +1,17 @@
 <div id="gameContainer">
     <div id="gameTableContainer">
+        <div id="tableHeader">
+            <select #tableSizes (change)="onTableSelect(tableSizes.value)">
+                <option *ngFor="let tableSize of getTableSizes()" value="{{getTableSizes()?.indexOf(tableSize)}}" [selected]="getTableSizes()?.indexOf(tableSize) == getTableSizeSelected()">
+                    {{ tableSize[0] }} x {{ tableSize[1] }}
+                </option>
+            </select>
+            <button id="newGameBtn" (click)="resetGame()"><strong>NEW GAME</strong></button>
+            <div id="gameTime">
+
+            </div>
+        </div>
+
         <table id="gameTable">
 
         </table>
