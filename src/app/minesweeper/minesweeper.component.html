@@ -1,7 +1,7 @@
 <div id="gameContainer">
     <div id="gameTableContainer">
         <div id="tableHeader">
-            <select #tableSizes (change)="onTableSelect(tableSizes.value)" id="tableSizeSelect">
+            <select *ngIf="getTableSizes() != undefined" #tableSizes (change)="onTableSelect(tableSizes.value)" id="tableSizeSelect">
                 <option *ngFor="let tableSize of getTableSizes()" value="{{getTableSizes()?.indexOf(tableSize)}}" [selected]="getTableSizes()?.indexOf(tableSize) == getTableSizeSelected()">
                     {{ tableSize[1] }} x {{ tableSize[0] }}
                 </option>
@@ -37,12 +37,11 @@
                     </g>
                 </svg>
 
-                <app-minesweeper-timer></app-minesweeper-timer>
+                <app-minesweeper-timer (numemitter)="setGameTime($event)"></app-minesweeper-timer>
             </div>
         </div>
 
-        <table id="gameTable">
+        <app-minesweeper-gametable [gameTime]="getGameTime()" (timerStatusEmitter)="controlGameTimer($event)"></app-minesweeper-gametable>
 
-        </table>
     </div>
 </div>

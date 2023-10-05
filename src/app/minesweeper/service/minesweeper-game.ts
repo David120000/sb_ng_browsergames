@@ -172,6 +172,8 @@ export class MinesweeperGame {
     }
 
     if(this.gameFinished == false && this.tilesToExplore <= 1) {
+      
+      this.gameFinished = true;
       console.log("win");
     }
 
@@ -307,7 +309,8 @@ export class MinesweeperGame {
     return this.firstClick;
   }
 
-  public setFirstClick(newValue: boolean) {
-    this.firstClick = newValue;
+  public isGameFinished(): boolean {
+    return this.gameFinished;
   }
+
 }
