@@ -1,0 +1,4 @@
+<div id="rest-access-main">
+    <button (click)="loginUser()">Log in</button>
+    <p *ngIf="getAuthObject() != undefined">User token: {{ getAuthObject() }}</p>
+</div>

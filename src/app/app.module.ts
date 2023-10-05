@@ -5,10 +5,11 @@ import { AppComponent } from './app.component';
 import { MinesweeperComponent } from './minesweeper/minesweeper.component';
 import { TictactoeComponent } from './tictactoe/tictactoe.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpParams } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { MinesweeperTimerComponent } from './minesweeper/minesweeper-timer/minesweeper-timer.component';
 import { MinesweeperGametableComponent } from './minesweeper/minesweeper-gametable/minesweeper-gametable.component';
+import { RestAccessComponent } from './rest-access/rest-access.component';
 
 const appRoutes: Routes = [
   { path: 'minesweeper', component: MinesweeperComponent },
@@ -25,12 +26,13 @@ const appRoutes: Routes = [
     PageNotFoundComponent,
     MinesweeperTimerComponent,
     MinesweeperGametableComponent,
+    RestAccessComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(
       appRoutes,
-      // { enableTracing: true } // <-- debugging purposes only
+      // { enableTracing: true }
     ),
     HttpClientModule,
   ],
