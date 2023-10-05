@@ -43,7 +43,7 @@ export class MinesweeperTimerComponent implements AfterViewInit, DoCheck {
   }
 
   public startNewTimer() {
-    console.log("start new timer called");
+    
     this.timer = 0;
 
     let initTime = new Date().getTime();
