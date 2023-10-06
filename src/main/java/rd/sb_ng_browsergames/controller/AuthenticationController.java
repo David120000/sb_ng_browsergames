@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import rd.sb_ng_browsergames.model.dto.AuthRequest;
+import rd.sb_ng_browsergames.model.dto.UsercheckRequest;
 import rd.sb_ng_browsergames.service.AuthenticationService;
 
 @CrossOrigin("http://localhost:4200")
@@ -18,6 +19,15 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationService authService;
 
+
+    @PostMapping("/api/checkusername")
+    public ResponseEntity<?> checkIfUsernameExists(@RequestBody UsercheckRequest request) {
+        
+        ResponseEntity<?> response = authService.checkIfUsernameExists(request);
+        
+        return response;
+    }
+
     
     @PostMapping("/api/authenticate")
     public ResponseEntity<?> authenticate(@RequestBody AuthRequest request) throws Exception {
@@ -26,6 +36,16 @@ public class AuthenticationController {
 
         return response;
     }
+
+
+    @PostMapping("/api/register")
+    public ResponseEntity<?> registerNewUser(@RequestBody AuthRequest request) {
+
+        ResponseEntity<?> response = authService.registerNewUser(request);
+
+        return response;
+    }
+
 
     @GetMapping("/api/hello")
     public String hello() {

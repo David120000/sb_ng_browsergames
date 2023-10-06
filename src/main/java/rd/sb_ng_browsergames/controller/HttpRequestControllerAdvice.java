@@ -10,9 +10,15 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class HttpRequestControllerAdvice {
 
     @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<String> handleConflict(RuntimeException ex) {
+    public ResponseEntity<String> handleLoginConflict(RuntimeException ex) {
        
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleInvalidUsernameConflict(RuntimeException ex) {
+
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
     
 }
