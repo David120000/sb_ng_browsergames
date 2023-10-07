@@ -1,7 +1,5 @@
 package rd.sb_ng_browsergames.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -61,7 +59,7 @@ public class AuthenticationService {
     public ResponseEntity<AuthResponse> registerNewUser(AuthRequest newUserRequest) {
 
       if(newUserRequest.getUsername().length() > 14 || newUserRequest.getUsername().length() < 3) {
-        throw new IllegalArgumentException("Player name should be minimum 3 and maximum 14 characters long.");
+        throw new IllegalArgumentException("Player name should be between 3 and 14 characters long.");
       }
 
       User newUser = new User();
@@ -70,7 +68,7 @@ public class AuthenticationService {
       newUser.setAuthority("USER");
       newUser.setEnabled(true);
 
-      User persistedUser = userRepository.save(newUser);
+      UserDetails persistedUser = userRepository.save(newUser);
 
       String jwt = jwtUtil.generateToken(persistedUser);
 

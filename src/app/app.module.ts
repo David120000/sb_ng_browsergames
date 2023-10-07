@@ -10,6 +10,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MinesweeperTimerComponent } from './minesweeper/minesweeper-timer/minesweeper-timer.component';
 import { MinesweeperGametableComponent } from './minesweeper/minesweeper-gametable/minesweeper-gametable.component';
 import { RestAccessComponent } from './rest-access/rest-access.component';
+import { FormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
   { path: 'minesweeper', component: MinesweeperComponent },
@@ -35,6 +36,7 @@ const appRoutes: Routes = [
       // { enableTracing: true }
     ),
     HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,11 @@
 <div id="rest-access-main">
-    <button (click)="loginUser()">Log in</button>
-    <p *ngIf="getAuthObject() != undefined">User token: {{ getAuthObject() }}</p>
+
+    <p *ngIf="getAuthObject() == undefined">Unlock game features like online leaderboards or multiplayer by choosing a name for yourself!</p>
+    <p *ngIf="getAuthObject() != undefined">Hi, {{ getPlayerName() }}!</p>
+    <form #loginForm="ngForm" (submit)="nameInputHandler(loginForm.value.username)">
+        <input type="text" name="username" ngModel/>
+        <input *ngIf="loginForm.value.username?.length > 0" type="submit">
+    </form>
+    <button (click)="logoutUser()">Log out</button>
+
 </div>

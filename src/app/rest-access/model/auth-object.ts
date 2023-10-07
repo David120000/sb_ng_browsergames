@@ -3,8 +3,8 @@ export class AuthObject {
     private jwt: string;
 
 
-    constructor(jwt: string) {
-        this.jwt = jwt;
+    constructor() {
+        this.jwt = "";
     }
 
     
