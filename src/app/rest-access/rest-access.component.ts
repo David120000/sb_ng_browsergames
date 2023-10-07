@@ -86,6 +86,13 @@ export class RestAccessComponent {
     this.authObject = undefined;
   }
 
+  public onMouseEnter(hoverButton: HTMLElement) {
+    hoverButton.style.visibility = "visible";
+  }
+
+  public onMouseLeave(hoverButton: HTMLElement) {
+    hoverButton.style.visibility = "hidden";
+  }
 
   public getAuthObject(): AuthObject | undefined {
     return this.authObject;
