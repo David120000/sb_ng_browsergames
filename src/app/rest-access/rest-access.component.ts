@@ -86,16 +86,9 @@ export class RestAccessComponent {
     this.authObject = undefined;
   }
 
-  public onMouseEnter(hoverButton: HTMLElement) {
-    hoverButton.style.opacity = "1";
-  }
 
-  public onMouseLeave(hoverButton: HTMLElement) {
-    hoverButton.style.opacity = "0";
-  }
-
-  public getAuthObject(): AuthObject | undefined {
-    return this.authObject;
+  public isAuthObjectPresent(): boolean {
+    return (this.authObject != undefined);
   }
 
   public getPlayerName(): string | undefined {
@@ -110,7 +103,13 @@ export class RestAccessComponent {
     return playerName;
   }
 
+  public onMouseEnter(hoverButton: HTMLElement) {
+    hoverButton.style.opacity = "1";
+  }
 
+  public onMouseLeave(hoverButton: HTMLElement) {
+    hoverButton.style.opacity = "0";
+  }
 
 
 }

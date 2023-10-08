@@ -193,7 +193,7 @@ export class MinesweeperGame {
 
   private placeMines(firstClickRowPosition: number, firstClickColumnPosition: number) {
 
-    for(let minesPlaced = 0; minesPlaced <= this.numberOfMines; minesPlaced++) {
+    for(let minesPlaced = 1; minesPlaced <= this.numberOfMines; minesPlaced++) {
 
       let validMinePosition = true;
 
