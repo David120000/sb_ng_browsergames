@@ -47,10 +47,10 @@ table, tr, td, div {
 .tiles-explored-style-a {
     width: 20px;
     height: 20px;
-    background-color: #eed9c4ec;
+    background-color: lightblue;
     border-style: groove;
     border-width: 3px;
-    border-color: #CD7F32;
+    border-color: lightskyblue;
     padding: 0px;
     text-align: center;
 }
@@ -58,11 +58,10 @@ table, tr, td, div {
 .tiles-explored-style-b {
     width: 20px;
     height: 20px;
-    background-color: #edc9afec;
+    background-color: lightsteelblue;
     border-style: groove;
     border-width: 3px;
-    /* border-color: rgb(253, 241, 222); */
-    border-color: #CD7F32;
+    border-color: lightskyblue;
     padding: 0px;
     text-align: center;
 }

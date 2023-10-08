@@ -32,7 +32,7 @@
     border-color: rgba(0, 0, 46, 0.4);
     cursor: pointer;
     transition: all;
-    transition-duration: 0.3s;
+    transition-duration: 0.4s;
 }
 
 #loginButton:hover {
@@ -49,9 +49,8 @@
     border-color: rgba(0, 0, 46, 0.4);
     cursor: pointer;
     transition: all;
-    transition-duration: 0.3s;
-    left: 5em;
-    transition: visibility 0.5s;
+    transition-duration: 0.4s;
+    opacity: 0;
 }
 
 #logoutButton:hover {

@@ -87,11 +87,11 @@ export class RestAccessComponent {
   }
 
   public onMouseEnter(hoverButton: HTMLElement) {
-    hoverButton.style.visibility = "visible";
+    hoverButton.style.opacity = "1";
   }
 
   public onMouseLeave(hoverButton: HTMLElement) {
-    hoverButton.style.visibility = "hidden";
+    hoverButton.style.opacity = "0";
   }
 
   public getAuthObject(): AuthObject | undefined {
