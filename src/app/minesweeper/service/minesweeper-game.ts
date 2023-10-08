@@ -37,7 +37,7 @@ export class MinesweeperGame {
   }
     
   private calculateNumberOfMines(): number  {
-    return Math.ceil(this.tableSizes[this.tableSizeSelected][0] * this.tableSizes[this.tableSizeSelected][1] * 0.17);
+    return Math.ceil(this.tableSizes[this.tableSizeSelected][0] * this.tableSizes[this.tableSizeSelected][1] * 0.18);
   }
   
 
