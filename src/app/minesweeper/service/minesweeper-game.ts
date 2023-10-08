@@ -171,7 +171,7 @@ export class MinesweeperGame {
       }
     }
 
-    if(this.gameFinished == false && this.tilesToExplore <= 1) {
+    if(this.gameFinished == false && this.tilesToExplore == 0) {
       
       this.gameFinished = true;
       console.log("win");
