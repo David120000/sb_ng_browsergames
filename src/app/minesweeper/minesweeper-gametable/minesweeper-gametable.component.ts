@@ -23,9 +23,6 @@ export class MinesweeperGametableComponent implements OnInit, DoCheck {
   private minesweeperGame?: MinesweeperGame;
 
   public selectedTableSize: number;
-  
-  @Input()
-  gameTime: number;
 
 
   constructor(elementRef: ElementRef, renderer: Renderer2, changeDetectorRef: ChangeDetectorRef) { 
@@ -33,12 +30,11 @@ export class MinesweeperGametableComponent implements OnInit, DoCheck {
     this.elementRef = elementRef;
     this.renderer = renderer;
     this.changeDetectorRef = changeDetectorRef;
+    
     this.timerStatusEmitter = new EventEmitter<TimerStatus>;
-
     this.boolEmitterEnabled = true;
 
     this.selectedTableSize = 0;
-    this.gameTime = 0;
   }
 
 
@@ -282,6 +278,14 @@ export class MinesweeperGametableComponent implements OnInit, DoCheck {
 
       this.timerStatusEmitter.emit(TimerStatus.RESET);
     }
+  }
+
+
+  public calculateFinalScore(gameTime: number): number {
+
+    let score = this.minesweeperGame!.calculateFinalScore(gameTime);
+
+    return score;
   }
 
 

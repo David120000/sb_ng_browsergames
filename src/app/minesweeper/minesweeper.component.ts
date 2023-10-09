@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { MinesweeperGametableComponent } from './minesweeper-gametable/minesweeper-gametable.component';
 import { MinesweeperTimerComponent } from './minesweeper-timer/minesweeper-timer.component';
 import { TimerStatus } from './model/timerStatus';
@@ -21,7 +21,17 @@ export class MinesweeperComponent implements AfterViewInit {
   private tableSizes: Array<Array<number>> | undefined;
 
   private timerEnabled: boolean;
-  private gameTime: number;
+  
+  // @Input()
+  // public get gameTime(): number {
+  //   return this._gameTime;
+  // }
+  // public set gameTime(value: number) {
+  //   console.log("game time received: " + value);
+  //   this._gameTime = value;
+  //   this.calculateFinalScore(this._gameTime);
+  // }
+  // private _gameTime: number;
 
 
   constructor() {
@@ -31,7 +41,7 @@ export class MinesweeperComponent implements AfterViewInit {
     this.tableSizes[0] = [20, 24];
     
     this.timerEnabled = true;
-    this.gameTime = 0;
+    // this._gameTime = 0;
   }
 
 
@@ -84,11 +94,15 @@ export class MinesweeperComponent implements AfterViewInit {
     }
   }
 
-  public setGameTime(gameTime: number) {
-    this.gameTime = gameTime;
+
+  public calculateFinalScore(gameTime: number) {
+
+    let score = this.minesweeperGametableComponent!.calculateFinalScore(gameTime);
+    
+    if(score > 0) {
+      console.log(new Date().toISOString() + " :: Your score is: " + score);
+
+    }
   }
 
-  public getGameTime(): number {
-    return this.gameTime;
-  }
 }

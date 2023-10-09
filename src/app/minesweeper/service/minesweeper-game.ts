@@ -9,6 +9,7 @@ export class MinesweeperGame {
   private numberOfMines: number;
   private firstClick: boolean;
   private gameFinished: boolean;
+  private victory: boolean;
   private tilesToExplore: number;
   
   private gameTable: Tile[][];
@@ -25,6 +26,7 @@ export class MinesweeperGame {
     this.numberOfMines = this.calculateNumberOfMines();
     this.firstClick = true;
     this.gameFinished = false;
+    this.victory = false;
     this.tilesToExplore = (this.tableSizes[this.tableSizeSelected][0] * this.tableSizes[this.tableSizeSelected][1]) - this.numberOfMines;
     this.gameTable = [];
   }
@@ -174,7 +176,7 @@ export class MinesweeperGame {
     if(this.gameFinished == false && this.tilesToExplore == 0) {
       
       this.gameFinished = true;
-      console.log("win");
+      this.victory = true;
     }
 
   }
@@ -284,6 +286,22 @@ export class MinesweeperGame {
 
     }, revealDelay);
 
+  }
+
+
+  public calculateFinalScore(gameTime: number): number {
+
+    let score = 0;
+
+    if(this.victory == true) {
+
+      let totalNumberOfTiles = this.tableSizes[this.tableSizeSelected][0] * this.tableSizes[this.tableSizeSelected][1];
+
+      /* score = base score(5000) x (gameTableSize / gameTime) + gameTableSize bonus */
+      score = Math.ceil((5000 * (totalNumberOfTiles / gameTime)) + totalNumberOfTiles);
+    }
+
+    return score;
   }
 
 

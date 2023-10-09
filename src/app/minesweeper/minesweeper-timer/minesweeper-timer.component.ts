@@ -5,7 +5,7 @@ import { AfterViewInit, Component, DoCheck, EventEmitter, Input, Output } from '
   templateUrl: './minesweeper-timer.component.html',
   styleUrls: ['./minesweeper-timer.component.css']
 })
-export class MinesweeperTimerComponent implements AfterViewInit, DoCheck {
+export class MinesweeperTimerComponent implements AfterViewInit {
 
   private timer: number;
   private intervalObject?: ReturnType<typeof setInterval>;
@@ -26,15 +26,6 @@ export class MinesweeperTimerComponent implements AfterViewInit, DoCheck {
     this.startNewTimer();
   }
 
-  ngDoCheck() {
-
-    // if(this.timerEnabled == false) {
-
-    //   clearInterval(this.intervalObject);
-    //   this.numemitter.emit(this.timer);
-    // }
-
-  }
 
   public stopTimer() {
 

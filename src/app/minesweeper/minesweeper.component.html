@@ -37,11 +37,11 @@
                     </g>
                 </svg>
 
-                <app-minesweeper-timer (numemitter)="setGameTime($event)"></app-minesweeper-timer>
+                <app-minesweeper-timer (numemitter)="calculateFinalScore($event)"></app-minesweeper-timer>
             </div>
         </div>
 
-        <app-minesweeper-gametable [gameTime]="getGameTime()" (timerStatusEmitter)="controlGameTimer($event)"></app-minesweeper-gametable>
+        <app-minesweeper-gametable (timerStatusEmitter)="controlGameTimer($event)"></app-minesweeper-gametable>
 
     </div>
 </div>
