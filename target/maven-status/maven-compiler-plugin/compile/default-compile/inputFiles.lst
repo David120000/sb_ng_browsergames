@@ -1,8 +1,12 @@
 c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\repository\UserRepository.java
+c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\service\MinesweeperService.java
 c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\service\utility\UserDetailsObjProvider.java
+c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\repository\MinesweeperScoreRepository.java
+c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\controller\MinesweeperScoreController.java
 c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\controller\HttpRequestControllerAdvice.java
 c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\model\User.java
 c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\model\dto\AuthRequest.java
+c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\model\MinesweeperScore.java
 c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\model\dto\UsercheckRequest.java
 c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\httpfilter\JwtRequestFilter.java
 c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\controller\AuthenticationController.java

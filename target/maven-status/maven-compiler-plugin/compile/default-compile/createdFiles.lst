@@ -1,12 +1,16 @@
 rd\sb_ng_browsergames\model\User.class
 rd\sb_ng_browsergames\model\dto\UsercheckRequest.class
+rd\sb_ng_browsergames\service\MinesweeperService.class
 rd\sb_ng_browsergames\service\utility\UserDetailsObjProvider.class
 rd\sb_ng_browsergames\model\dto\AuthResponse.class
 rd\sb_ng_browsergames\controller\AuthenticationController.class
+rd\sb_ng_browsergames\repository\MinesweeperScoreRepository.class
 rd\sb_ng_browsergames\httpfilter\JwtRequestFilter.class
 rd\sb_ng_browsergames\service\AuthenticationService.class
 rd\sb_ng_browsergames\repository\UserRepository.class
 rd\sb_ng_browsergames\model\dto\AuthRequest.class
+rd\sb_ng_browsergames\model\MinesweeperScore.class
+rd\sb_ng_browsergames\controller\MinesweeperScoreController.class
 rd\sb_ng_browsergames\configuration\SecurityConfig.class
 rd\sb_ng_browsergames\SbNgBrowsergamesApplication.class
 rd\sb_ng_browsergames\controller\HttpRequestControllerAdvice.class

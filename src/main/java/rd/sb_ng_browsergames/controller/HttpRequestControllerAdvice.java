@@ -16,7 +16,7 @@ public class HttpRequestControllerAdvice {
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> handleInvalidUsernameConflict(RuntimeException ex) {
+    public ResponseEntity<String> handleInvalidArgumentConflict(RuntimeException ex) {
 
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
