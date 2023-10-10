@@ -71,12 +71,5 @@ public class MinesweeperScore {
         this.date = date;
     }
 
-    @Override
-    public String toString() {
-        return "MinesweeperScore [id=" + id + ", userName=" + userName + ", score=" + score + ", tableSize=" + tableSize
-                + ", date=" + date + "]";
-    }
-
-    
     
 }

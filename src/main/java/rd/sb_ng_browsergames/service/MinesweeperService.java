@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import rd.sb_ng_browsergames.model.MinesweeperScore;
+import rd.sb_ng_browsergames.model.dto.MinesweeperScorePersistResponse;
 import rd.sb_ng_browsergames.repository.MinesweeperScoreRepository;
 
 @Service
@@ -16,6 +18,22 @@ public class MinesweeperService {
     
     @Autowired
     private MinesweeperScoreRepository minesweeperScoreRepository;
+
+
+    public ResponseEntity<MinesweeperScorePersistResponse> persistNewScore(MinesweeperScore newScore) {
+
+        if(newScore.getId() != 0) {
+            throw new IllegalArgumentException("Existing score records cannot be modified. Use ID = 0 to save a new record in the database.");
+        }
+
+        minesweeperScoreRepository.save(newScore);
+
+        MinesweeperScorePersistResponse response = new MinesweeperScorePersistResponse();
+        response.setSuccessfullyPersisted(true);
+        response.setId(newScore.getId());
+
+        return ResponseEntity.ok(response);     
+    }
 
 
     public Page<MinesweeperScore> getTopScores10PerPage(int pageNumber) {

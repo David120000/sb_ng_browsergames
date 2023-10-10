@@ -2,7 +2,10 @@ package rd.sb_ng_browsergames.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,6 +17,13 @@ public class MinesweeperScoreController {
     
     @Autowired
     private MinesweeperService minesweeperService;
+
+
+    @PostMapping("/api/minesweeper/new")
+    public ResponseEntity<?> persistNewScore(@RequestBody MinesweeperScore newScore) {
+
+        return minesweeperService.persistNewScore(newScore);
+    }
 
 
     @GetMapping("/api/minesweeper/topscores")
@@ -33,7 +43,7 @@ public class MinesweeperScoreController {
     }
 
 
-    @GetMapping("/api/minesweeper/userscores/sortedbyscores")
+    @GetMapping("/api/minesweeper/userscore/sortedbyscores")
     public Page<MinesweeperScore> getUserScoresSorted10PerPage(
             @RequestParam(name="username") String userName,
             @RequestParam(name="order") String listOrder,
@@ -44,7 +54,7 @@ public class MinesweeperScoreController {
     }
 
 
-    @GetMapping("/api/minesweeper/scorebyid")
+    @GetMapping("/api/minesweeper/userscore/byid")
     public MinesweeperScore getScoreById(@RequestParam(name="id") long id) {
         
         return minesweeperService.getScoreById(id);

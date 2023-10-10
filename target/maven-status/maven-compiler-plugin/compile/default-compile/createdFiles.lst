@@ -4,6 +4,7 @@ rd\sb_ng_browsergames\service\MinesweeperService.class
 rd\sb_ng_browsergames\service\utility\UserDetailsObjProvider.class
 rd\sb_ng_browsergames\model\dto\AuthResponse.class
 rd\sb_ng_browsergames\controller\AuthenticationController.class
+rd\sb_ng_browsergames\model\dto\MinesweeperScorePersistResponse.class
 rd\sb_ng_browsergames\repository\MinesweeperScoreRepository.class
 rd\sb_ng_browsergames\httpfilter\JwtRequestFilter.class
 rd\sb_ng_browsergames\service\AuthenticationService.class
