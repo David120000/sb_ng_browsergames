@@ -4,21 +4,19 @@ import { RestAccessService } from '../service/rest-access.service';
 import { DataSharingService } from '../service/data-sharing.service';
 import { JwtDecoderService } from '../service/jwt-decoder.service';
 import { Subscription } from 'rxjs';
-import { UsercheckResponse } from '../model/usercheck-response';
-import { AuthObject } from '../model/auth-object';
 
 @Component({
-  selector: 'app-rest-access',
-  templateUrl: './rest-access.component.html',
-  styleUrls: ['./rest-access.component.css']
+  selector: 'app-user-authenticator',
+  templateUrl: './user-authenticator.component.html',
+  styleUrls: ['./user-authenticator.component.css']
 })
-export class RestAccessComponent implements OnDestroy {
+export class UserAuthenticatorComponent implements OnDestroy {
 
   private restService: RestAccessService;
   private dataBank: DataSharingService;
   private jwtDecoder: JwtDecoderService;
   private subscription: Subscription;
-  private playerName;
+  private playerName: string;
 
 
   constructor(restService: RestAccessService, dataBank: DataSharingService, jwtDecoder: JwtDecoderService) {    
@@ -70,6 +68,4 @@ export class RestAccessComponent implements OnDestroy {
   public onMouseLeave(hoverButton: HTMLElement) {
     hoverButton.style.opacity = "0";
   }
-
-
 }

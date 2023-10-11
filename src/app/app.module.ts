@@ -9,8 +9,8 @@ import { HttpClientModule, HttpParams } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { MinesweeperTimerComponent } from './minesweeper/minesweeper-timer/minesweeper-timer.component';
 import { MinesweeperGametableComponent } from './minesweeper/minesweeper-gametable/minesweeper-gametable.component';
-import { RestAccessComponent } from './rest-access/rest-access.component';
 import { FormsModule } from '@angular/forms';
+import { UserAuthenticatorComponent } from './user-authenticator/user-authenticator.component';
 
 const appRoutes: Routes = [
   { path: 'minesweeper', component: MinesweeperComponent },
@@ -27,7 +27,7 @@ const appRoutes: Routes = [
     PageNotFoundComponent,
     MinesweeperTimerComponent,
     MinesweeperGametableComponent,
-    RestAccessComponent,
+    UserAuthenticatorComponent,
   ],
   imports: [
     BrowserModule,
