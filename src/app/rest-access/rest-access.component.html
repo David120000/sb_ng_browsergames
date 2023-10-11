@@ -1,6 +1,6 @@
 <div id="rest-access-main">
 
-    <div *ngIf="isAuthObjectPresent() == false">
+    <div *ngIf="isPlayerNameAvailable() == false">
         <p class="loginLabelText">Unlock game features like online leaderboards or multiplayer by choosing a name for yourself!</p>
         <form #loginForm="ngForm" (submit)="nameInputHandler(loginForm.value.username)">
             <input type="text" id="longinTextField" name="username" placeholder="PLAYER NAME" ngModel/>
@@ -8,7 +8,7 @@
         </form>
     </div>
 
-    <div *ngIf="isAuthObjectPresent() == true" style="display: flex; flex-direction: column;" (mouseenter)="onMouseEnter(logoutButton)" (mouseleave)="onMouseLeave(logoutButton)">
+    <div *ngIf="isPlayerNameAvailable() == true" style="display: flex; flex-direction: column;" (mouseenter)="onMouseEnter(logoutButton)" (mouseleave)="onMouseLeave(logoutButton)">
         <p class="loginLabelText">Hi, <span style="color: red">{{ getPlayerName() }}</span>!</p>
         <button #logoutButton id="logoutButton" (click)="logoutUser()">LOG OUT</button>
     </div>

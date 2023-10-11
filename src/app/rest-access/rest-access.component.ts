@@ -1,111 +1,71 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { AuthObject } from './model/auth-object';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { User } from './model/user';
-import { UsercheckResponse } from './model/usercheck-response';
-import { UsercheckRequest } from './model/usercheck-request';
+import { Component, OnDestroy } from '@angular/core';
+import { User } from '../model/user';
+import { RestAccessService } from '../service/rest-access.service';
+import { DataSharingService } from '../service/data-sharing.service';
+import { JwtDecoderService } from '../service/jwt-decoder.service';
+import { Subscription } from 'rxjs';
+import { UsercheckResponse } from '../model/usercheck-response';
+import { AuthObject } from '../model/auth-object';
 
 @Component({
   selector: 'app-rest-access',
   templateUrl: './rest-access.component.html',
   styleUrls: ['./rest-access.component.css']
 })
-export class RestAccessComponent {
+export class RestAccessComponent implements OnDestroy {
 
-  private http: HttpClient;
-  private readonly REST_URL: string;
+  private restService: RestAccessService;
+  private dataBank: DataSharingService;
+  private jwtDecoder: JwtDecoderService;
+  private subscription: Subscription;
+  private playerName;
 
-  private authObject: AuthObject | undefined;
 
-
-  constructor(http: HttpClient) {
+  constructor(restService: RestAccessService, dataBank: DataSharingService, jwtDecoder: JwtDecoderService) {    
     
-    this.http = http;
-    this.REST_URL = "http://localhost:8080/api";
+    this.restService = restService;
+    this.dataBank = dataBank;
+    this.jwtDecoder = jwtDecoder;
+
+    this.playerName = "<no name>";
+    
+    this.subscription = this.dataBank.authObjectObservable$.subscribe(authObj => {
+      this.playerName = this.jwtDecoder.getUserNameFromToken(authObj);
+    });
+  }
+
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 
   public nameInputHandler(username: string) {
 
     let user = new User(username, "foo");
-
-    if(this.checkIfAccountAlreadyRegistered(user).isUserAlreadyExists() == true ) {
-      
-      this.loginUser(user)
-    }
-    else {
-
-      this.registerUser(user);
-    }
-  }
-
-
-  private checkIfAccountAlreadyRegistered(user: User): UsercheckResponse {
-
-    const requestBody = new UsercheckRequest(user.getUsername());
-    let response = new UsercheckResponse();
-
-    const headers = new HttpHeaders()
-      .set("Content-Type", "application/json; charset=utf-8");
-  
-    this.http.post<UsercheckResponse>(this.REST_URL + "/checkusername", requestBody, {headers: headers})
-      .subscribe(data => {
-        Object.assign(response, data);
-      });
-
-    return response;
-  }
-
-
-  private loginUser(user: User) {
-
-    let headers = new HttpHeaders()
-      .set("Content-Type", "application/json; charset=utf-8");
-    
-    this.http.post<AuthObject>(this.REST_URL + "/authenticate", user, {headers: headers})
-      .subscribe(data => {
-        this.authObject = Object.assign(new AuthObject(), data);
-      });
-  }
-
-
-  private registerUser(user: User) {
-
-    let headers = new HttpHeaders()
-      .set("Content-Type", "application/json; charset=utf-8");
-  
-    this.http.post<AuthObject>(this.REST_URL + "/register", user, {headers: headers})
-      .subscribe(data => {
-        this.authObject = Object.assign(new AuthObject(), data);
-      });
+    this.restService.authenticateUser(user);
   }
 
 
   public logoutUser() {
-    this.authObject = undefined;
+    this.dataBank.clearCurrentAuthObject();
   }
 
 
-  public isAuthObjectPresent(): boolean {
-    return (this.authObject != undefined);
+  public isPlayerNameAvailable(): boolean {
+    return (this.playerName != "<no name>");
   }
 
-  public getPlayerName(): string | undefined {
-    
-    let playerName = undefined;
 
-    if(this.authObject != undefined) {
-
-      playerName = new JwtHelperService().decodeToken(this.authObject.getJwt()).namefromuserdetails;
-    }
-
-    return playerName;
+  public getPlayerName(): string {
+    return this.playerName;
   }
+
 
   public onMouseEnter(hoverButton: HTMLElement) {
     hoverButton.style.opacity = "1";
   }
+
 
   public onMouseLeave(hoverButton: HTMLElement) {
     hoverButton.style.opacity = "0";

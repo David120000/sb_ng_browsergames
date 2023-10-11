@@ -11,4 +11,8 @@ export class AuthObject {
     public getJwt(): string {
         return this.jwt;
     }
+
+    public isJwtPresent(): boolean {
+        return (this.jwt.length > 0);
+    }
 }
