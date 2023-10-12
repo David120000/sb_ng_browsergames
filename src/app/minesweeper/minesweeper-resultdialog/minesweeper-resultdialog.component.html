@@ -1,0 +1,47 @@
+<h2>VICTORY</h2>
+<p>Your score: <span style="color: red"><strong>{{ getScoreObject()?.getScore() }}</strong></span></p>
+
+<div *ngIf="isUserAuthenticated() == false">
+
+    <p class="dialogText">Please enter your name to get on the online leaderboard!</p>
+    
+    <form #loginForm="ngForm" (ngSubmit)="nameInputHandler(loginForm.value.username)">
+        <input type="text" id="longinTextField" name="username" placeholder="PLAYER NAME" ngModel/>
+
+        <div class="buttonContainer">
+            <button class="submitButton" type="submit">SUBMIT</button>
+            <button class="discardButton" (click)="discardScore(); $event.preventDefault()">DISCARD</button>
+        </div>
+    </form>
+
+</div>
+
+<div *ngIf="isUserAuthenticated() == true">
+   
+    <div *ngIf="getRestResponse()?.isSuccessfullyPersisted() == true">
+        <p class="dialogText">It is now on the leaderboard!</p>
+
+        <div class="buttonContainer">
+            <button class="discardButton" (click)="closeDialog()">CLOSE</button>
+        </div>
+    </div>
+
+    <div *ngIf="getRestResponse()?.isSuccessfullyPersisted() == false">
+        <p class="dialogText" style="color: darkred">An error ocoured while saving your data. Please try again.</p>
+        <div class="buttonContainer">
+            <button class="submitButton" (click)="persistScore()">SUBMIT</button>
+            <button class="discardButton" (click)="discardScore()">DISCARD</button>
+        </div>
+    </div>
+
+</div>
+
+<dialog id="discardConfirmDialog">
+    <p class="dialogText">Are you sure you want to discard your score?</p>
+    <p class="dialogText" style="font-size: small;">This cannot be undone.</p>
+
+    <div class="buttonContainer">
+        <button class="submitButton" (click)="closeConfirmationDialog()">GO BACK</button>
+        <button class="discardButton" (click)="closeDialog()">DISCARD</button>
+    </div>
+</dialog>

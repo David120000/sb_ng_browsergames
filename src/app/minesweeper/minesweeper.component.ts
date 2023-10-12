@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { MinesweeperGametableComponent } from './minesweeper-gametable/minesweeper-gametable.component';
 import { MinesweeperTimerComponent } from './minesweeper-timer/minesweeper-timer.component';
 import { TimerStatus } from './model/timerStatus';
@@ -6,9 +6,8 @@ import { DataSharingService } from '../service/data-sharing.service';
 import { MinesweeperScore } from '../model/minesweeper-score';
 import { Subscription } from 'rxjs';
 import { JwtDecoderService } from '../service/jwt-decoder.service';
-import { RestAccessService } from '../service/rest-access.service';
 import { AuthObject } from '../model/auth-object';
-import { MinesweeperScorePersistResponse } from '../model/minesweeper-score-persist-response';
+import { MinesweeperResultdialogComponent } from './minesweeper-resultdialog/minesweeper-resultdialog.component';
 
 
 @Component({
@@ -18,11 +17,11 @@ import { MinesweeperScorePersistResponse } from '../model/minesweeper-score-pers
 })
 export class MinesweeperComponent implements AfterViewInit, OnDestroy {
 
+  private elementRef: ElementRef;
   private dataBank: DataSharingService;
-  private restAccess: RestAccessService;
   private jwtDecoder: JwtDecoderService;
   private subscription: Subscription;
-  private authObject: AuthObject;  
+  private authObject: AuthObject;
 
   @ViewChild(MinesweeperGametableComponent)
   private minesweeperGametableComponent?: MinesweeperGametableComponent;
@@ -30,18 +29,24 @@ export class MinesweeperComponent implements AfterViewInit, OnDestroy {
   @ViewChild(MinesweeperTimerComponent)
   private minesweeperTimerComponent?: MinesweeperTimerComponent;
 
+  @ViewChild(MinesweeperResultdialogComponent)
+  private minesweeperResultdialogComponent?: MinesweeperResultdialogComponent;
+  private resultDialogRef: HTMLDialogElement;
+
   private tableSizeSelected: number;
   private tableSizes: Array<Array<number>>;
 
   private timerEnabled: boolean;
   
 
-  constructor(dataBank: DataSharingService, restAccess: RestAccessService, jwtDecoder: JwtDecoderService) {
+  constructor(elementRef: ElementRef, dataBank: DataSharingService, jwtDecoder: JwtDecoderService) {
 
+    this.elementRef = elementRef;
     this.dataBank = dataBank;
-    this.restAccess = restAccess;
     this.jwtDecoder = jwtDecoder;
     this.authObject = new AuthObject();
+
+    this.resultDialogRef = this.elementRef.nativeElement.querySelector('#resultDialog');
 
     this.subscription =  this.dataBank.authObjectObservable$.subscribe(authObj => {
       console.log("minesweeper component's subscription detected a change");
@@ -88,7 +93,7 @@ export class MinesweeperComponent implements AfterViewInit, OnDestroy {
   }
 
   public onTableSelect(tableSize: string | number) {
-    this.minesweeperGametableComponent?.onTableSelect(tableSize);
+    this.tableSizeSelected = this.minesweeperGametableComponent!.onTableSelect(tableSize);
   }
 
   public controlGameTimer(timerStatusChange: TimerStatus) {
@@ -118,30 +123,28 @@ export class MinesweeperComponent implements AfterViewInit, OnDestroy {
     let score = this.minesweeperGametableComponent!.calculateFinalScore(gameTime);
     
     if(score > 0) {
+
+      const minesweeperScore = new MinesweeperScore(
+        0,
+        this.jwtDecoder.getUserNameFromToken(this.authObject),
+        score,
+        this.tableSizes[this.tableSizeSelected][1] + "x" + this.tableSizes[this.tableSizeSelected][0],
+        new Date()
+      );
       
-      console.log(new Date().toISOString() + " :: Your score is: " + score);
-      console.log("the jwt: " + this.authObject.getJwt());
-      if(this.authObject.isJwtPresent() == true) {
+      console.log(minesweeperScore.getDate().toISOString() + " :: Your score is: " + minesweeperScore.getScore());
 
-        const minesweeperScore = new MinesweeperScore(
-          0,
-          this.jwtDecoder.getUserNameFromToken(this.authObject),
-          score,
-          this.tableSizes[this.tableSizeSelected][0] + "x" + this.tableSizes[this.tableSizeSelected][1],
-          new Date()
-        );
+      let dialog = this.elementRef.nativeElement.querySelector('#resultDialog');
+      
+      this.minesweeperResultdialogComponent?.setDialogRef(dialog);
+      this.minesweeperResultdialogComponent?.setScore(minesweeperScore);
 
-        this.restAccess.postNewMinesweeperScore(minesweeperScore, this.authObject.getJwt())
-          .subscribe(response => {
-            let responseObj = Object.assign(new MinesweeperScorePersistResponse(), response);
-            console.log("Persist response [id: " + responseObj.getId() + ", " + responseObj.isSuccessfullyPersisted()+ "]");
-          });
-      }
-      else {
-        console.log("score save failed: user not logged in");
-      }
+      this.minesweeperResultdialogComponent?.persistScore();
 
+      dialog.showModal();
     }
+
+
   }
 
 }

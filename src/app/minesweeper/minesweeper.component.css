@@ -79,3 +79,13 @@
     width: 20px;
     padding: 2px 5px;
 }
+
+#resultDialog {
+    border-radius: 15px;
+    background-color: lightgoldenrodyellow;
+}
+
+#resultDialog::backdrop {
+    background: linear-gradient(45deg, blue, red);
+    opacity: 0.4;
+}

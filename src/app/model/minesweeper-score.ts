@@ -36,4 +36,8 @@ export class MinesweeperScore {
         return this.date;
     }
 
+    public setUserName(userName: string) {
+        this.userName = userName;
+    }
+
 }

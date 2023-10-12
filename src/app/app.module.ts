@@ -11,6 +11,7 @@ import { MinesweeperTimerComponent } from './minesweeper/minesweeper-timer/mines
 import { MinesweeperGametableComponent } from './minesweeper/minesweeper-gametable/minesweeper-gametable.component';
 import { FormsModule } from '@angular/forms';
 import { UserAuthenticatorComponent } from './user-authenticator/user-authenticator.component';
+import { MinesweeperResultdialogComponent } from './minesweeper/minesweeper-resultdialog/minesweeper-resultdialog.component';
 
 const appRoutes: Routes = [
   { path: 'minesweeper', component: MinesweeperComponent },
@@ -28,6 +29,7 @@ const appRoutes: Routes = [
     MinesweeperTimerComponent,
     MinesweeperGametableComponent,
     UserAuthenticatorComponent,
+    MinesweeperResultdialogComponent,
   ],
   imports: [
     BrowserModule,

@@ -49,7 +49,7 @@ export class MinesweeperGametableComponent implements OnInit, DoCheck {
   }
   
 
-  public onTableSelect(tableSize: string | number) {
+  public onTableSelect(tableSize: string | number): number {
 
     tableSize = Number(tableSize);
     
@@ -58,6 +58,8 @@ export class MinesweeperGametableComponent implements OnInit, DoCheck {
       this.selectedTableSize = tableSize;
       this.resetGame();
     }
+
+    return this.selectedTableSize;
   }
 
 
