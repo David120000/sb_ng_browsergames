@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: rd.sb_ng_browsergames.SbNgBrowsergamesApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.222 s - in rd.sb_ng_browsergames.SbNgBrowsergamesApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.064 s - in rd.sb_ng_browsergames.SbNgBrowsergamesApplicationTests

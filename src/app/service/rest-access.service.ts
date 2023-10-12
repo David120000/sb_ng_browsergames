@@ -6,6 +6,8 @@ import { User } from '../model/user';
 import { AuthObject } from '../model/auth-object';
 import { Observable } from 'rxjs';
 import { DataSharingService } from './data-sharing.service';
+import { MinesweeperScore } from '../model/minesweeper-score';
+import { MinesweeperScorePersistResponse } from '../model/minesweeper-score-persist-response';
 
 @Injectable({
   providedIn: 'root'
@@ -95,5 +97,17 @@ export class RestAccessService {
     let authObject = this.http.post<AuthObject>(this.REST_URL + "/register", user, {headers: headers})
 
     return authObject;
+  }
+
+
+  public postNewMinesweeperScore(score: MinesweeperScore, jwt: string): Observable<MinesweeperScorePersistResponse> {
+
+    let headers = new HttpHeaders()
+      .set("Content-Type", "application/json; charset=utf-8")
+      .set("Authorization", "Bearer " + jwt);
+
+    let response = this.http.post<MinesweeperScorePersistResponse>(this.REST_URL + "/minesweeper/new", score, {headers: headers});
+    
+    return response;
   }
 }

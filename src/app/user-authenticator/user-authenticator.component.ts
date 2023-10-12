@@ -28,6 +28,7 @@ export class UserAuthenticatorComponent implements OnDestroy {
     this.playerName = "<no name>";
     
     this.subscription = this.dataBank.authObjectObservable$.subscribe(authObj => {
+      console.log("userauthenticator component's subscription detected a change");
       this.playerName = this.jwtDecoder.getUserNameFromToken(authObj);
     });
   }

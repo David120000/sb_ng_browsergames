@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataSharingService } from './service/data-sharing.service';
 
 @Component({
   selector: 'app-root',

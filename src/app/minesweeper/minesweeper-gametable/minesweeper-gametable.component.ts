@@ -289,8 +289,8 @@ export class MinesweeperGametableComponent implements OnInit, DoCheck {
   }
 
 
-  public getTableSizes(): Array<Array<number>> | undefined {
-    return this.minesweeperGame?.getTableSizes();
+  public getTableSizes(): Array<Array<number>> {
+    return this.minesweeperGame!.getTableSizes();
   }
 
   public getTableSizeSelected(): number {

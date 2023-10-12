@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthObject } from '../model/auth-object';
 import { Subject } from 'rxjs';
+import { MinesweeperScore } from '../model/minesweeper-score';
 
 @Injectable({
   providedIn: 'root'
