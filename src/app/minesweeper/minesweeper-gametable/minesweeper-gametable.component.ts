@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DoCheck, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { MinesweeperGame } from '../service/minesweeper-game';
 import { ContentTypes } from '../model/contentTypeEnum';
 import { TimerStatus } from '../model/timerStatus';
@@ -14,7 +14,6 @@ export class MinesweeperGametableComponent implements OnInit, DoCheck {
   
   private elementRef: ElementRef;
   private renderer: Renderer2;
-  private changeDetectorRef: ChangeDetectorRef;
 
   @Output()
   private timerStatusEmitter: EventEmitter<TimerStatus>;
@@ -25,11 +24,10 @@ export class MinesweeperGametableComponent implements OnInit, DoCheck {
   public selectedTableSize: number;
 
 
-  constructor(elementRef: ElementRef, renderer: Renderer2, changeDetectorRef: ChangeDetectorRef) { 
+  constructor(elementRef: ElementRef, renderer: Renderer2) { 
 
     this.elementRef = elementRef;
     this.renderer = renderer;
-    this.changeDetectorRef = changeDetectorRef;
     
     this.timerStatusEmitter = new EventEmitter<TimerStatus>;
     this.boolEmitterEnabled = true;
@@ -238,7 +236,6 @@ export class MinesweeperGametableComponent implements OnInit, DoCheck {
 
         }
       }
-      // this.changeDetectorRef.markForCheck();
     }
    
   }

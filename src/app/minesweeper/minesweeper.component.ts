@@ -31,7 +31,6 @@ export class MinesweeperComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild(MinesweeperResultdialogComponent)
   private minesweeperResultdialogComponent?: MinesweeperResultdialogComponent;
-  private resultDialogRef: HTMLDialogElement;
 
   private tableSizeSelected: number;
   private tableSizes: Array<Array<number>>;
@@ -45,8 +44,6 @@ export class MinesweeperComponent implements AfterViewInit, OnDestroy {
     this.dataBank = dataBank;
     this.jwtDecoder = jwtDecoder;
     this.authObject = new AuthObject();
-
-    this.resultDialogRef = this.elementRef.nativeElement.querySelector('#resultDialog');
 
     this.subscription =  this.dataBank.authObjectObservable$.subscribe(authObj => {
       console.log("minesweeper component's subscription detected a change");
