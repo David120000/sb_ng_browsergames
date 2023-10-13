@@ -41,7 +41,6 @@ export class MinesweeperGametableComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck() {
-
     this.refreshView();
     this.stopTheGameTimer();
   }

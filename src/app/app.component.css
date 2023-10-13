@@ -44,11 +44,18 @@ h4 {
     box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
 }
 
-.card-container {
+#card-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 16px;
+    opacity: 0;
+    transition: opacity 1s 1.2s;
+}
+
+#routerOutlet {
+    opacity: 0;
+    transition: opacity 1s 0.8s;
 }
 
 .card {
@@ -76,11 +83,31 @@ h4 {
 
 .backgroundelements {
     position: fixed;
-    bottom: 160px;
-    left: 230px;
-    opacity: 0.2;
     fill: rgb(163, 139, 0);
-    z-index: -10;
+    z-index: -14;
+    transition: 
+        bottom 1s 0.6s,
+        left 1s 0.6s,
+        right 1s 0.6s,
+        opacity 1s 0.6s;
+}
+
+#Capa_1_1 {
+    bottom: 20%;
+    right: 55%;
+    opacity: 0.5;
+}
+
+#Capa_1_2 {
+    bottom: 40%;
+    right: 65%;
+    opacity: 0.5;
+}
+
+#Capa_1_3 {
+    bottom: 25%;
+    left: 55%;
+    opacity: 0.5;
 }
 
 #cloudbackground1 {
