@@ -12,11 +12,13 @@ import { MinesweeperGametableComponent } from './minesweeper/minesweeper-gametab
 import { FormsModule } from '@angular/forms';
 import { UserAuthenticatorComponent } from './user-authenticator/user-authenticator.component';
 import { MinesweeperResultdialogComponent } from './minesweeper/minesweeper-resultdialog/minesweeper-resultdialog.component';
+import { HomeComponent } from './home/home.component';
 
 const appRoutes: Routes = [
   { path: 'minesweeper', component: MinesweeperComponent },
   { path: 'tictactoe', component: TictactoeComponent },
-  { path: '',   redirectTo: '/', pathMatch: 'full' }, // main page
+  { path: 'home', component: HomeComponent },
+  { path: '',   redirectTo: '/home', pathMatch: 'full' }, // main page
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -30,6 +32,7 @@ const appRoutes: Routes = [
     MinesweeperGametableComponent,
     UserAuthenticatorComponent,
     MinesweeperResultdialogComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
