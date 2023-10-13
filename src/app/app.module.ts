@@ -15,11 +15,11 @@ import { MinesweeperResultdialogComponent } from './minesweeper/minesweeper-resu
 import { HomeComponent } from './home/home.component';
 
 const appRoutes: Routes = [
-  { path: 'minesweeper', component: MinesweeperComponent },
-  { path: 'tictactoe', component: TictactoeComponent },
-  { path: 'home', component: HomeComponent },
-  { path: '',   redirectTo: '/home', pathMatch: 'full' }, // main page
-  { path: '**', component: PageNotFoundComponent }
+  { path: 'minesweeper', component: MinesweeperComponent, data: { route_id: 'Minesweeper'}},
+  { path: 'tictactoe', component: TictactoeComponent, data: { route_id: 'Tictactoe'}},
+  { path: 'home', component: HomeComponent, data: { route_id: 'Home'}},
+  { path: '',   redirectTo: '/home', pathMatch: 'full'}, // main page
+  { path: '**', component: PageNotFoundComponent , data: { route_id: '404'}}
 ];
 
 @NgModule({

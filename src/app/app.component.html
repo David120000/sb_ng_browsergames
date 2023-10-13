@@ -17,7 +17,9 @@
         </div>
     </nav>
 
-    <app-user-authenticator></app-user-authenticator>
+    <div *ngIf="getCurrentRouteId() == 'Minesweeper' || getCurrentRouteId() == 'Tictactoe'">
+        <app-user-authenticator></app-user-authenticator>
+    </div>
 
     <router-outlet></router-outlet>
 

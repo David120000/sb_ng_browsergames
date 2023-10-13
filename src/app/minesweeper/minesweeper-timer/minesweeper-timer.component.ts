@@ -1,11 +1,11 @@
-import { AfterViewInit, Component, DoCheck, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, Component, DoCheck, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 
 @Component({
   selector: 'app-minesweeper-timer',
   templateUrl: './minesweeper-timer.component.html',
   styleUrls: ['./minesweeper-timer.component.css']
 })
-export class MinesweeperTimerComponent implements AfterViewInit {
+export class MinesweeperTimerComponent implements AfterViewInit, OnDestroy {
 
   private timer: number;
   private intervalObject?: ReturnType<typeof setInterval>;
@@ -24,6 +24,11 @@ export class MinesweeperTimerComponent implements AfterViewInit {
   ngAfterViewInit() {
 
     this.startNewTimer();
+  }
+
+
+  ngOnDestroy(): void {
+    clearInterval(this.intervalObject);
   }
 
 
