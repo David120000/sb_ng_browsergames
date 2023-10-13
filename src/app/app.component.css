@@ -48,7 +48,8 @@ h4 {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 16px;
+    margin-top: 26px;
+    margin-bottom: 20px;
     opacity: 0;
     transition: opacity 1s 1.2s;
 }
@@ -63,12 +64,11 @@ h4 {
     border: 1px solid lightblue;
     border-radius: 15px;
     background-color: lightskyblue;
-    height: 40px;
     width: 200px;
     margin: 0 8px 16px;
     padding: 16px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     transition: all 0.2s ease-in-out;
@@ -79,6 +79,12 @@ h4 {
 .card:hover {
     transform: translateY(-3px);
     box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+}
+
+.gameMenuLabel {
+    padding-top: 0.2em;
+    font-size: large;
+    font-weight: 900;
 }
 
 .backgroundelements {
