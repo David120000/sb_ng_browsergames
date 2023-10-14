@@ -1,10 +1,10 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
 import { UsercheckRequest } from '../model/usercheck-request';
 import { UsercheckResponse } from '../model/usercheck-response';
 import { User } from '../model/user';
 import { AuthObject } from '../model/auth-object';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of, throwError } from 'rxjs';
 import { DataSharingService } from './data-sharing.service';
 import { MinesweeperScore } from '../model/minesweeper-score';
 import { MinesweeperScorePersistResponse } from '../model/minesweeper-score-persist-response';
@@ -29,6 +29,9 @@ export class RestAccessService {
   public authenticateUser(user: User) {
 
     this.checkIfAccountAlreadyRegistered(user)
+      .pipe(catchError(error => 
+        this.authenticationErrorHandler(error)
+      ))
       .subscribe(response => {
 
         let userCheckResponse = Object.assign(new UsercheckResponse(), response);
@@ -36,27 +39,31 @@ export class RestAccessService {
         if(userCheckResponse.isUserAlreadyExists() == true ) {
 
           this.loginUser(user)
+            .pipe(catchError(error => 
+              this.authenticationErrorHandler(error)
+            ))
             .subscribe(response => {
 
               let authObject = Object.assign(new AuthObject(), response);
 
               this.dataBank.setAuthObject(authObject);
             });
-
         }
         else {
-    
+
           this.registerUser(user)
+            .pipe(catchError(error => 
+              this.authenticationErrorHandler(error)
+            ))
             .subscribe(response => {
 
               let authObject = Object.assign(new AuthObject(), response);
 
               this.dataBank.setAuthObject(authObject);
             });
-
         }
 
-      });
+      })
 
   }
 
@@ -72,7 +79,7 @@ export class RestAccessService {
         this.REST_URL + "/checkusername", 
         requestBody, 
         {headers: headers}
-      )
+      );
 
     return response;
   }
@@ -110,4 +117,24 @@ export class RestAccessService {
     
     return response;
   }
+
+
+  private authenticationErrorHandler(error: HttpErrorResponse) {
+
+    let message = "";
+
+    if (error.status == 0) {
+      message = "An error occured: client-side or network error";
+      console.error(message);
+    } 
+    else {
+      message = "An error occured: " + error.error;
+      console.error(message);
+    }
+
+    this.dataBank.setErrorMsg(message);
+
+    return of({jwt: ""});
+  }
+  
 }

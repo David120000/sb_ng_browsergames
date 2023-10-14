@@ -1,7 +1,7 @@
 <div id="rest-access-main">
 
     <div *ngIf="isPlayerNameAvailable() == false">
-        <p class="loginLabelText">Unlock game features like online leaderboards or multiplayer by choosing a name for yourself!</p>
+        <p class="loginLabelText">{{ getPreLoginMessage() }}</p>
         <form #loginForm="ngForm" (submit)="nameInputHandler(loginForm.value.username)">
             <input type="text" id="longinTextField" name="username" placeholder="PLAYER NAME" ngModel/>
             <input *ngIf="loginForm.value.username?.length > 0" type="submit" id="loginButton"  value="LOG IN"/>

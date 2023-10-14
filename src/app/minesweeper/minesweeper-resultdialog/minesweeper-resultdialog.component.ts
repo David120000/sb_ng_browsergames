@@ -33,12 +33,19 @@ export class MinesweeperResultdialogComponent implements OnDestroy {
 
     this.elementRef = elementRef;
     this.dataBank = dataBank;
-    this.authObject = new AuthObject();
     this.restService = restService;
     this.jwtDecoder = jwtDecoder;
 
+    const authObjectFromService = this.dataBank.getDeclaredAuthObject();
+
+    if(authObjectFromService != undefined) {
+      this.authObject = authObjectFromService;
+    }
+    else {
+      this.authObject = new AuthObject();
+    }
+
     this.subscription = this.dataBank.authObjectObservable$.subscribe(authObj => {
-      console.log("minesweeper result dialog component's subscription detected a change");
       this.authObject = authObj;
       this.persistScore();
     });

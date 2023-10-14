@@ -15,7 +15,10 @@ export class UserAuthenticatorComponent implements OnDestroy {
   private restService: RestAccessService;
   private dataBank: DataSharingService;
   private jwtDecoder: JwtDecoderService;
-  private subscription: Subscription;
+  private authTokenSubscription: Subscription;
+  private messageSubscription: Subscription;
+  
+  private preLoginMessage: string;
   private playerName: string;
 
 
@@ -25,17 +28,22 @@ export class UserAuthenticatorComponent implements OnDestroy {
     this.dataBank = dataBank;
     this.jwtDecoder = jwtDecoder;
 
+    this.preLoginMessage = "Unlock game features like online leaderboards or multiplayer by choosing a name for yourself!";
     this.playerName = "<no name>";
     
-    this.subscription = this.dataBank.authObjectObservable$.subscribe(authObj => {
-      console.log("userauthenticator component's subscription detected a change");
+    this.authTokenSubscription = this.dataBank.authObjectObservable$.subscribe(authObj => {
       this.playerName = this.jwtDecoder.getUserNameFromToken(authObj);
+    });
+
+    this.messageSubscription = this.dataBank.errorMsgObservable$.subscribe(message => {
+      this.preLoginMessage = message;
     });
   }
 
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.authTokenSubscription.unsubscribe();
+    this.messageSubscription.unsubscribe();
   }
 
 
@@ -53,6 +61,11 @@ export class UserAuthenticatorComponent implements OnDestroy {
 
   public isPlayerNameAvailable(): boolean {
     return (this.playerName != "<no name>");
+  }
+
+
+  public getPreLoginMessage(): string {
+    return this.preLoginMessage;
   }
 
 

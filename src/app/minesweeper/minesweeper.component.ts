@@ -43,10 +43,17 @@ export class MinesweeperComponent implements AfterViewInit, OnDestroy {
     this.elementRef = elementRef;
     this.dataBank = dataBank;
     this.jwtDecoder = jwtDecoder;
-    this.authObject = new AuthObject();
+
+    const authObjectFromService = this.dataBank.getDeclaredAuthObject();
+
+    if(authObjectFromService != undefined) {
+      this.authObject = authObjectFromService;
+    }
+    else {
+      this.authObject = new AuthObject();
+    }
 
     this.subscription =  this.dataBank.authObjectObservable$.subscribe(authObj => {
-      console.log("minesweeper component's subscription detected a change");
       this.authObject = authObj;
     });
 
