@@ -3,6 +3,13 @@ dt {
 }
 
 #homeContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#homeTextContainer {
+    width: 65%;
     display: flex;
     flex-direction: column;
     justify-content: center;

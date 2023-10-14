@@ -19,7 +19,7 @@
 <div *ngIf="isUserAuthenticated() == true">
    
     <div *ngIf="getRestResponse()?.isSuccessfullyPersisted() == true">
-        <p class="dialogText">It is now on the leaderboard!</p>
+        <p class="dialogText">The score is now on the leaderboard. Congratulations!</p>
 
         <div class="buttonContainer">
             <button class="discardButton" (click)="closeDialog()">CLOSE</button>
