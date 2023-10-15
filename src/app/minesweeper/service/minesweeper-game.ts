@@ -311,12 +311,12 @@ export class MinesweeperGame {
 
 
   public getTableVerticalSize(): number {
-    return this.tableSizes[this.tableSizeSelected][1];
+    return this.tableSizes[this.tableSizeSelected][0];
   }
 
   
   public getTableHorizontalSize(): number {
-    return this.tableSizes[this.tableSizeSelected][0];
+    return this.tableSizes[this.tableSizeSelected][1];
   }
 
   public getGameTable(): Array<Array<Tile>> {

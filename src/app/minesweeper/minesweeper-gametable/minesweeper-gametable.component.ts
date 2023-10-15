@@ -33,7 +33,7 @@ export class MinesweeperGametableComponent implements OnInit, DoCheck {
     this.timerStatusEmitter = new EventEmitter<TimerStatus>;
     this.boolEmitterEnabled = true;
 
-    this.selectedTableSize = 0;
+    this.selectedTableSize = 1;
   }
 
 
@@ -64,16 +64,16 @@ export class MinesweeperGametableComponent implements OnInit, DoCheck {
   public newGameView(): MinesweeperGame {
 
     let minesweeperGame = new MinesweeperGame(this.selectedTableSize);
-    let tileSizes = new TileSizeStyles(minesweeperGame.getTableVerticalSize());
+    let tileSizes = new TileSizeStyles(minesweeperGame.getTableHorizontalSize());
 
     let gameTableElement = this.elementRef.nativeElement.querySelector('#gameTable');
 
-    for(let row = 0; row < minesweeperGame.getTableHorizontalSize(); row++) {
+    for(let row = 0; row < minesweeperGame.getTableVerticalSize(); row++) {
       
       let tableRow = this.renderer.createElement("tr");
       this.renderer.appendChild(gameTableElement, tableRow);
 
-      for(let col = 0; col < minesweeperGame.getTableVerticalSize(); col++) {
+      for(let col = 0; col < minesweeperGame.getTableHorizontalSize(); col++) {
 
         let tableCell = this.renderer.createElement("td");
         this.renderer.appendChild(tableRow, tableCell);
@@ -133,7 +133,7 @@ export class MinesweeperGametableComponent implements OnInit, DoCheck {
               this.renderer.appendChild(nearbyMineCounterText, this.renderer.createText(mineCounter + ""));
               this.renderer.addClass(nearbyMineCounterText, "counterText");
 
-              let tileSizes = new TileSizeStyles(this.minesweeperGame!.getTableVerticalSize());
+              let tileSizes = new TileSizeStyles(this.minesweeperGame!.getTableHorizontalSize());
               this.renderer.setStyle(nearbyMineCounterText, "font-size", tileSizes.getFontSize());
 
               if(mineCounter == 1) {

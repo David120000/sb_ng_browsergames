@@ -59,7 +59,7 @@ export class MinesweeperComponent implements AfterViewInit, OnDestroy {
 
     this.tableSizeSelected = 0;
     this.tableSizes = [];
-    this.tableSizes[0] = [20, 24];
+    this.tableSizes[0] = [14, 18];
     
     this.timerEnabled = true;
   }
