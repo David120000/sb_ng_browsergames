@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, DoCheck, ElementRef, EventEmitter, 
 import { MinesweeperGame } from '../service/minesweeper-game';
 import { ContentTypes } from '../model/contentTypeEnum';
 import { TimerStatus } from '../model/timerStatus';
+import { TileSizeStyles } from '../model/tile-size-styles';
 
 @Component({
   selector: 'app-minesweeper-gametable',
@@ -63,6 +64,7 @@ export class MinesweeperGametableComponent implements OnInit, DoCheck {
   public newGameView(): MinesweeperGame {
 
     let minesweeperGame = new MinesweeperGame(this.selectedTableSize);
+    let tileSizes = new TileSizeStyles(minesweeperGame.getTableVerticalSize());
 
     let gameTableElement = this.elementRef.nativeElement.querySelector('#gameTable');
 
@@ -83,6 +85,10 @@ export class MinesweeperGametableComponent implements OnInit, DoCheck {
         else {
           this.renderer.addClass(tileDiv, "tiles-style-b");
         }
+
+        this.renderer.setStyle(tileDiv, "width", tileSizes.getTileSize());
+        this.renderer.setStyle(tileDiv, "height", tileSizes.getTileSize());
+        this.renderer.setStyle(tileDiv, "border-width", tileSizes.getBorderSize());
 
         this.renderer.listen(tileDiv, 'contextmenu', (event) => event.preventDefault());
         this.renderer.listen(tileDiv, 'contextmenu', () => this.refreshView());
@@ -126,6 +132,9 @@ export class MinesweeperGametableComponent implements OnInit, DoCheck {
               let nearbyMineCounterText = this.renderer.createElement("p");
               this.renderer.appendChild(nearbyMineCounterText, this.renderer.createText(mineCounter + ""));
               this.renderer.addClass(nearbyMineCounterText, "counterText");
+
+              let tileSizes = new TileSizeStyles(this.minesweeperGame!.getTableVerticalSize());
+              this.renderer.setStyle(nearbyMineCounterText, "font-size", tileSizes.getFontSize());
 
               if(mineCounter == 1) {
                 this.renderer.setStyle(nearbyMineCounterText, "color", "rgb(0, 0, 255)");
