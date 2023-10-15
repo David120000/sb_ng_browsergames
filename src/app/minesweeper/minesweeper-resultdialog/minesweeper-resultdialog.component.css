@@ -12,6 +12,11 @@ h4, p {
 
 #longinTextField {
     margin-left: 15px;
+    background-color: rgb(238, 238, 238);
+    width: 300px;
+    height: 25px;
+    border-radius: 5px;
+    border-color: rgba(0, 0, 46, 0.4);
 }
 
 .buttonContainer {

@@ -14,7 +14,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   private renderer: Renderer2;
   private router: Router;
 
-  private currentRoute: string;
+  private cachedRoute: string;
 
 
   constructor(contexts: ChildrenOutletContexts, elementRef: ElementRef, renderer: Renderer2, router: Router) {
@@ -23,7 +23,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.elementRef = elementRef;
     this.renderer = renderer;
     this.router = router;
-    this.currentRoute = "";
+    this.cachedRoute = "";
   }
 
 
@@ -80,18 +80,18 @@ export class AppComponent implements OnInit, AfterViewInit {
     let currentRoute = route.state.root.firstChild?.data['route_id'];
 
     if(currentRoute == "Minesweeper" || currentRoute == "Tictactoe") {
-      if(this.currentRoute != "Minesweeper" && this.currentRoute != "Tictactoe") {
+      if(this.cachedRoute != "Minesweeper" && this.cachedRoute != "Tictactoe") {
 
         this.minimizeGameMenu();
-        this.currentRoute = currentRoute;
+        this.cachedRoute = currentRoute;
       }
     }
 
     if(currentRoute != "Minesweeper" && currentRoute != "Tictactoe") {
-      if(this.currentRoute == "Minesweeper" || this.currentRoute == "Tictactoe") {
+      if(this.cachedRoute == "Minesweeper" || this.cachedRoute == "Tictactoe") {
 
         this.maximizeGameMenu();
-        this.currentRoute = currentRoute;
+        this.cachedRoute = currentRoute;
       }
     }
   }
@@ -100,8 +100,16 @@ export class AppComponent implements OnInit, AfterViewInit {
   private minimizeGameMenu() {
 
     let cardcontainer = this.elementRef.nativeElement.querySelector("#card-container");
+    let tictactoesvg = this.elementRef.nativeElement.querySelector("#tictactoesvg");
+    let bombsvg = this.elementRef.nativeElement.querySelector("#bombsvg");
     let tictactoecard = this.elementRef.nativeElement.querySelector("#tictactoecard");
     let minesweepercard = this.elementRef.nativeElement.querySelector("#minesweepercard");
+
+    this.renderer.setStyle(tictactoesvg, "width", "20px");
+    this.renderer.setStyle(tictactoesvg, "height", "20px");
+
+    this.renderer.setStyle(bombsvg, "width", "20px");
+    this.renderer.setStyle(bombsvg, "height", "20px");
 
     this.renderer.setStyle(cardcontainer, "margin-top", "6px");
     this.renderer.setStyle(cardcontainer, "margin-bottom", "0px");
@@ -119,8 +127,16 @@ export class AppComponent implements OnInit, AfterViewInit {
   private maximizeGameMenu() {
 
     let cardcontainer = this.elementRef.nativeElement.querySelector("#card-container");
+    let tictactoesvg = this.elementRef.nativeElement.querySelector("#tictactoesvg");
+    let bombsvg = this.elementRef.nativeElement.querySelector("#bombsvg");
     let tictactoecard = this.elementRef.nativeElement.querySelector("#tictactoecard");
     let minesweepercard = this.elementRef.nativeElement.querySelector("#minesweepercard");
+
+    this.renderer.setStyle(tictactoesvg, "width", "50px");
+    this.renderer.setStyle(tictactoesvg, "height", "50px");
+
+    this.renderer.setStyle(bombsvg, "width", "50px");
+    this.renderer.setStyle(bombsvg, "height", "50px");
 
     this.renderer.setStyle(cardcontainer, "margin-top", "26px");
     this.renderer.setStyle(cardcontainer, "margin-bottom", "30px");

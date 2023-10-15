@@ -99,6 +99,7 @@ main {
     justify-content: center;
     flex-wrap: wrap;
     align-items: center;
+    align-content: center;
     transition: all 0.2s ease-in-out;
     line-height: 24px;
     cursor: pointer;
@@ -113,6 +114,20 @@ main {
     padding-top: 0.2em;
     font-size: large;
     font-weight: 900;
+}
+
+#tictactoesvg {
+    padding-right: 8px;
+    transition: 
+        width 0.3s, 
+        height 0.3s;
+}
+
+#bombsvg {
+    padding-right: 8px;
+    transition: 
+        width 0.3s, 
+        height 0.3s;
 }
 
 .backgroundelements {
