@@ -1,0 +1,115 @@
+p {
+    margin-top: 3px;
+}
+
+#buttonBar {
+    position: fixed;
+    right: 10%;
+    bottom: 5px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: right;
+    z-index: 11;
+}
+
+.gameUtilButtons {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 4px 20px;
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: 700;
+    color: #333;
+    background-color: lightskyblue;
+    border: groove;
+    border-color: lightblue;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all;
+    transition-duration: 0.3s;
+}
+
+.gameUtilButtons:hover {
+    color: white;
+    background-color: rgb(24, 24, 43);
+    transform: translateY(-1px);
+    border-color: rgb(21, 21, 44);
+}
+
+.componentMain {
+    position: fixed;
+    top: 30%;
+    right: 0px;
+    bottom: 43px;
+    width: 65%;
+    max-width: 550px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-style: groove;
+    border-width: 2px;
+    border-color: rgba(47, 79, 79, 0.15);
+    border-radius: 15px 0 0 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 17px;
+    color: darkslategray;
+    background-color: rgba(250, 250, 210, 0.9);
+    z-index: 12;
+}
+
+#tutorialText {
+    overflow-y: auto;
+    text-align: justify;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    padding-right: 10px;
+}
+
+.softBreak {
+    margin-bottom: 3px;
+}
+
+.closeDialog {
+    padding: 5px 25px;
+    font-family: Arial;
+    font-size: 14px;
+    color: rgb(0, 0, 46);
+    background-color: rgb(238, 238, 238);;
+    border: groove;
+    border-color: rgba(0, 0, 46, 0.4);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all;
+    transition-duration: 0.3s;
+}
+
+.closeDialog:hover {
+    background-color: white;
+    border-color: rgb(21, 21, 44);
+}
+
+#tutorialButtonBackground {
+    position: fixed;
+    right: 10%;
+    bottom: 0px;
+    width: 163px;
+    height: 43px;
+    z-index: 10;
+    background-color: rgb(250, 250, 210)
+}
+
+.componentBackground {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: #00000070;
+    z-index: 9;
+}

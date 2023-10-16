@@ -1,0 +1,55 @@
+<div *ngIf="isDialogOpen() == true" class="componentMain">
+    
+    <div id="tutorialText">
+        <h4>In Minesweeper game, your goal is to explore the game table.</h4>
+
+        <p class="softBreak">On PC, with your mouse's left click, you can explore new fields, and with the right click, you can mark locations with a flag where you suspect a mine.</p>
+        <p>On mobile devices, this changes to short taps for exploration and longer taps for flagging.</p>
+        
+        <p>At the start, click on an arbitrary field to get initial hints about the mines' whereabouts.</p>
+
+        <p class="softBreak">The numbers on the explored fields indicate how many mines are in the adjacent fields. Adjacency both counts on field sides and edges! Use the information from the numbers to figure out which unexplored fields are mines and which are safe to explore.</p>
+        <p>Aim for the safe bets first to gather all possible information before clicking on a risky tile.</p>
+
+
+        <h4>In our first example, we have an unexplored corner.</h4>
+
+        <img src="./assets/images/ex1_1.png" alt="Minesweeper Tutorial - Example 1 - First Image"/>
+
+        <p>In this case, you can be sure there is a mine in the corner because the field highlighted with a green border reveals that it should have exactly one mine next to it in any direction and only has one unexplored adjacent field. That one is definitely a mine.</p>
+
+        <img src="./assets/images/ex1_2.png" alt="Minesweeper Tutorial - Example 1 - Second Image"/>
+
+
+        <p class="softBreak">Now that we know a mine location, we can look at explored fields next to it. Its neighbour in the bottom-right direction is a one which we will highlight with a green border again. Since we already learned which of its adjacent fields is the mine, we can safely click all other close fields.</p>
+        <p>Clicking these leads to new information.</p>
+
+        <img src="assets/images/ex1_3.png" alt="Minesweeper Tutorial - Example 1 - Third Image"/>
+
+        <h4 style="margin-top: 40px">In our second example, we are trying to decide if we can explore the field highlighted with a red border.</h4>
+
+        <img src="assets/images/ex2_1.png" alt="Minesweeper Tutorial - Example 2 - First Image"/>
+
+        <p>The field by its upper left gives us hints. It is a two with both of the two adjacent mines already flagged. This means it cannot have more mines nearby; otherwise, it would not be a two but a three instead. Hence, we can safely explore the red-bordered tile.</p>
+
+        <img src="assets/images/ex2_2.png" alt="Minesweeper Tutorial - Example 2 - Second Image"/>
+
+        <p>Clicking on it reveals a two, which leads us to more information.</p>
+
+        <img src="assets/images/ex2_3.png" alt="Minesweeper Tutorial - Example 2 - Third Image"/>
+        
+        <p>The three in the middle already has two flagged mine locations next to it, so it only misses one while only has one unexplored field adjacently.</p>
+
+        <button class="closeDialog" (click)="hideOpenedDialog()">Okay, I get it now!</button>
+    </div>
+    
+</div>
+<div *ngIf="isDialogOpen() == true" class="componentBackground" (click)="hideOpenedDialog()"></div>
+
+<div id="buttonBar">
+    <button id="showTutorialButton" class="gameUtilButtons" (click)="toggleTutorialDialog()">HOW TO PLAY</button>
+    <button *ngIf="isAuthObjectPresent()" class="gameUtilButtons">LEADERBOARDS</button>
+</div>
+
+<div *ngIf="isDialogOpen() == true" id="tutorialButtonBackground"></div>
+

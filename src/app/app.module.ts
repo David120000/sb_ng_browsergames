@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { UserAuthenticatorComponent } from './user-authenticator/user-authenticator.component';
 import { MinesweeperResultdialogComponent } from './minesweeper/minesweeper-resultdialog/minesweeper-resultdialog.component';
 import { HomeComponent } from './home/home.component';
+import { MinesweeperGameutilsComponent } from './minesweeper/minesweeper-gameutils/minesweeper-gameutils.component';
 
 const appRoutes: Routes = [
   { path: 'minesweeper', component: MinesweeperComponent, data: { route_id: 'Minesweeper'}},
@@ -33,6 +34,7 @@ const appRoutes: Routes = [
     UserAuthenticatorComponent,
     MinesweeperResultdialogComponent,
     HomeComponent,
+    MinesweeperGameutilsComponent,
   ],
   imports: [
     BrowserModule,
