@@ -30,6 +30,12 @@ export class UserAuthenticatorComponent implements OnDestroy {
 
     this.preLoginMessage = "Unlock game features like online leaderboards or multiplayer by choosing a name for yourself!";
     this.playerName = "<no name>";
+
+    const authObjectFromService = this.dataBank.getDeclaredAuthObject();
+
+    if(authObjectFromService != undefined) {
+      this.playerName = this.jwtDecoder.getUserNameFromToken(authObjectFromService);
+    }
     
     this.authTokenSubscription = this.dataBank.authObjectObservable$.subscribe(authObj => {
       this.playerName = this.jwtDecoder.getUserNameFromToken(authObj);
