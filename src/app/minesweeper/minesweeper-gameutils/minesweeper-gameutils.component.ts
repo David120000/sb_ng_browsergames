@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { AuthObject } from 'src/app/model/auth-object';
 import { DataSharingService } from 'src/app/service/data-sharing.service';
 import { RestAccessService } from 'src/app/service/rest-access.service';
+import { UtilToShow } from '../model/utilToShowEnum';
 
 @Component({
   selector: 'app-minesweeper-gameutils',
@@ -16,7 +17,14 @@ export class MinesweeperGameutilsComponent implements OnDestroy {
   private authObject: AuthObject | undefined;
   private authTokenSubscription: Subscription;
 
-  private showInfoDialog: boolean;
+  private _utilToShow: UtilToShow;
+  public get utilToShow(): UtilToShow {
+    return this._utilToShow;
+  }
+  public set utilToShow(value: UtilToShow) {
+    this._utilToShow = value;
+  }
+  utilToShowEnum = UtilToShow;
 
 
   constructor(dataBank: DataSharingService, restService: RestAccessService) {
@@ -30,7 +38,7 @@ export class MinesweeperGameutilsComponent implements OnDestroy {
       this.authObject = authObj;
     });
 
-    this.showInfoDialog = false;
+    this._utilToShow = UtilToShow.NONE;
   }
 
 
@@ -44,18 +52,51 @@ export class MinesweeperGameutilsComponent implements OnDestroy {
   }
 
 
-  public isDialogOpen(): boolean {
-    return this.showInfoDialog;
-  }
+  // public isDialogOpen(): boolean {
+  //   return (this._utilToShow != UtilToShow.NONE);
+  // }
+
+
+  // public contentToDisplay(typeToShow: string): boolean {
+  //   console.log(typeToShow + " == " + this.utilToShow + ": " + (typeToShow === UtilToShow.TUTORIAL));
+  //   let result = false;
+
+  //   if(typeToShow === UtilToShow.TUTORIAL) {
+  //     result = true;
+  //   }
+
+  //   return result;
+  // }
 
 
   public toggleTutorialDialog (){
-    this.showInfoDialog = (!this.showInfoDialog);
+
+    if(this._utilToShow != UtilToShow.TUTORIAL) {
+      
+      this._utilToShow = UtilToShow.TUTORIAL;
+    }
+    else {
+      this._utilToShow = UtilToShow.NONE;
+    }
+
   }
 
 
-  public hideOpenedDialog() {
-    this.showInfoDialog = false;
+  public toggleLeaderboardDialog() {
+
+    if(this._utilToShow != UtilToShow.LEADERBOARD) {
+      
+      this._utilToShow = UtilToShow.LEADERBOARD;
+    }
+    else {
+      this._utilToShow = UtilToShow.NONE;
+    }
+
+  }
+
+
+  public hideDialog() {
+    this._utilToShow = UtilToShow.NONE;
   }
 
 }
