@@ -135,6 +135,22 @@ export class RestAccessService {
   }
 
 
+  public getUserScoresOrderedByDate(jwt: string, userName: string, page: number): Observable<MineswScorePages> {
+
+    let headers = new HttpHeaders()
+      .set("Content-Type", "application/json; charset=utf-8")
+      .set("Authorization", "Bearer " + jwt);
+
+    let parametersOption = new HttpParams()
+      .set("page", page)
+      .set("username", userName);
+
+    let response = this.http.get<MineswScorePages>(this.REST_URL + "/minesweeper/userscore/history", {headers: headers, params: parametersOption});
+
+    return response;
+  }
+
+
   private authenticationErrorHandler(error: HttpErrorResponse) {
 
     let message = "";

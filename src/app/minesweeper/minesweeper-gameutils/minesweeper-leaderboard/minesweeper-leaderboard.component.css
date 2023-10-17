@@ -36,7 +36,7 @@ p {
     outline: 0;
 }
 
-.boardSwipe {
+.clickable {
     cursor: pointer;
 }
 

@@ -1,23 +1,35 @@
 <div id="leaderboardContainer">
-    <h3 style="margin-top: 20%">TOP SCORES</h3>
+    <h3 style="margin-top: 20%">TOP SCORES <span *ngIf="topScores != undefined && topScores.getUserName() != undefined">of {{ topScores.getUserName() }}</span></h3>
 
     <div id="leaderboardHeader">
-        <p >My Scores</p>
+
+        <p *ngIf="topScores?.getUserName() == undefined" (click)="getAuthenticatedUserScoresOrderedByDate(0)" class="clickable">My Scores</p>
+        <p *ngIf="topScores?.getUserName() != undefined" (click)="getTopMinesweeperScores(0)" class="clickable">Show All</p>
 
         <p *ngIf="topScores != undefined">
-            <span *ngIf="topScores?.isFirst() == false" class="boardSwipe" (click)="topScoreSwipeLeft()"> << </span> 
+
+            <span *ngIf="topScores.isFirst() == false && topScores.getUserName() == undefined" class="clickable" (click)="topScoreSwipeLeft()"> << </span>
+            <span *ngIf="topScores.isFirst() == false && topScores.getUserName() != undefined" class="clickable" (click)="userScoreSwipeLeft()"> << </span>  
                 Page {{ (topScores.getCurrentPageNumber() + 1) }} 
-            <span *ngIf="topScores?.isLast() == false" class="boardSwipe" (click)="topScoreSwipeRight()"> >> </span>
+            <span *ngIf="topScores.isLast() == false && topScores.getUserName() == undefined" class="clickable" (click)="topScoreSwipeRight()"> >> </span>
+            <span *ngIf="topScores.isLast() == false && topScores.getUserName() != undefined" class="clickable" (click)="userScoreSwipeRight()"> >> </span>
+        
         </p>
 
-        <select *ngIf="topScores != undefined" #pages (change)="getTopMineseeperScoresString(pages.value)" id="pageSelect">
+        <select *ngIf="topScores != undefined && topScores.getUserName() == undefined" #pages (change)="getTopMineseeperScoresString(pages.value)" id="pageSelect">
+            <option *ngFor="let page of [].constructor(topScores.getTotalPages()); index as i" [value]="i" [selected]="topScores.getCurrentPageNumber() == i">
+                {{ (i * 10) + 1 }} - {{ (i * 10) + 10 }}
+            </option>
+        </select>
+
+        <select *ngIf="topScores != undefined && topScores.getUserName() != undefined" #pages (change)="getCustomUserScoresOrderedByDateString(pages.value, topScores.getUserName()!)" id="pageSelect">
             <option *ngFor="let page of [].constructor(topScores.getTotalPages()); index as i" [value]="i" [selected]="topScores.getCurrentPageNumber() == i">
                 {{ (i * 10) + 1 }} - {{ (i * 10) + 10 }}
             </option>
         </select>
     </div>
 
-    <table *ngIf="topScores != undefined" style="border-spacing: 0;">
+    <table *ngIf="topScores != undefined && topScores.getTotalElements() > 0" style="border-spacing: 0;">
         <tr>
             <th>Rank</th>
             <th>Score</th>
@@ -28,9 +40,11 @@
         <tr *ngFor="let score of topScores.getContent(); index as i" [ngClass]="{'oddRows': 1 == i % 2}">
             <td>{{i + 1 + (topScores.getCurrentPageNumber() * 10)}}</td>
             <td>{{ score.score }}</td>
-            <td style="min-width: 115px;" >{{ score.userName }}</td>
+            <td style="min-width: 115px;" (click)="getCustomUserScoresOrderedByDate(0, score.userName)" class="clickable">{{ score.userName }}</td>
             <td>{{ score.tableSize }}</td>
             <td style="min-width: 125px">{{ score.date | date : 'longDate' }}</td>
         </tr>
     </table>
+
+    <h4 *ngIf="topScores?.getTotalElements() == 0">No scores found. Go play some! :-)</h4>
 </div>
