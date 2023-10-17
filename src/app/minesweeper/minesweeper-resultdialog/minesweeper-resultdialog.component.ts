@@ -61,15 +61,15 @@ export class MinesweeperResultdialogComponent implements OnDestroy {
 
     if(this.minesweeperScore != undefined && this.isUserAuthenticated() == true) {
 
-      if(this.minesweeperScore.getUserName() == "<no name>") {
-        this.minesweeperScore.setUserName(this.jwtDecoder.getUserNameFromToken(this.authObject));
+      if(this.minesweeperScore.userName == "<no name>") {
+        this.minesweeperScore.userName = this.jwtDecoder.getUserNameFromToken(this.authObject);
       }
 
       let persistResponse = new MinesweeperScorePersistResponse();
 
       this.restService.postNewMinesweeperScore(this.minesweeperScore, this.authObject.getJwt())
         .subscribe(response => {
-          let responseObj = Object.assign(persistResponse, response);
+          Object.assign(persistResponse, response);
         });
 
       this.restResponse = persistResponse;

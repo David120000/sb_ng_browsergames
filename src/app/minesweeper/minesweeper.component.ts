@@ -136,7 +136,7 @@ export class MinesweeperComponent implements AfterViewInit, OnDestroy {
         new Date()
       );
       
-      console.log(minesweeperScore.getDate().toISOString() + " :: Your score is: " + minesweeperScore.getScore());
+      console.log(minesweeperScore.date.toISOString() + " :: Your score is: " + minesweeperScore.score);
 
       let dialog = this.elementRef.nativeElement.querySelector('#resultDialog');
       

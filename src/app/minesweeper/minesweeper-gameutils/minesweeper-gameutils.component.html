@@ -26,9 +26,10 @@
         <button class="closeDialog" (click)="hideDialog()">Okay, I get it now!</button>
     </div>
 
-    <div *ngIf="utilToShow === utilToShowEnum.LEADERBOARD">
+    <div id="leaderBoard" *ngIf="utilToShow === utilToShowEnum.LEADERBOARD">
         <app-minesweeper-leaderboard></app-minesweeper-leaderboard>
     </div>
+    <button *ngIf="utilToShow === utilToShowEnum.LEADERBOARD" class="closeDialog" (click)="hideDialog()">CLOSE SCORES</button>
     
 </div>
 <div *ngIf="utilToShow !== utilToShowEnum.NONE" class="componentBackground" (click)="hideDialog()"></div>

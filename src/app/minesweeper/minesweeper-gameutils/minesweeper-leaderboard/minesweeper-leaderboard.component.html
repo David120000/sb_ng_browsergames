@@ -1,7 +1,36 @@
-<p>minesweeper-leaderboard works!</p>
+<div id="leaderboardContainer">
+    <h3 style="margin-top: 20%">TOP SCORES</h3>
 
-<p>total elements: {{topScores?.getTotalElements()}}</p>
-<p>total pages: {{topScores?.getTotalPages()}}</p>
-<p>is first: {{topScores?.isFirst()}}</p>
-<p>is last: {{topScores?.isLast()}}</p>
-<p>on which page are we? {{topScores?.getCurrentPageNumber()}}</p>
+    <div id="leaderboardHeader">
+        <p >My Scores</p>
+
+        <p *ngIf="topScores != undefined">
+            <span *ngIf="topScores?.isFirst() == false" class="boardSwipe" (click)="topScoreSwipeLeft()"> << </span> 
+                Page {{ (topScores.getCurrentPageNumber() + 1) }} 
+            <span *ngIf="topScores?.isLast() == false" class="boardSwipe" (click)="topScoreSwipeRight()"> >> </span>
+        </p>
+
+        <select *ngIf="topScores != undefined" #pages (change)="getTopMineseeperScoresString(pages.value)" id="pageSelect">
+            <option *ngFor="let page of [].constructor(topScores.getTotalPages()); index as i" [value]="i" [selected]="topScores.getCurrentPageNumber() == i">
+                {{ (i * 10) + 1 }} - {{ (i * 10) + 10 }}
+            </option>
+        </select>
+    </div>
+
+    <table *ngIf="topScores != undefined" style="border-spacing: 0;">
+        <tr>
+            <th>Rank</th>
+            <th>Score</th>
+            <th>Player Name</th>
+            <th>Table Size</th>
+            <th>Date</th>
+        </tr>
+        <tr *ngFor="let score of topScores.getContent(); index as i" [ngClass]="{'oddRows': 1 == i % 2}">
+            <td>{{i + 1 + (topScores.getCurrentPageNumber() * 10)}}</td>
+            <td>{{ score.score }}</td>
+            <td style="min-width: 115px;" >{{ score.userName }}</td>
+            <td>{{ score.tableSize }}</td>
+            <td style="min-width: 125px">{{ score.date | date : 'longDate' }}</td>
+        </tr>
+    </table>
+</div>

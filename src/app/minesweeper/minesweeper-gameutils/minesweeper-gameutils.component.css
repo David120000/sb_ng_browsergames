@@ -81,7 +81,7 @@ p {
     font-family: Arial;
     font-size: 14px;
     color: rgb(0, 0, 46);
-    background-color: rgb(238, 238, 238);;
+    background-color: rgb(238, 238, 238);
     border: groove;
     border-color: rgba(0, 0, 46, 0.4);
     border-radius: 5px;
@@ -93,6 +93,10 @@ p {
 .closeDialog:hover {
     background-color: white;
     border-color: rgb(21, 21, 44);
+}
+
+#leaderBoard {
+    height: 100%;
 }
 
 #tutorialButtonBackground {

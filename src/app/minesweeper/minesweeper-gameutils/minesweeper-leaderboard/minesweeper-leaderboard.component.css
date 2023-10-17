@@ -1,0 +1,45 @@
+th, td {
+    padding: 4px 8px;
+}
+
+p {
+    margin: 0;
+}
+
+#leaderboardContainer {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#leaderboardHeader {
+    height: unset;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-style: groove;
+    border-width: 2px;
+    border-color: rgba(0, 0, 46, 0.4);
+    border-radius: 5px;
+    background-color: rgb(238, 238, 238);
+    margin-top: 14px;
+    margin-bottom: 14px;
+    padding: 5px;
+}
+
+#pageSelect {
+    background-color: rgb(238, 238, 238);
+    border: 0;
+    outline: 0;
+}
+
+.boardSwipe {
+    cursor: pointer;
+}
+
+.oddRows {
+    background-color: rgba(248, 248, 175, 0.9);
+}
