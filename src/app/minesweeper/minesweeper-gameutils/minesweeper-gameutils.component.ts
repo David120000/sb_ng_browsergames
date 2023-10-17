@@ -2,7 +2,6 @@ import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthObject } from 'src/app/model/auth-object';
 import { DataSharingService } from 'src/app/service/data-sharing.service';
-import { RestAccessService } from 'src/app/service/rest-access.service';
 import { UtilToShow } from '../model/utilToShowEnum';
 
 @Component({
@@ -13,8 +12,7 @@ import { UtilToShow } from '../model/utilToShowEnum';
 export class MinesweeperGameutilsComponent implements OnDestroy {
 
   private dataBank: DataSharingService;
-  private restService: RestAccessService;
-  private authObject: AuthObject | undefined;
+  private userLoggedIn: boolean;
   private authTokenSubscription: Subscription;
 
   private _utilToShow: UtilToShow;
@@ -27,15 +25,15 @@ export class MinesweeperGameutilsComponent implements OnDestroy {
   utilToShowEnum = UtilToShow;
 
 
-  constructor(dataBank: DataSharingService, restService: RestAccessService) {
+  constructor(dataBank: DataSharingService) {
     
     this.dataBank = dataBank;
-    this.restService = restService;
 
-    this.authObject = this.dataBank.getDeclaredAuthObject();
+    this.userLoggedIn = (this.dataBank.getDeclaredAuthObject() != undefined);
     
     this.authTokenSubscription = this.dataBank.authObjectObservable$.subscribe(authObj => {
-      this.authObject = authObj;
+
+      this.userLoggedIn = authObj.isJwtPresent();
     });
 
     this._utilToShow = UtilToShow.NONE;
@@ -47,28 +45,11 @@ export class MinesweeperGameutilsComponent implements OnDestroy {
   }
 
 
-  public isAuthObjectPresent(): boolean {
-    return (this.authObject != undefined && this.authObject.isJwtPresent());
+  public isUserLoggedIn(): boolean {
+    return this.userLoggedIn;
   }
 
-
-  // public isDialogOpen(): boolean {
-  //   return (this._utilToShow != UtilToShow.NONE);
-  // }
-
-
-  // public contentToDisplay(typeToShow: string): boolean {
-  //   console.log(typeToShow + " == " + this.utilToShow + ": " + (typeToShow === UtilToShow.TUTORIAL));
-  //   let result = false;
-
-  //   if(typeToShow === UtilToShow.TUTORIAL) {
-  //     result = true;
-  //   }
-
-  //   return result;
-  // }
-
-
+  
   public toggleTutorialDialog (){
 
     if(this._utilToShow != UtilToShow.TUTORIAL) {

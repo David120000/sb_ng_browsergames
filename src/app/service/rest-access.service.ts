@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { UsercheckRequest } from '../model/usercheck-request';
 import { UsercheckResponse } from '../model/usercheck-response';
@@ -8,6 +8,7 @@ import { Observable, catchError, of, throwError } from 'rxjs';
 import { DataSharingService } from './data-sharing.service';
 import { MinesweeperScore } from '../model/minesweeper-score';
 import { MinesweeperScorePersistResponse } from '../model/minesweeper-score-persist-response';
+import { MineswScorePages } from '../model/minesw-score-pages';
 
 @Injectable({
   providedIn: 'root'
@@ -115,6 +116,21 @@ export class RestAccessService {
 
     let response = this.http.post<MinesweeperScorePersistResponse>(this.REST_URL + "/minesweeper/new", score, {headers: headers});
     
+    return response;
+  }
+
+
+  public getTopMinesweeperScores(jwt: string, page: number): Observable<MineswScorePages> {
+    
+    let headers = new HttpHeaders()
+      .set("Content-Type", "application/json; charset=utf-8")
+      .set("Authorization", "Bearer " + jwt);
+
+    let parametersOption = new HttpParams()
+      .set("page", page);
+
+    let response = this.http.get<MineswScorePages>(this.REST_URL + "/minesweeper/topscores", {headers: headers, params: parametersOption});
+
     return response;
   }
 

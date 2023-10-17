@@ -27,7 +27,7 @@
     </div>
 
     <div *ngIf="utilToShow === utilToShowEnum.LEADERBOARD">
-        <p>leaderboard works!</p>
+        <app-minesweeper-leaderboard></app-minesweeper-leaderboard>
     </div>
     
 </div>
@@ -35,7 +35,7 @@
 
 <div id="buttonBar">
     <button id="showTutorialButton" class="gameUtilButtons" (click)="toggleTutorialDialog()">HOW TO PLAY</button>
-    <button *ngIf="isAuthObjectPresent() == true" class="gameUtilButtons" (click)="toggleLeaderboardDialog()">LEADERBOARDS</button>
+    <button *ngIf="isUserLoggedIn() == true" class="gameUtilButtons" (click)="toggleLeaderboardDialog()">LEADERBOARDS</button>
 </div>
 
 <div *ngIf="utilToShow === utilToShowEnum.TUTORIAL" id="tutorialButtonBackground"></div>
