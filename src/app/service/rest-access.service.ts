@@ -135,7 +135,7 @@ export class RestAccessService {
   }
 
 
-  public getUserScoresOrderedByDate(jwt: string, userName: string, page: number): Observable<MineswScorePages> {
+  public getUserTopScores(jwt: string, userName: string, order: string, page: number): Observable<MineswScorePages> {
 
     let headers = new HttpHeaders()
       .set("Content-Type", "application/json; charset=utf-8")
@@ -143,9 +143,10 @@ export class RestAccessService {
 
     let parametersOption = new HttpParams()
       .set("page", page)
-      .set("username", userName);
+      .set("username", userName)
+      .set("order", order);
 
-    let response = this.http.get<MineswScorePages>(this.REST_URL + "/minesweeper/userscore/history", {headers: headers, params: parametersOption});
+    let response = this.http.get<MineswScorePages>(this.REST_URL + "/minesweeper/userscore/sortedbyscores", {headers: headers, params: parametersOption});
 
     return response;
   }

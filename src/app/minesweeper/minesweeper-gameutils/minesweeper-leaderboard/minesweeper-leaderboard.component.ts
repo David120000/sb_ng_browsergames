@@ -95,13 +95,13 @@ export class MinesweeperLeaderboardComponent implements OnInit, OnDestroy {
   }
 
 
-  public getAuthenticatedUserScoresOrderedByDate(page: number) {
+  public getAuthenticatedUserTopScores(page: number) {
 
     if(this.authObject != undefined && this.authObject.isJwtPresent() == true) {
 
       const userName = this.jwtDecoder.getUserNameFromToken(this.authObject);
 
-      this.restService.getUserScoresOrderedByDate(this.authObject.getJwt(), userName, page)
+      this.restService.getUserTopScores(this.authObject.getJwt(), userName, "desc", page)
         .subscribe(response => {
 
           let topScores = Object.assign(new MineswScorePages(), response);
@@ -114,11 +114,11 @@ export class MinesweeperLeaderboardComponent implements OnInit, OnDestroy {
   }
 
 
-  public getCustomUserScoresOrderedByDate(page: number, username: string) {
+  public getCustomUserTopScores(page: number, username: string) {
 
     if(this.authObject != undefined && this.authObject.isJwtPresent() == true) {
 
-      this.restService.getUserScoresOrderedByDate(this.authObject.getJwt(), username, Number(page))
+      this.restService.getUserTopScores(this.authObject.getJwt(), username, "desc", Number(page))
         .subscribe(response => {
 
           let topScores = Object.assign(new MineswScorePages(), response);
@@ -131,7 +131,7 @@ export class MinesweeperLeaderboardComponent implements OnInit, OnDestroy {
 
 
   public getCustomUserScoresOrderedByDateString(page: string, username: string) {
-    this.getCustomUserScoresOrderedByDate(Number(page), username);
+    this.getCustomUserTopScores(Number(page), username);
   }
 
 
@@ -141,7 +141,7 @@ export class MinesweeperLeaderboardComponent implements OnInit, OnDestroy {
 
       let newPage = this._topScores.getCurrentPageNumber() - 1;
 
-      this.restService.getUserScoresOrderedByDate(this.authObject.getJwt(), this._topScores.getUserName()!, newPage)
+      this.restService.getUserTopScores(this.authObject.getJwt(), this._topScores.getUserName()!, "desc", newPage)
         .subscribe(response => {
 
           let topScores = Object.assign(new MineswScorePages(), response);
@@ -159,7 +159,7 @@ export class MinesweeperLeaderboardComponent implements OnInit, OnDestroy {
 
       let newPage = this._topScores.getCurrentPageNumber() + 1;
 
-      this.restService.getUserScoresOrderedByDate(this.authObject.getJwt(), this._topScores.getUserName()!, newPage)
+      this.restService.getUserTopScores(this.authObject.getJwt(), this._topScores.getUserName()!, "desc", newPage)
         .subscribe(response => {
           
           let topScores = Object.assign(new MineswScorePages(), response);

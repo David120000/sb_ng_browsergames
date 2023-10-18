@@ -1,9 +1,13 @@
 <div id="leaderboardContainer">
-    <h3 style="margin-top: 20%">TOP SCORES <span *ngIf="topScores != undefined && topScores.getUserName() != undefined">of {{ topScores.getUserName() }}</span></h3>
+    <h3 style="margin-top: 20%">TOP SCORES 
+        <span *ngIf="topScores != undefined && topScores.getUserName() != undefined">of 
+            <span style="color: rgb(100, 0, 0)">{{ topScores.getUserName() }}</span>
+        </span>
+    </h3>
 
     <div id="leaderboardHeader">
 
-        <p *ngIf="topScores?.getUserName() == undefined" (click)="getAuthenticatedUserScoresOrderedByDate(0)" class="clickable">My Scores</p>
+        <p *ngIf="topScores?.getUserName() == undefined" (click)="getAuthenticatedUserTopScores(0)" class="clickable">My Scores</p>
         <p *ngIf="topScores?.getUserName() != undefined" (click)="getTopMinesweeperScores(0)" class="clickable">Show All</p>
 
         <p *ngIf="topScores != undefined">
@@ -40,7 +44,7 @@
         <tr *ngFor="let score of topScores.getContent(); index as i" [ngClass]="{'oddRows': 1 == i % 2}">
             <td>{{i + 1 + (topScores.getCurrentPageNumber() * 10)}}</td>
             <td>{{ score.score }}</td>
-            <td style="min-width: 115px;" (click)="getCustomUserScoresOrderedByDate(0, score.userName)" class="clickable">{{ score.userName }}</td>
+            <td style="min-width: 115px;" (click)="getCustomUserTopScores(0, score.userName)" class="clickable">{{ score.userName }}</td>
             <td>{{ score.tableSize }}</td>
             <td style="min-width: 125px">{{ score.date | date : 'longDate' }}</td>
         </tr>
