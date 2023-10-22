@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import rd.sb_ng_browsergames.httpfilter.JwtParamFilter;
 import rd.sb_ng_browsergames.httpfilter.JwtRequestFilter;
 
 @Configuration
@@ -22,7 +23,9 @@ public class SecurityConfig {
 
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
-    
+
+    @Autowired
+    private JwtParamFilter jwtParamFilter;
     
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -32,7 +35,8 @@ public class SecurityConfig {
                 .anyRequest().authenticated())
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(jwtParamFilter, UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(jwtRequestFilter, JwtParamFilter.class)
             .csrf(csrf -> csrf
                 .disable())
             .cors(Customizer.withDefaults());
