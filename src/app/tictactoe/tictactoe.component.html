@@ -1,1 +1,13 @@
-<p>tictactoe works!</p>
+<div id="componentContainer">
+    <router-outlet name="game"></router-outlet>
+
+    <div id="childRouter">
+        <p [routerLink]="[{outlets: { 'game': ['local']}}]">Local</p>
+        <p [routerLink]="[{outlets: { 'game': ['online']}}]">Online</p>
+        <p [routerLink]="[{outlets: { 'game':  null }}]">Back</p>
+    </div>
+
+    <div id="globalChatContainer">
+        <p>global tictactoe chat</p>
+    </div>
+</div>
