@@ -1,6 +1,6 @@
 export enum MessageType {
-    JOIN,
-    CHAT,
-    GAME,
-    LEAVE
+    JOIN = 'JOIN',
+    CHAT = 'CHAT',
+    GAME = 'GAME',
+    LEAVE = 'LEAVE'
 }

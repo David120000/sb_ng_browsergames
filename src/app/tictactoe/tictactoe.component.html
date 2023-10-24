@@ -1,4 +1,5 @@
 <div id="componentContainer">
+
     <router-outlet name="game"></router-outlet>
 
     <div id="childRouter">
@@ -7,24 +8,24 @@
         <p [routerLink]="[{outlets: { 'game':  null }}]">Back</p>
     </div>
 
-    <div id="chat-page" *ngIf="isConnectedToSocket() == true; else pleaseLogin">
-        <div class="chat-container">
-            <div class="chat-header">
-                <h3>Chat: Looking For Group <span style="font-size: x-small;">(0 online)</span></h3>
-            </div>
-            <ul id="messageArea">
-    
-            </ul>
-            <form #messageForm="ngForm" id="messageForm" (submit)="sendMessage(messageForm.value.message)">
-                <div class="form-group">
-                    <div class="input-group clearfix">
-                        <input type="text" id="message" name="message" placeholder="Type a message..." autocomplete="off" class="form-control" ngModel/>
-                        <button type="submit" class="primary">Send</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+    <div id="chatContainer">
+        <div *ngIf="isConnectedToSocket() == true; else pleaseLogin">
 
-    <ng-template #pleaseLogin>To acces group finder chat, please log in with a player name.</ng-template>
+            <div id="chatHeader">
+                <h3>Chat: Looking For Match</h3>
+            </div>
+            <div id="chatMessages">
+                <ul id="messageArea">
+        
+                </ul>
+            </div>
+            <form #messageForm="ngForm" id="messageForm" (submit)="sendMessage(messageForm)">
+                <input type="text" id="message" name="message" placeholder="Type a message..." autocomplete="off" ngModel/>
+                <button type="submit" class="sendButton">Send</button>
+            </form>
+
+        </div>
+
+        <ng-template #pleaseLogin><p id="notLoggedIn">To acces group finder chat, please log in with a player name above.</p></ng-template>
+    </div>
 </div>

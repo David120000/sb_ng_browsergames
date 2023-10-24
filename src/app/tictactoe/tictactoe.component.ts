@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { WebsocketService } from '../service/tictactoe/websocket.service';
 import { MessageType } from '../model/message-type';
 import { Message } from '../model/message';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-tictactoe',
@@ -43,7 +44,7 @@ export class TictactoeComponent implements OnDestroy {
     
 
     const authObjectFromService = this.dataBank.getDeclaredAuthObject();
-
+    
     if(authObjectFromService != undefined) {
       this.authObject = authObjectFromService;
     }
@@ -93,19 +94,19 @@ export class TictactoeComponent implements OnDestroy {
 
     if(message.type === MessageType.JOIN) {
 
-      this.renderer.addClass(messageElement, 'event-message');
+      this.renderer.addClass(messageElement, 'eventMessage');
       message.content = message.sender + ' joined!';
 
     } 
     else if (message.type === MessageType.LEAVE) {
 
-      this.renderer.addClass(messageElement, 'event-message');
+      this.renderer.addClass(messageElement, 'eventMessage');
       message.content = message.sender + ' left!';
 
     } 
     else if (message.type === MessageType.CHAT) {
 
-        this.renderer.addClass(messageElement, 'chat-message');
+        this.renderer.addClass(messageElement, 'chatMessage');
 
         let avatarElement = this.renderer.createElement('i');
         let avatarText = this.renderer.createText(message.sender[0]);
@@ -130,7 +131,7 @@ export class TictactoeComponent implements OnDestroy {
     this.renderer.appendChild(messageElement, textElement);
 
     this.renderer.appendChild(messageArea, messageElement);
-
+    messageArea.scrollTop = messageArea.scrollHeight;
   }
 
 
@@ -144,8 +145,9 @@ export class TictactoeComponent implements OnDestroy {
   }
 
 
-  public sendMessage(message: string) {
-    this.webSocket.sendMessage(message);
+  public sendMessage(message: NgForm) {
+    this.webSocket.sendMessage(message.value.message);
+    message.resetForm();
   }
 
 

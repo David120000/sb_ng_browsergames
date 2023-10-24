@@ -31,7 +31,7 @@ export class WebsocketService {
 
 
   public connect(authObject: AuthObject) {
-    console.log("connect method called with jwt: " + authObject.getJwt());
+
     const socket = new SockJS("http://localhost:8080/ws?authorization=jwt." + authObject.getJwt());
     this.stompClient = Stomp.over(socket);
 
