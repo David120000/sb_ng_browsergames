@@ -17,6 +17,8 @@ import { MinesweeperGameutilsComponent } from './minesweeper/minesweeper-gameuti
 import { MinesweeperLeaderboardComponent } from './minesweeper/minesweeper-gameutils/minesweeper-leaderboard/minesweeper-leaderboard.component';
 import { LocalgameComponent } from './component/tictactoe/localgame/localgame.component';
 import { OnlinegameComponent } from './component/tictactoe/onlinegame/onlinegame.component';
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faO, faSpinner, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 const appRoutes: Routes = [
   { path: 'minesweeper', component: MinesweeperComponent, data: { route_id: 'Minesweeper'}},
@@ -53,9 +55,19 @@ const appRoutes: Routes = [
       // { enableTracing: true }
     ),
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+
+  constructor(library: FaIconLibrary) {
+    library.addIcons(
+      faXmark,
+      faO,
+      faSpinner
+    );
+  }
+}
