@@ -1,3 +1,21 @@
+<div class="headerDiv" (click)="startNewGame()">
+
+  <p id="italicAnnouncerText">{{ getAnnouncerText() }}</p>
+  <div class="horizontalFlexDiv">
+     
+    <div id="nextPlayerX" class="playerMark notYouNext">
+      <p class="announcerMark">X</p>
+    </div>
+    <div id="nextPlayerO" class="playerMark notYouNext">
+      <p class="announcerMark">O</p>
+    </div>
+
+  </div>
+
+  <button id="newGameBtn" style="visibility: hidden;">NEXT GAME</button>
+
+</div>
+
 <table id="gameTable">
 
     <tr>
@@ -44,7 +62,7 @@
           </td>
           <td>
             <div (click)="playerClick(2,1)" class="clickable iconContainerDiv" id="div2-1">
-              <fa-icon *ngIf="getTile(2,1).getMark() != 'EMPTY'" [icon]="getTile(2,1).getIconDefinition()" [animation]="getTile(1,1).getAnimation()" [style]="getTile(2,1).getRecolor()" [size]="getTile(2,1).getSize()" id="icon2-1"></fa-icon>
+              <fa-icon *ngIf="getTile(2,1).getMark() != 'EMPTY'" [icon]="getTile(2,1).getIconDefinition()" [animation]="getTile(2,1).getAnimation()" [style]="getTile(2,1).getRecolor()" [size]="getTile(2,1).getSize()" id="icon2-1"></fa-icon>
             </div>
           </td>
           <td>

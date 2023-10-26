@@ -12,6 +12,8 @@ export class Tile {
     constructor() {
         this.mark = Marks.EMPTY;
         this.size = '10x';
+        this.recolor = undefined;
+        this.victoryAnimation = undefined;
     }
 
 
