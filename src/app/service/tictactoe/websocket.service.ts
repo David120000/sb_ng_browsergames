@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { Message } from 'src/app/model/message';
 import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
-import { AuthObject } from 'src/app/model/auth-object';
-import { JwtDecoderService } from '../jwt-decoder.service';
+import { JwtDecoderService } from '../common/jwt-decoder.service';
+import { Message } from 'src/app/model/tictactoe/message';
+import { AuthObject } from 'src/app/model/common/auth-object';
+
 
 @Injectable({
   providedIn: 'root'

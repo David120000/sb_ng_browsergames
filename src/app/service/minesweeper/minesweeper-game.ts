@@ -1,5 +1,6 @@
-import { ContentTypes } from "../model/contentTypeEnum";
-import { Tile } from "../model/tile";
+import { ContentTypes } from "src/app/model/minesweeper/contentTypeEnum";
+import { Tile } from "src/app/model/minesweeper/tile";
+
 
 
 export class MinesweeperGame {

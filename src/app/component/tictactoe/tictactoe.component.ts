@@ -1,11 +1,11 @@
 import { Component, ElementRef, OnDestroy, Renderer2 } from '@angular/core';
-import { DataSharingService } from '../service/data-sharing.service';
-import { AuthObject } from '../model/auth-object';
 import { Subscription } from 'rxjs';
-import { WebsocketService } from '../service/tictactoe/websocket.service';
-import { MessageType } from '../model/message-type';
-import { Message } from '../model/message';
 import { NgForm } from '@angular/forms';
+import { DataSharingService } from 'src/app/service/common/data-sharing.service';
+import { WebsocketService } from 'src/app/service/tictactoe/websocket.service';
+import { AuthObject } from 'src/app/model/common/auth-object';
+import { Message } from 'src/app/model/tictactoe/message';
+import { MessageType } from 'src/app/model/tictactoe/message-type';
 
 @Component({
   selector: 'app-tictactoe',

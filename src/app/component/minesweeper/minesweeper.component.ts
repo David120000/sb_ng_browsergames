@@ -1,13 +1,13 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { MinesweeperGametableComponent } from './minesweeper-gametable/minesweeper-gametable.component';
 import { MinesweeperTimerComponent } from './minesweeper-timer/minesweeper-timer.component';
-import { TimerStatus } from './model/timerStatus';
-import { DataSharingService } from '../service/data-sharing.service';
-import { MinesweeperScore } from '../model/minesweeper-score';
 import { Subscription } from 'rxjs';
-import { JwtDecoderService } from '../service/jwt-decoder.service';
-import { AuthObject } from '../model/auth-object';
 import { MinesweeperResultdialogComponent } from './minesweeper-resultdialog/minesweeper-resultdialog.component';
+import { DataSharingService } from 'src/app/service/common/data-sharing.service';
+import { JwtDecoderService } from 'src/app/service/common/jwt-decoder.service';
+import { AuthObject } from 'src/app/model/common/auth-object';
+import { TimerStatus } from 'src/app/model/minesweeper/timerStatus';
+import { MinesweeperScore } from 'src/app/model/minesweeper/minesweeper-score';
 
 
 @Component({

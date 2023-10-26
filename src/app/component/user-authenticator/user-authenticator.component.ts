@@ -1,9 +1,9 @@
 import { Component, OnDestroy } from '@angular/core';
-import { User } from '../model/user';
-import { RestAccessService } from '../service/rest-access.service';
-import { DataSharingService } from '../service/data-sharing.service';
-import { JwtDecoderService } from '../service/jwt-decoder.service';
 import { Subscription } from 'rxjs';
+import { User } from 'src/app/model/common/user';
+import { DataSharingService } from 'src/app/service/common/data-sharing.service';
+import { JwtDecoderService } from 'src/app/service/common/jwt-decoder.service';
+import { RestAccessService } from 'src/app/service/common/rest-access.service';
 
 @Component({
   selector: 'app-user-authenticator',

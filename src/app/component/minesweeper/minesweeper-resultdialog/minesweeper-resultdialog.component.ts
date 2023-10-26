@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { AuthObject } from 'src/app/model/auth-object';
-import { MinesweeperScore } from 'src/app/model/minesweeper-score';
-import { MinesweeperScorePersistResponse } from 'src/app/model/minesweeper-score-persist-response';
-import { User } from 'src/app/model/user';
-import { DataSharingService } from 'src/app/service/data-sharing.service';
-import { JwtDecoderService } from 'src/app/service/jwt-decoder.service';
-import { RestAccessService } from 'src/app/service/rest-access.service';
+import { AuthObject } from 'src/app/model/common/auth-object';
+import { User } from 'src/app/model/common/user';
+import { MinesweeperScore } from 'src/app/model/minesweeper/minesweeper-score';
+import { MinesweeperScorePersistResponse } from 'src/app/model/minesweeper/minesweeper-score-persist-response';
+import { DataSharingService } from 'src/app/service/common/data-sharing.service';
+import { JwtDecoderService } from 'src/app/service/common/jwt-decoder.service';
+import { RestAccessService } from 'src/app/service/common/rest-access.service';
+
 
 @Component({
   selector: 'app-minesweeper-resultdialog',

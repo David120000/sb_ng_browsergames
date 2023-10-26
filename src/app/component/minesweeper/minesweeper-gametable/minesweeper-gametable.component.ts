@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, DoCheck, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
-import { MinesweeperGame } from '../service/minesweeper-game';
-import { ContentTypes } from '../model/contentTypeEnum';
-import { TimerStatus } from '../model/timerStatus';
-import { TileSizeStyles } from '../model/tile-size-styles';
+import { ChangeDetectionStrategy, Component, DoCheck, ElementRef, EventEmitter, OnInit, Output, Renderer2 } from '@angular/core';
+import { ContentTypes } from 'src/app/model/minesweeper/contentTypeEnum';
+import { TileSizeStyles } from 'src/app/model/minesweeper/tile-size-styles';
+import { TimerStatus } from 'src/app/model/minesweeper/timerStatus';
+import { MinesweeperGame } from 'src/app/service/minesweeper/minesweeper-game';
+
 
 @Component({
   selector: 'app-minesweeper-gametable',

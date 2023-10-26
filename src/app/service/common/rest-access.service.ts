@@ -1,14 +1,15 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
-import { UsercheckRequest } from '../model/usercheck-request';
-import { UsercheckResponse } from '../model/usercheck-response';
-import { User } from '../model/user';
-import { AuthObject } from '../model/auth-object';
-import { Observable, catchError, of, throwError } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable, catchError, of} from 'rxjs';
 import { DataSharingService } from './data-sharing.service';
-import { MinesweeperScore } from '../model/minesweeper-score';
-import { MinesweeperScorePersistResponse } from '../model/minesweeper-score-persist-response';
-import { MineswScorePages } from '../model/minesw-score-pages';
+import { User } from 'src/app/model/common/user';
+import { UsercheckResponse } from 'src/app/model/common/usercheck-response';
+import { AuthObject } from 'src/app/model/common/auth-object';
+import { UsercheckRequest } from 'src/app/model/common/usercheck-request';
+import { MinesweeperScorePersistResponse } from 'src/app/model/minesweeper/minesweeper-score-persist-response';
+import { MinesweeperScore } from 'src/app/model/minesweeper/minesweeper-score';
+import { MineswScorePages } from 'src/app/model/minesweeper/minesw-score-pages';
+
 
 @Injectable({
   providedIn: 'root'

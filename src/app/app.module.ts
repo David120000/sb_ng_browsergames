@@ -2,23 +2,23 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { MinesweeperComponent } from './minesweeper/minesweeper.component';
-import { TictactoeComponent } from './tictactoe/tictactoe.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { HttpClientModule, HttpParams } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
-import { MinesweeperTimerComponent } from './minesweeper/minesweeper-timer/minesweeper-timer.component';
-import { MinesweeperGametableComponent } from './minesweeper/minesweeper-gametable/minesweeper-gametable.component';
 import { FormsModule } from '@angular/forms';
-import { UserAuthenticatorComponent } from './user-authenticator/user-authenticator.component';
-import { MinesweeperResultdialogComponent } from './minesweeper/minesweeper-resultdialog/minesweeper-resultdialog.component';
-import { HomeComponent } from './home/home.component';
-import { MinesweeperGameutilsComponent } from './minesweeper/minesweeper-gameutils/minesweeper-gameutils.component';
-import { MinesweeperLeaderboardComponent } from './minesweeper/minesweeper-gameutils/minesweeper-leaderboard/minesweeper-leaderboard.component';
 import { LocalgameComponent } from './component/tictactoe/localgame/localgame.component';
 import { OnlinegameComponent } from './component/tictactoe/onlinegame/onlinegame.component';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faO, faSpinner, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { MinesweeperComponent } from './component/minesweeper/minesweeper.component';
+import { TictactoeComponent } from './component/tictactoe/tictactoe.component';
+import { PageNotFoundComponent } from './component/page-not-found/page-not-found.component';
+import { MinesweeperTimerComponent } from './component/minesweeper/minesweeper-timer/minesweeper-timer.component';
+import { MinesweeperGametableComponent } from './component/minesweeper/minesweeper-gametable/minesweeper-gametable.component';
+import { UserAuthenticatorComponent } from './component/user-authenticator/user-authenticator.component';
+import { MinesweeperResultdialogComponent } from './component/minesweeper/minesweeper-resultdialog/minesweeper-resultdialog.component';
+import { HomeComponent } from './component/home/home.component';
+import { MinesweeperGameutilsComponent } from './component/minesweeper/minesweeper-gameutils/minesweeper-gameutils.component';
+import { MinesweeperLeaderboardComponent } from './component/minesweeper/minesweeper-leaderboard/minesweeper-leaderboard.component';
 
 const appRoutes: Routes = [
   { path: 'minesweeper', component: MinesweeperComponent, data: { route_id: 'Minesweeper'}},

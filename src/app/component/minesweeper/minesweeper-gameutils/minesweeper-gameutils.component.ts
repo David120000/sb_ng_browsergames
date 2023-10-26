@@ -1,8 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { AuthObject } from 'src/app/model/auth-object';
-import { DataSharingService } from 'src/app/service/data-sharing.service';
-import { UtilToShow } from '../model/utilToShowEnum';
+import { UtilToShow } from 'src/app/model/minesweeper/utilToShowEnum';
+import { DataSharingService } from 'src/app/service/common/data-sharing.service';
+
 
 @Component({
   selector: 'app-minesweeper-gameutils',
