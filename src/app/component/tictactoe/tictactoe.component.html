@@ -8,7 +8,7 @@
             <h4 style="margin-bottom: 0"><span style="color: red">TIC-TAC-TOE:</span> LOCAL MULTIPLAYER</h4>
             <p style="margin-top: 5px;">Play with your friends on the same screen, same device.</p>
             <div class="selectorBtnFlexContainer">
-                <button class="selectorBtn" [routerLink]="[{outlets: { 'game': ['local']}}]">CREATE LOCAL GAME</button>
+                <button class="selectorBtn" (click)="createLocalGame()">CREATE LOCAL GAME</button>
             </div>
         </div>
 
@@ -17,12 +17,15 @@
             <p style="margin-top: 5px;">Play online. Invite your friends to your game or join other's session.</p>
             <div class="selectorBtnFlexContainer">
 
-                <form #joinForm="ngForm" (submit)="joinOnlineGame(joinForm.value.url)" id="joinForm">
-                    <input type="text" id="urlTextField" name="url" placeholder="URL or SESSION ID..." autocomplete="off" ngModel/>
-                    <button *ngIf="joinForm.value.url?.length > 0" type="submit" id="joinButton">JOIN</button>
-                </form>
+                <button class="selectorBtn" style="margin-bottom: 18.62px;" (click)="createOnlineGame()">CREATE NEW ONLINE GAME</button>
 
-                <button class="selectorBtn" (click)="createOnlineGame()">CREATE NEW ONLINE GAME</button>
+                <div id="joinFormHeader">
+                    <p id="joinFormHeaderText">Join an existing game:</p>
+                    <form #joinForm="ngForm" (submit)="joinOnlineGame(joinForm.value.url)" id="joinForm">
+                        <input type="text" id="urlTextField" name="url" placeholder="URL or SESSION ID..." autocomplete="off" ngModel/>
+                        <button *ngIf="joinForm.value.url?.length > 0" type="submit" id="joinButton">JOIN</button>
+                    </form>
+                </div>
 
                 <p style="height: 19px; margin: 5px; color: red">{{ getOnlineGameErrorMessage() }}</p>
 

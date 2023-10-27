@@ -24,7 +24,6 @@ const appRoutes: Routes = [
   { path: 'minesweeper', component: MinesweeperComponent, data: { route_id: 'Minesweeper'}},
   { path: 'tictactoe', component: TictactoeComponent, data: { route_id: 'Tictactoe'}, children: [
     { path: 'local', outlet: 'game', component: LocalgameComponent},
-    { path: 'online', outlet: 'game', component: OnlinegameComponent},
     { path: 'online/:uuid', outlet: 'game', component: OnlinegameComponent}
   ] },
   { path: 'home', component: HomeComponent, data: { route_id: 'Home'}},

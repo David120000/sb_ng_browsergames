@@ -141,6 +141,13 @@ export class TictactoeComponent implements OnDestroy {
   }
 
 
+  public createLocalGame() {
+    
+    this.router.navigate(['tictactoe', {outlets: { 'game': ['local']}}]);
+    this.onlineGameErrorMessage = undefined;
+  }
+
+
   public onMessageReceived(message: Message) {
 
     let messageArea = this.elementRef.nativeElement.querySelector('#messageArea');

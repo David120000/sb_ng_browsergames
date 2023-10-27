@@ -46,7 +46,7 @@
     font-weight: 700;
     color: #333;
     background-color: lightskyblue;
-    border: solid;
+    border-style: solid;
     border-color: rgba(135, 206, 250, 0.8);
     border-radius: 5px;
     cursor: pointer;
@@ -61,17 +61,33 @@
     border-color: rgba(139, 0, 0, 0.8);
 }
 
+#joinFormHeader {
+    width: 90%;
+    background-color: lightskyblue;
+    border-width: 0;
+    border-style: solid;
+    border-radius: 5px;
+}
+
+#joinFormHeaderText {
+    text-align: center; 
+    font-style: italic; 
+    font-weight: 500;
+    margin: 0; 
+    padding-left: 6px; 
+    color: #333
+}
 
 #joinForm {
     display:flex;
     flex-direction:row;
     background-color: rgb(238, 238, 238);
-    width: 90%;
+    /* width: 100%; */
     height: 25px;
     border-radius: 5px;
     border: 1px solid rgba(0, 0, 46, 0.4);
     padding: 1px;
-    margin-bottom: 18.62px;
+    /* margin-bottom: 18.62px; */
 }
 
 #urlTextField {
