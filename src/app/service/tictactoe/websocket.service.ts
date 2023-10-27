@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
 import { JwtDecoderService } from '../common/jwt-decoder.service';
@@ -24,6 +24,9 @@ export class WebsocketService {
 
   private userName: string;
 
+  private uuidRoomSubscription: Subscription | undefined;
+  private roomMessageSource = new Subject<Message>;
+  private roomMessages$ = this.roomMessageSource.asObservable();
 
   constructor(jwtDecoder: JwtDecoderService) { 
     this.jwtDecoder = jwtDecoder;
@@ -83,8 +86,46 @@ export class WebsocketService {
   }
 
 
+  public sendMessageToRoom(uuid: string, messageText: string) {
+
+    let messageContent = messageText.trim();
+    
+    if(messageContent && this.stompClient && this.userName != '') {
+        
+      let chatMessage = {
+            sender: this.userName,
+            content: messageText,
+            type: 'CHAT'
+        };
+
+      this.stompClient.send("/app/room/" + uuid, {}, JSON.stringify(chatMessage));
+    }
+  }
+
+
+  public listenToUUIDrooms(uuid: string) {
+
+    if(this.uuidRoomSubscription != undefined) {
+      this.uuidRoomSubscription.unsubscribe();
+      this.uuidRoomSubscription = undefined;
+    }
+
+    const _this = this;
+
+    _this.uuidRoomSubscription = _this.stompClient.subscribe("/topic/" + uuid, function(payload: any) {
+
+      let message = JSON.parse(payload.body);
+      _this.roomMessageSource.next(message);
+
+    });
+
+    _this.stompClient.send("/app/room/" + uuid, {}, JSON.stringify({sender: _this.userName, content: '', type: 'JOIN'}));
+
+  }
+
+
   public onError() {
-    console.log("Error occured while connecting");
+    console.log("Error occured while connecting to the Socket Service.");
   }
 
 
@@ -98,5 +139,9 @@ export class WebsocketService {
 
   public getMessages(): Observable<Message> {
     return this.messages$;
+  }
+
+  public getRoomMessages(): Observable<Message> {
+    return this.roomMessages$;
   }
 }

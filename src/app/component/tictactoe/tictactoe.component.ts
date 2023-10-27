@@ -6,6 +6,8 @@ import { WebsocketService } from 'src/app/service/tictactoe/websocket.service';
 import { AuthObject } from 'src/app/model/common/auth-object';
 import { Message } from 'src/app/model/tictactoe/message';
 import { MessageType } from 'src/app/model/tictactoe/message-type';
+import { v4 as uuidv4 } from 'uuid';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tictactoe',
@@ -14,6 +16,7 @@ import { MessageType } from 'src/app/model/tictactoe/message-type';
 })
 export class TictactoeComponent implements OnDestroy {
 
+  private router: Router;
   private renderer: Renderer2;
   private elementRef: ElementRef;
   private dataBank: DataSharingService;
@@ -23,13 +26,16 @@ export class TictactoeComponent implements OnDestroy {
   private connected: boolean;
   private authObject: AuthObject;
 
+  private onlineGameErrorMessage: string | undefined;
+
   private authObjectSubscription: Subscription;
   private connectionStatusSubscription: Subscription;
   private messageSubscription: Subscription;
 
 
-  constructor(renderer: Renderer2, elementRef: ElementRef, dataBank: DataSharingService, webSocket: WebsocketService) {
+  constructor(router: Router, renderer: Renderer2, elementRef: ElementRef, dataBank: DataSharingService, webSocket: WebsocketService) {
     
+    this.router = router;
     this.renderer = renderer;
     this.elementRef = elementRef;
     this.dataBank = dataBank;
@@ -84,6 +90,54 @@ export class TictactoeComponent implements OnDestroy {
       this.authObjectSubscription.unsubscribe();
       this.connectionStatusSubscription.unsubscribe();
       this.messageSubscription.unsubscribe();
+      this.webSocket.disconnect();
+  }
+
+
+  public createOnlineGame() {
+
+    if(this.connected == true) {
+
+      const uuid = uuidv4();
+      this.router.navigate(['tictactoe', { outlets: { 'game': ['online', uuid]} }]);
+      this.onlineGameErrorMessage = undefined;
+    }
+    else {
+      this.onlineGameErrorMessage = "Only authenticated players can access online multiplayer!";
+    }
+
+  }
+
+
+  public joinOnlineGame(url: string) {
+
+    if(this.connected == true) {
+
+      if(url.includes("/tictactoe/(game:online/") == true) {
+
+        let index = url.lastIndexOf("/tictactoe/(game:online/");
+        let uuid = url.slice(index+24, index+24+36);
+        
+        if(uuid.length == 36 && uuid.replaceAll("-", "").length == 32) {
+      
+          this.router.navigate(['tictactoe', { outlets: { 'game': ['online', uuid]} }]);
+          this.onlineGameErrorMessage = undefined;
+        }
+  
+      }
+      else if(url.length == 36 && url.replaceAll("-", "").length == 32) {
+
+        this.router.navigate(['tictactoe', { outlets: { 'game': ['online', url]} }]);
+        this.onlineGameErrorMessage = undefined; 
+      }
+      else {
+        this.onlineGameErrorMessage = "Join URL/ID is not valid.";
+      }
+
+    }
+    else {
+      this.onlineGameErrorMessage = "Only authenticated players can access online multiplayer!";
+    }
   }
 
 
@@ -153,6 +207,16 @@ export class TictactoeComponent implements OnDestroy {
 
   public isConnectedToSocket(): boolean {
     return this.connected;
+  }
+
+
+  public childRouterActive(): boolean {
+    return (this.router.url + "").startsWith("/tictactoe/(game:");
+  }
+
+
+  public getOnlineGameErrorMessage(): string | undefined {
+    return this.onlineGameErrorMessage;
   }
 
 }

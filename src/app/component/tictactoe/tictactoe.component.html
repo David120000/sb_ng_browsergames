@@ -2,11 +2,36 @@
 
     <router-outlet name="game"></router-outlet>
 
-    <div id="childRouter">
-        <p [routerLink]="[{outlets: { 'game': ['local']}}]">Local</p>
-        <p [routerLink]="[{outlets: { 'game': ['online']}}]">Online</p>
-        <p [routerLink]="[{outlets: { 'game':  null }}]">Back</p>
+    <div id="childRouterSelector" *ngIf="childRouterActive() == false; else backToSelector">
+
+        <div class="gameModeSelector">
+            <h4 style="margin-bottom: 0"><span style="color: red">TIC-TAC-TOE:</span> LOCAL MULTIPLAYER</h4>
+            <p style="margin-top: 5px;">Play with your friends on the same screen, same device.</p>
+            <div class="selectorBtnFlexContainer">
+                <button class="selectorBtn" [routerLink]="[{outlets: { 'game': ['local']}}]">CREATE LOCAL GAME</button>
+            </div>
+        </div>
+
+        <div class="gameModeSelector">
+            <h4 style="margin-bottom: 0"><span style="color: red">TIC-TAC-TOE:</span> ONLINE MULTIPLAYER</h4>
+            <p style="margin-top: 5px;">Play online. Invite your friends to your game or join other's session.</p>
+            <div class="selectorBtnFlexContainer">
+
+                <form #joinForm="ngForm" (submit)="joinOnlineGame(joinForm.value.url)" id="joinForm">
+                    <input type="text" id="urlTextField" name="url" placeholder="URL or SESSION ID..." autocomplete="off" ngModel/>
+                    <button *ngIf="joinForm.value.url?.length > 0" type="submit" id="joinButton">JOIN</button>
+                </form>
+
+                <button class="selectorBtn" (click)="createOnlineGame()">CREATE NEW ONLINE GAME</button>
+
+                <p style="height: 19px; margin: 5px; color: red">{{ getOnlineGameErrorMessage() }}</p>
+
+            </div>
+        </div>
+
     </div>
+
+    <ng-template #backToSelector><button id="backBtn" [routerLink]="[{outlets: { 'game':  null }}]">< BACK TO MODE SELECTION</button></ng-template>
 
     <div id="chatContainer">
         <div *ngIf="isConnectedToSocket() == true; else pleaseLogin">
@@ -26,6 +51,6 @@
 
         </div>
 
-        <ng-template #pleaseLogin><p id="notLoggedIn">To acces group finder chat, please log in with a player name above.</p></ng-template>
+        <ng-template #pleaseLogin><p id="notLoggedIn">To access group finder chat, please log in with a player name above.</p></ng-template>
     </div>
 </div>
