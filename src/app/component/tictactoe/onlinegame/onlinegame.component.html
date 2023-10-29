@@ -1,1 +1,109 @@
-<button (click)="createGame()">CREATE GAME</button>
+<div id="onlineComponentContainer">
+    <div id="playerListContainer">
+        <ul id="playerList">
+
+            <li *ngFor="let user of getUserInGame(); index as i">
+                <span *ngIf="i == 0" style="color: rgb(139, 0, 0); font-weight: bold;">X: </span>
+                <span *ngIf="i == 1" style="color: rgb(139, 0, 0); font-weight: bold;">O: </span>
+                <p *ngIf="i == 2" style="margin-bottom: 0; font-weight: bold;">Observers:</p>
+                {{ user.userName }}
+            </li>
+
+        </ul>
+    </div>
+
+    <div>
+        <div class="headerDiv" (click)="startNewGame()">
+
+            <p id="italicAnnouncerText">{{ getAnnouncerText() }}</p>
+            <div class="horizontalFlexDiv">
+            
+            <div id="nextPlayerX" class="playerMark notYouNext">
+                <p class="announcerMark">X</p>
+            </div>
+            <div id="nextPlayerO" class="playerMark notYouNext">
+                <p class="announcerMark">O</p>
+            </div>
+        
+            </div>
+        
+            <button id="newGameBtn" style="visibility: hidden;">NEXT GAME</button>
+        
+        </div>
+
+        <table id="gameTable">
+
+            <tr>
+                <td>
+                    <div (click)="playerClick(0,0)" class="clickable iconContainerDiv" id="div0-0">
+                    <fa-icon *ngIf="getTile(0,0).getMark() != 'EMPTY'" [icon]="getTile(0,0).getIconDefinition()" [animation]="getTile(0,0).getAnimation()" [style]="getTile(0,0).getRecolor()" [size]="getTile(0,0).getSize()" id="icon0-0"></fa-icon>
+                    </div>
+                </td>
+                <td>
+                    <div (click)="playerClick(0,1)" class="clickable iconContainerDiv" id="div0-1">
+                    <fa-icon *ngIf="getTile(0,1).getMark() != 'EMPTY'" [icon]="getTile(0,1).getIconDefinition()" [animation]="getTile(0,1).getAnimation()" [style]="getTile(0,1).getRecolor()" [size]="getTile(0,1).getSize()" id="icon0-1"></fa-icon>
+                    </div>
+                </td>
+                <td>
+                    <div (click)="playerClick(0,2)" class="clickable iconContainerDiv" id="div0-2">
+                    <fa-icon *ngIf="getTile(0,2).getMark() != 'EMPTY'" [icon]="getTile(0,2).getIconDefinition()" [animation]="getTile(0,2).getAnimation()" [style]="getTile(0,2).getRecolor()" [size]="getTile(0,2).getSize()" id="icon0-2"></fa-icon>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div (click)="playerClick(1,0)" class="clickable iconContainerDiv" id="div1-0">
+                    <fa-icon *ngIf="getTile(1,0).getMark() != 'EMPTY'" [icon]="getTile(1,0).getIconDefinition()" [animation]="getTile(1,0).getAnimation()" [style]="getTile(1,0).getRecolor()" [size]="getTile(1,0).getSize()" id="icon1-0"></fa-icon>
+                    </div>
+                </td>
+                <td>
+                    <div (click)="playerClick(1,1)" class="clickable iconContainerDiv" id="div1-1">
+                    <fa-icon *ngIf="getTile(1,1).getMark() != 'EMPTY'" [icon]="getTile(1,1).getIconDefinition()" [animation]="getTile(1,1).getAnimation()" [style]="getTile(1,1).getRecolor()" [size]="getTile(1,1).getSize()" id="icon1-1"></fa-icon>
+                    </div>
+                </td>
+                <td>
+                    <div (click)="playerClick(1,2)" class="clickable iconContainerDiv" id="div1-2">
+                    <fa-icon *ngIf="getTile(1,2).getMark() != 'EMPTY'" [icon]="getTile(1,2).getIconDefinition()" [animation]="getTile(1,2).getAnimation()" [style]="getTile(1,2).getRecolor()" [size]="getTile(1,2).getSize()" id="icon1-2"></fa-icon>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div (click)="playerClick(2,0)" class="clickable iconContainerDiv" id="div2-0">
+                    <fa-icon *ngIf="getTile(2,0).getMark() != 'EMPTY'" [icon]="getTile(2,0).getIconDefinition()" [animation]="getTile(2,0).getAnimation()" [style]="getTile(2,0).getRecolor()" [size]="getTile(2,0).getSize()" id="icon2-0"></fa-icon>
+                    </div>
+                </td>
+                <td>
+                    <div (click)="playerClick(2,1)" class="clickable iconContainerDiv" id="div2-1">
+                    <fa-icon *ngIf="getTile(2,1).getMark() != 'EMPTY'" [icon]="getTile(2,1).getIconDefinition()" [animation]="getTile(2,1).getAnimation()" [style]="getTile(2,1).getRecolor()" [size]="getTile(2,1).getSize()" id="icon2-1"></fa-icon>
+                    </div>
+                </td>
+                <td>
+                    <div (click)="playerClick(2,2)" class="clickable iconContainerDiv" id="div2-2">
+                    <fa-icon *ngIf="getTile(2,2).getMark() != 'EMPTY'" [icon]="getTile(2,2).getIconDefinition()" [animation]="getTile(2,2).getAnimation()" [style]="getTile(2,2).getRecolor()" [size]="getTile(2,2).getSize()" id="icon2-2"></fa-icon>
+                    </div>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+
+    <div id="roomChatContainer">
+
+        <div id="roomChatHeader">
+            <h3>Game Chat</h3>
+        </div>
+        <div id="roomChatMessages">
+            <ul id="roomMessageArea">
+
+            </ul>
+        </div>
+        <form #roomMessageForm="ngForm" id="roomMessageForm" (submit)="sendMessageToGameChat(roomMessageForm)">
+            <input type="text" id="roomMessage" name="gameMessage" placeholder="Type here..." autocomplete="off" style="width: 100%" ngModel />
+            <button type="submit" class="sendButton">Send</button>
+        </form>
+
+    </div>
+</div>

@@ -1,5 +1,4 @@
 c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\service\MinesweeperService.java
-c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\configuration\WebSocketEventListener.java
 c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\controller\SocketMessageController.java
 c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\service\utility\UserDetailsObjProvider.java
 c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\controller\MinesweeperScoreController.java
@@ -10,6 +9,7 @@ c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\
 c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\model\Message.java
 c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\httpfilter\JwtRequestFilter.java
 c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\configuration\SecurityConfig.java
+c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\controller\WebSocketEventListener.java
 c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\model\dto\AuthResponse.java
 c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\model\dto\MinesweeperScorePersistResponse.java
 c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\model\dto\UsercheckResponse.java
@@ -18,8 +18,11 @@ c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\
 c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\service\AuthenticationService.java
 c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\httpfilter\JwtParamFilter.java
 c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\repository\UserRepository.java
+c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\service\TictactoeMatchRegistryService.java
 c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\model\MessageType.java
 c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\configuration\WebSocketConfig.java
 c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\repository\MinesweeperScoreRepository.java
 c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\model\MinesweeperScore.java
 c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\controller\AuthenticationController.java
+c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\model\dto\TictactoeMatchSubscriptions.java
+c:\Users\david\VSCode_Projects\browsergames_project\sb_ng_browsergames\src\main\java\rd\sb_ng_browsergames\controller\GameSubscriptionsController.java

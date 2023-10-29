@@ -1,10 +1,13 @@
 rd\sb_ng_browsergames\httpfilter\JwtParamFilter.class
 rd\sb_ng_browsergames\model\User.class
+rd\sb_ng_browsergames\model\dto\TictactoeMatchSubscriptions.class
 rd\sb_ng_browsergames\model\dto\UsercheckRequest.class
+rd\sb_ng_browsergames\controller\GameSubscriptionsController.class
 rd\sb_ng_browsergames\service\utility\UserDetailsObjProvider.class
 rd\sb_ng_browsergames\model\dto\AuthResponse.class
 rd\sb_ng_browsergames\controller\AuthenticationController.class
 rd\sb_ng_browsergames\httpfilter\JwtRequestFilter.class
+rd\sb_ng_browsergames\service\TictactoeMatchRegistryService.class
 rd\sb_ng_browsergames\service\AuthenticationService.class
 rd\sb_ng_browsergames\model\Message.class
 rd\sb_ng_browsergames\controller\MinesweeperScoreController.class
@@ -13,7 +16,7 @@ rd\sb_ng_browsergames\controller\HttpRequestControllerAdvice.class
 rd\sb_ng_browsergames\service\utility\JwtUtil.class
 rd\sb_ng_browsergames\service\MinesweeperService.class
 rd\sb_ng_browsergames\model\MessageType.class
-rd\sb_ng_browsergames\configuration\WebSocketEventListener.class
+rd\sb_ng_browsergames\controller\WebSocketEventListener.class
 rd\sb_ng_browsergames\model\dto\MinesweeperScorePersistResponse.class
 rd\sb_ng_browsergames\repository\MinesweeperScoreRepository.class
 rd\sb_ng_browsergames\repository\UserRepository.class

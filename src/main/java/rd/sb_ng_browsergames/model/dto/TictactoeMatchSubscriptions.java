@@ -5,10 +5,10 @@ import java.util.List;
 public class TictactoeMatchSubscriptions {
 
     private String uuid;
-    private List<String> subscribedUsers;
+    private List<SubscribedUser> subscribedUsers;
 
 
-    public TictactoeMatchSubscriptions(String uuid, List<String> subscribedUsers) {
+    public TictactoeMatchSubscriptions(String uuid, List<SubscribedUser> subscribedUsers) {
         this.uuid = uuid;
         this.subscribedUsers = subscribedUsers;
     }
@@ -20,10 +20,10 @@ public class TictactoeMatchSubscriptions {
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
-    public List<String> getSubscribedUsers() {
+    public List<SubscribedUser> getSubscribedUsers() {
         return subscribedUsers;
     }
-    public void setSubscribedUsers(List<String> subscribedUsers) {
+    public void setSubscribedUsers(List<SubscribedUser> subscribedUsers) {
         this.subscribedUsers = subscribedUsers;
     }
 

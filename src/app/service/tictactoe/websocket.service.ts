@@ -5,6 +5,7 @@ import * as Stomp from 'stompjs';
 import { JwtDecoderService } from '../common/jwt-decoder.service';
 import { Message } from 'src/app/model/tictactoe/message';
 import { AuthObject } from 'src/app/model/common/auth-object';
+import { SubscribedUser } from 'src/app/model/tictactoe/subscribed-user';
 
 
 @Injectable({
@@ -23,6 +24,7 @@ export class WebsocketService {
   private stompClient: any | undefined;
 
   private userName: string;
+  private socketSessionId: string;
 
   private uuidRoomSubscription: Subscription | undefined;
   private roomMessageSource = new Subject<Message>;
@@ -31,6 +33,7 @@ export class WebsocketService {
   constructor(jwtDecoder: JwtDecoderService) { 
     this.jwtDecoder = jwtDecoder;
     this.userName = '';
+    this.socketSessionId = '';
   }
 
 
@@ -47,8 +50,10 @@ export class WebsocketService {
       _this.stompClient.subscribe("/topic/public", function(payload: any) {
 
         let message = JSON.parse(payload.body);
-        _this.messageSource.next(message);
+        _this.messageSource.next(message);        
 
+        let transportUrl = socket._transport.url;
+        _this.socketSessionId = transportUrl.split("/")[5];
       });
 
       _this.userName = _this.jwtDecoder.getUserNameFromToken(authObject);
@@ -121,6 +126,24 @@ export class WebsocketService {
 
     _this.stompClient.send("/app/room/" + uuid, {}, JSON.stringify({sender: _this.userName, content: '', type: 'JOIN'}));
 
+  }
+
+
+  public unsubscribeUUIDRoom() {
+
+    if(this.uuidRoomSubscription != undefined) {
+      this.uuidRoomSubscription.unsubscribe();
+    }
+  }
+
+
+  public getUser(): SubscribedUser {
+
+    let user = new SubscribedUser();
+    user.userName = this.userName;
+    user.sessionId = this.socketSessionId;
+
+    return user;
   }
 
 

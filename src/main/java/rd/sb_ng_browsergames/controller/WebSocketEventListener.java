@@ -56,7 +56,7 @@ public class WebSocketEventListener {
 
     @EventListener
     public void userJoinsMultiplayerGameListener(SessionSubscribeEvent event) {
-        
+
         StompHeaderAccessor eventHeader = StompHeaderAccessor.wrap(event.getMessage());
         matchRegister.registerMatchUrlByUserSession(eventHeader);
     }

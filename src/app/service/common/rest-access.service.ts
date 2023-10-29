@@ -9,6 +9,7 @@ import { UsercheckRequest } from 'src/app/model/common/usercheck-request';
 import { MinesweeperScorePersistResponse } from 'src/app/model/minesweeper/minesweeper-score-persist-response';
 import { MinesweeperScore } from 'src/app/model/minesweeper/minesweeper-score';
 import { MineswScorePages } from 'src/app/model/minesweeper/minesw-score-pages';
+import { TictactoeMatchSubscriptions } from 'src/app/model/tictactoe/tictactoe-match-subscriptions';
 
 
 @Injectable({
@@ -148,6 +149,19 @@ export class RestAccessService {
       .set("order", order);
 
     let response = this.http.get<MineswScorePages>(this.REST_URL + "/minesweeper/userscore/sortedbyscores", {headers: headers, params: parametersOption});
+
+    return response;
+  }
+
+
+  public getSubscribedUsersByUuid(jwt: string, uuid: string): Observable<TictactoeMatchSubscriptions> {
+
+    let headers = new HttpHeaders()
+      .set("Content-Type", "application/json; charset=utf-8")
+      .set("Authorization", "Bearer " + jwt);
+
+
+    let response = this.http.get<TictactoeMatchSubscriptions>(this.REST_URL + "/tictactoe/subscriptions/" + uuid, {headers: headers});
 
     return response;
   }

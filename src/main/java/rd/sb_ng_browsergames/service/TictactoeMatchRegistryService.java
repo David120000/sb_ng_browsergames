@@ -10,6 +10,7 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.user.SimpUserRegistry;
 import org.springframework.stereotype.Service;
 
+import rd.sb_ng_browsergames.model.dto.SubscribedUser;
 import rd.sb_ng_browsergames.model.dto.TictactoeMatchSubscriptions;
 
 @Service
@@ -29,8 +30,8 @@ public class TictactoeMatchRegistryService {
     public void registerMatchUrlByUserSession(SimpMessageHeaderAccessor eventHeaders) {
 
         if(eventHeaders.getDestination().equals("/topic/public") == false && eventHeaders.getDestination().startsWith("/topic/") == true) {
-
-           tictactoeMatchUrlsBySessions.put(eventHeaders.getSessionId(), eventHeaders.getDestination());
+            System.out.println("New match registered: " + eventHeaders.getSessionId() + ", user: " + eventHeaders.getUser());
+            tictactoeMatchUrlsBySessions.put(eventHeaders.getSessionId(), eventHeaders.getDestination());
         }
     }
     
@@ -46,23 +47,17 @@ public class TictactoeMatchRegistryService {
 
     public TictactoeMatchSubscriptions getSubscribedUsersByUuid(String uuid) {
 
-        List<String> subscribedUsers = new ArrayList<>();
+        List<SubscribedUser> subscribedUsers = new ArrayList<>();
 
-        userRegistry.getUsers().stream()
+         userRegistry.getUsers().stream()
             .filter(user -> user.getSessions().toString().contains("/topic/" + uuid))
                 .toList()
-                    .forEach(user -> subscribedUsers.add(user.getName()));
-
-
-        // userRegistry.getUsers().forEach(user -> {
-        //     user.getSessions().forEach(session -> {
-        //         session.getSubscriptions().forEach(subscription -> {
-        //             if(subscription.toString().contains("/topic/" + uuid)) {
-        //                 subscribedUsers.add(user.getName());
-        //             }
-        //         });
-        //     });
-        // });
+                    .forEach(user -> subscribedUsers.add(
+                            new SubscribedUser(
+                                user.getName(), 
+                                user.getSessions().iterator().next().getId())
+                        )
+                    );
 
         TictactoeMatchSubscriptions subscriptionsByUuid = new TictactoeMatchSubscriptions(uuid, subscribedUsers);
 
