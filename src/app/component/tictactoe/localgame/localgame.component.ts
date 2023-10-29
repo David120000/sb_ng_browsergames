@@ -45,20 +45,6 @@ export class LocalgameComponent implements DoCheck{
   }
 
 
-  public newGame(): TictactoeGame {
-
-    for(let rowId = 0; rowId < 3; rowId++) {
-      for(let colId = 0; colId < 3; colId++) {
-
-        let div = this.elementRef.nativeElement.querySelector("#div" + rowId + "-" + colId);
-        this.renderer.addClass(div, "clickable");
-      }
-    }
-
-    return new TictactoeGame(true);
-  }
-
-
   private handleAnnouncerElements() {
 
     if(this.tictactoeGame.isGameOn() == true) {
@@ -171,9 +157,23 @@ export class LocalgameComponent implements DoCheck{
       let button = this.elementRef.nativeElement.querySelector("#newGameBtn");
       this.renderer.setStyle(button, "visibility", "hidden");
       
-      this.tictactoeGame = new TictactoeGame(true);
+      this.tictactoeGame = this.newGame(true);
     }
 
+  }
+
+
+  private newGame(startImmediately: boolean): TictactoeGame {
+
+    for(let rowId = 0; rowId < 3; rowId++) {
+      for(let colId = 0; colId < 3; colId++) {
+
+        let div = this.elementRef.nativeElement.querySelector("#div" + rowId + "-" + colId);
+        this.renderer.addClass(div, "clickable");
+      }
+    }
+
+    return new TictactoeGame(true);
   }
 
 
