@@ -11,7 +11,8 @@ import org.springframework.web.socket.messaging.SessionUnsubscribeEvent;
 
 import rd.sb_ng_browsergames.model.Message;
 import rd.sb_ng_browsergames.model.MessageType;
-import rd.sb_ng_browsergames.service.TictactoeMatchRegisterService;
+import rd.sb_ng_browsergames.service.TictactoeMatchRegistryService;
+
 
 @Component
 public class WebSocketEventListener {
@@ -20,7 +21,7 @@ public class WebSocketEventListener {
     private SimpMessageSendingOperations messageOperator;
 
     @Autowired
-    private TictactoeMatchRegisterService matchRegister;
+    private TictactoeMatchRegistryService matchRegister;
     
 
     @EventListener
@@ -38,7 +39,8 @@ public class WebSocketEventListener {
         
 
         /* Announce leave to user's subscribed game channel on disconnect event. The url will be null if the user had no such subscription. */
-        String url = matchRegister.getUnsubscriptionUrl(eventHeader);
+        /* Because of Angular's OnDestroy function of the online game components, there can not be more than one concurrent subscription. */
+        String url = matchRegister.getMatchUrlByUserSession(eventHeader);
 
         if(url != null) {
 
@@ -56,7 +58,7 @@ public class WebSocketEventListener {
     public void userJoinsMultiplayerGameListener(SessionSubscribeEvent event) {
         
         StompHeaderAccessor eventHeader = StompHeaderAccessor.wrap(event.getMessage());
-        matchRegister.registerUserToMatchUrl(eventHeader);
+        matchRegister.registerMatchUrlByUserSession(eventHeader);
     }
 
 
@@ -64,7 +66,7 @@ public class WebSocketEventListener {
     public void userLeavesMultiplayerGameListener(SessionUnsubscribeEvent event) {
 
         StompHeaderAccessor eventHeader = StompHeaderAccessor.wrap(event.getMessage());
-        String url = matchRegister.getUnsubscriptionUrl(eventHeader);
+        String url = matchRegister.getMatchUrlByUserSession(eventHeader);
 
         if(url != null) {
 
