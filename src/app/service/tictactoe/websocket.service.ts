@@ -6,6 +6,7 @@ import { JwtDecoderService } from '../common/jwt-decoder.service';
 import { Message } from 'src/app/model/tictactoe/message';
 import { AuthObject } from 'src/app/model/common/auth-object';
 import { SubscribedUser } from 'src/app/model/tictactoe/subscribed-user';
+import { MessageType } from 'src/app/model/tictactoe/message-type';
 
 
 @Injectable({
@@ -105,6 +106,28 @@ export class WebsocketService {
 
       this.stompClient.send("/app/room/" + uuid, {}, JSON.stringify(chatMessage));
     }
+  }
+
+
+  public sendGameDataToOthers(uuid: string, gameData: string) {
+
+    let message = new Message();
+    message.sender = this.userName;
+    message.content = gameData;
+    message.type = MessageType.GAME;
+    
+    this.stompClient.send("/app/room/" + uuid, {}, JSON.stringify(message));
+  }
+
+
+  public sendPlayerClickData(uuid: string, clickData: string) {
+   
+    let message = new Message();
+    message.sender = this.userName;
+    message.content = clickData;
+    message.type = MessageType.GAME;
+
+    this.stompClient.send("/app/room/" + uuid, {}, JSON.stringify(message));
   }
 
 

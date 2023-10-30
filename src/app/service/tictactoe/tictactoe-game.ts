@@ -160,7 +160,6 @@ export class TictactoeGame {
               
             }
         }
-  
     }
 
 
@@ -197,4 +196,120 @@ export class TictactoeGame {
     public getWinners(): Array<Marks> {
         return this.winners;
     }
+
+
+    public getGameData(prefix: string): string {
+
+        let data = prefix + "|";
+        data += this.gameIsOn + "|";
+        data += this.whoNext + "|";
+        
+        data += this.winners.length + ",";
+        for(let index = 0; index < this.winners.length; index++) {
+            data += this.winners[index] + ",";
+        }
+        data += "|";
+
+        for(let rowIndex = 0; rowIndex < this.gameTable.length; rowIndex++) {
+            for(let colIndex = 0; colIndex < this.gameTable[0].length; colIndex++) {
+
+                data += this.gameTable[rowIndex][colIndex].getMark() + ",";
+            }
+        }
+        data += "|";
+
+        data += this.playerClicks + "|";
+
+        return data;
+    }
+
+
+    public setGameData(data: string) {
+
+        if(data.startsWith("game|") == true || data.startsWith("newgame|") == true) {
+
+            let dataArray = data.split("|");
+
+            /* GAME IS ON: boolean */
+            if(dataArray[1] == "true") {
+                this.gameIsOn = true;
+            }
+            else if(dataArray[1] == "false") {
+                this.gameIsOn = false;
+            }
+
+            /* WHO IS NEXT: Marks enum */
+            if(dataArray[2] == "EMPTY") {
+                this.whoNext = Marks.EMPTY;
+            }
+            else if(dataArray[2] == "X") {
+                this.whoNext = Marks.X;
+            }
+            else if(dataArray[2] == "O") {
+                this.whoNext = Marks.O;
+            }
+
+            /* WINNERS: number of winners & winner Marks */
+            let winnerDataArray = dataArray[3].split(",");
+            if(winnerDataArray.length > 1) {
+                
+                for(let index = 1; index < winnerDataArray.length; index++) {
+                    if(winnerDataArray[index] == "X") {
+                        this.winners.push(Marks.X);
+                    }
+                    else if(winnerDataArray[index] == "O") {
+                        this.winners.push(Marks.O);
+                    }
+                }
+            }
+
+            /* GAME TABLE: Tile Marks */
+            let gameTableArray = dataArray[4].split(",");
+            let parserIndex = 0;
+
+            for(let rowIndex = 0; rowIndex < this.gameTable.length; rowIndex++) {
+                for(let colIndex = 0; colIndex < this.gameTable[0].length; colIndex++) {
+
+                    if(gameTableArray[parserIndex] == "EMPTY") {
+                        this.gameTable[rowIndex][colIndex].setMark(Marks.EMPTY);
+                    }
+                    else if(gameTableArray[parserIndex] == "X") {
+                        this.gameTable[rowIndex][colIndex].setMark(Marks.X);
+                    }
+                    else if(gameTableArray[parserIndex] == "O") {
+                        this.gameTable[rowIndex][colIndex].setMark(Marks.O);
+                    }
+
+                    parserIndex++;
+                }
+            }
+
+            this.playerClicks = Number(dataArray[5]);
+        }
+    }
+
+
+    public buildClickData(clickRowPosition: number, clickColumnPosition: number, playersMark: Marks): string {
+        return ("click|" + clickRowPosition + "|" + clickColumnPosition + "|" + playersMark);
+    }
+
+
+    public remoteClick(data: string): boolean {
+
+        let tableChanged = false;
+
+        if(data.startsWith("click|") == true) {
+
+            let dataArray = data.split("|");
+
+            if(dataArray[3] == this.whoNext) {
+
+                tableChanged = this.playerClick(Number(dataArray[1]), Number(dataArray[2]));
+            }
+        }
+
+        return tableChanged;
+    }
+
+
 }

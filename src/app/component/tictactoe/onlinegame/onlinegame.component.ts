@@ -70,10 +70,7 @@ export class OnlinegameComponent implements OnInit, AfterViewInit, DoCheck, OnDe
 
     });
 
-    this.roomMessageSubscription = this.webSocket.getRoomMessages().subscribe(message => {
-      console.log("room message subscription detected a change. message: " + message);
-      this.onMessageReceived(message);
-    });
+    this.roomMessageSubscription = this.webSocket.getRoomMessages().subscribe(message => this.onMessageReceived(message));
 
     this.announcerText = "Waiting for the game to start.";
     this.tictactoeGame = new TictactoeGame(false);
@@ -111,7 +108,7 @@ export class OnlinegameComponent implements OnInit, AfterViewInit, DoCheck, OnDe
 
   ngDoCheck(): void {
     
-    if(this.usersInGame.length >= 2) {
+    if(this.usersInGame.length >= 2 && this.tictactoeGame.getWinners().length == 0) {
       this.tictactoeGame.setGameOn(true);
     }
 
@@ -119,6 +116,8 @@ export class OnlinegameComponent implements OnInit, AfterViewInit, DoCheck, OnDe
       let button = this.elementRef.nativeElement.querySelector("#newGameBtn");
       this.renderer.setStyle(button, "visibility", "visible");
     }
+
+    this.handleAnnouncerElements();
 
   }
 
@@ -137,21 +136,69 @@ export class OnlinegameComponent implements OnInit, AfterViewInit, DoCheck, OnDe
   }
 
 
-  public startNewGame() {
+  public onMessageReceived(message: Message) {
 
-    if( (this.tictactoeGame.getWinners().length > 0 && this.tictactoeGame.isGameOn() == false) || 
-        this.tictactoeGame.getPlayerClickCount() == (this.tictactoeGame.getTableSize() * this.tictactoeGame.getTableSize()) || 
-        (this.usersInGame.length < 2 && this.tictactoeGame.isGameOn() == true)
-      ) {
+    if(message.type != MessageType.GAME) {
+      this.chatMessageReceived(message);
+    }
 
-      this.announcerText = "Waiting for the game to start.";
-
-      let button = this.elementRef.nativeElement.querySelector("#newGameBtn");
-      this.renderer.setStyle(button, "visibility", "hidden");
+    if(message.type == MessageType.JOIN || message.type == MessageType.LEAVE) {
+      this.refreshUserList();
+    }
+    
+    if(message.type == MessageType.GAME) {
       
-      this.tictactoeGame = new TictactoeGame(false);
-   }
+      if(message.content.startsWith("game|")) {       
+        this.tictactoeGame.setGameData(message.content);
+      }
+      else if(message.content.startsWith("newgame|")) {
+        this.tictactoeGame = new TictactoeGame(false);
+        this.resetGameView();
+        this.tictactoeGame.setGameData(message.content);
+      }
+      else if(message.content.startsWith("click|")) {
+        
+        const tableChanged = this.tictactoeGame.remoteClick(message.content);
 
+        if(tableChanged == true) {
+          
+          let clickDataArray = message.content.split("|");
+          let div = this.elementRef.nativeElement.querySelector(("#div" + clickDataArray[1] + "-" + clickDataArray[2]));
+          this.renderer.removeClass(div, "clickable");
+        }
+      }
+      
+    }
+
+  }
+
+  private refreshUserList() {
+
+    if(this.uuid != undefined && this.dataBank.getDeclaredAuthObject() != undefined) {
+
+      this.restAccess.getSubscribedUsersByUuid(this.dataBank.getDeclaredAuthObject()!.getJwt(), this.uuid)
+        .subscribe(response => {
+
+          let subscriptions = Object.assign(new TictactoeMatchSubscriptions(), response);
+
+          if(this.usersInGame.length < subscriptions.getSubscribedUsers().length) {         
+            this.shareGameDataWithOthers();
+          }
+
+          this.usersInGame = subscriptions.getSubscribedUsers();
+        });
+    }
+  
+  }
+
+
+  private shareGameDataWithOthers() {
+
+    if(this.usersInGame.length >= 1 && this.webSocket.getUser().userName == this.usersInGame[0].userName && this.webSocket.getUser().sessionId == this.usersInGame[0].sessionId) {  
+
+      this.webSocket.sendGameDataToOthers(this.uuid!, this.tictactoeGame.getGameData("game"));
+    }
+   
   }
 
 
@@ -169,7 +216,6 @@ export class OnlinegameComponent implements OnInit, AfterViewInit, DoCheck, OnDe
       playersMark = Marks.O;
     }
 
-    
     if(nextMark == playersMark) {
 
       const tableChanged = this.tictactoeGame.playerClick(rowPosition, columnPosition);
@@ -178,9 +224,150 @@ export class OnlinegameComponent implements OnInit, AfterViewInit, DoCheck, OnDe
   
         let div = this.elementRef.nativeElement.querySelector(("#div" + rowPosition + "-" + columnPosition));
         this.renderer.removeClass(div, "clickable");
+
+        this.sendPlayerClickDataToOthers(rowPosition, columnPosition, playersMark);
       }
     }
 
+  }
+
+
+  private sendPlayerClickDataToOthers(clickRowPosition: number, clickColumnPosition: number, playersMark: Marks) {
+    
+    let clickData = this.tictactoeGame.buildClickData(clickRowPosition, clickColumnPosition, playersMark);
+    this.webSocket.sendPlayerClickData(this.uuid!, clickData);
+  }
+  
+
+  public startNewGame() {
+
+    if( (this.tictactoeGame.getWinners().length > 0 && this.tictactoeGame.isGameOn() == false) || 
+        this.tictactoeGame.getPlayerClickCount() == (this.tictactoeGame.getTableSize() * this.tictactoeGame.getTableSize()) || 
+        (this.usersInGame.length < 2 && this.tictactoeGame.isGameOn() == true)
+      ) {
+
+      this.tictactoeGame = new TictactoeGame(false);
+      this.webSocket.sendGameDataToOthers(this.uuid!, this.tictactoeGame.getGameData("newgame"));
+   }
+
+  }
+
+
+  private resetGameView() {
+
+    this.announcerText = "Waiting for the game to start.";
+
+    let button = this.elementRef.nativeElement.querySelector("#newGameBtn");
+    this.renderer.setStyle(button, "visibility", "hidden");
+
+    for(let rowId = 0; rowId < 3; rowId++) {
+      for(let colId = 0; colId < 3; colId++) {
+
+        let div = this.elementRef.nativeElement.querySelector("#div" + rowId + "-" + colId);
+        this.renderer.addClass(div, "clickable");
+      }
+    }
+
+  }
+
+
+  private handleAnnouncerElements() {
+
+    if(this.tictactoeGame.isGameOn() == true) {
+      
+      this.announcerText = "Next:";
+      this.displayNextPlayer();
+    }
+    else {
+
+      let xIndicator = this.elementRef.nativeElement.querySelector("#nextPlayerX");
+      let oIndicator = this.elementRef.nativeElement.querySelector("#nextPlayerO");
+
+      if(this.tictactoeGame.getWinners().length == 1) {
+
+        this.announcerText = "We have a WINNER!"
+
+        if(this.tictactoeGame.getWinners()[0] == Marks.X) {
+
+          this.renderer.removeClass(xIndicator, "notYouNext");
+          this.renderer.addClass(xIndicator, "youNext");
+    
+          this.renderer.removeClass(oIndicator, "youNext");
+          this.renderer.addClass(oIndicator, "notYouNext");
+        }
+        else {
+
+          this.renderer.removeClass(xIndicator, "youNext");
+          this.renderer.addClass(xIndicator, "notYouNext");
+    
+          this.renderer.removeClass(oIndicator, "notYouNext");
+          this.renderer.addClass(oIndicator, "youNext");
+        }
+
+        let button = this.elementRef.nativeElement.querySelector("#newGameBtn");
+        this.renderer.setStyle(button, "visibility", "visible");
+
+      }
+      else if(this.tictactoeGame.getWinners().length == 2) {
+
+        this.announcerText = "Draw game! Both players won.";
+
+        this.renderer.removeClass(xIndicator, "notYouNext");
+        this.renderer.addClass(xIndicator, "youNext");
+
+        this.renderer.removeClass(oIndicator, "notYouNext");
+        this.renderer.addClass(oIndicator, "youNext");
+
+        let button = this.elementRef.nativeElement.querySelector("#newGameBtn");
+        this.renderer.setStyle(button, "visibility", "visible");
+      }
+      else if(this.tictactoeGame.getPlayerClickCount() == (this.tictactoeGame.getTableSize() * this.tictactoeGame.getTableSize())) {
+
+        this.announcerText = "Draw game!";
+
+        this.renderer.removeClass(xIndicator, "youNext");
+        this.renderer.addClass(xIndicator, "notYouNext");
+
+        this.renderer.removeClass(oIndicator, "youNext");
+        this.renderer.addClass(oIndicator, "notYouNext");
+
+        let button = this.elementRef.nativeElement.querySelector("#newGameBtn");
+        this.renderer.setStyle(button, "visibility", "visible");
+      }
+    }
+
+  }
+
+
+  private displayNextPlayer() {
+
+    let xIndicator = this.elementRef.nativeElement.querySelector("#nextPlayerX");
+    let oIndicator = this.elementRef.nativeElement.querySelector("#nextPlayerO");
+
+    if(this.tictactoeGame.whoIsNext() == Marks.X) {
+
+      this.renderer.removeClass(xIndicator, "notYouNext");
+      this.renderer.addClass(xIndicator, "youNext");
+
+      this.renderer.removeClass(oIndicator, "youNext");
+      this.renderer.addClass(oIndicator, "notYouNext");
+    }
+    else if(this.tictactoeGame.whoIsNext() == Marks.O) {
+
+      this.renderer.removeClass(xIndicator, "youNext");
+      this.renderer.addClass(xIndicator, "notYouNext");
+
+      this.renderer.removeClass(oIndicator, "notYouNext");
+      this.renderer.addClass(oIndicator, "youNext");
+    }
+    else {
+
+      this.renderer.removeClass(xIndicator, "youNext");
+      this.renderer.addClass(xIndicator, "notYouNext");
+
+      this.renderer.removeClass(oIndicator, "youNext");
+      this.renderer.addClass(oIndicator, "notYouNext");
+    }
   }
 
 
@@ -201,35 +388,6 @@ export class OnlinegameComponent implements OnInit, AfterViewInit, DoCheck, OnDe
       message.resetForm();
     }
 
-  }
-
-
-  public onMessageReceived(message: Message) {
-
-    if(message.type != MessageType.GAME) {
-      this.chatMessageReceived(message);
-    }
-
-    if(message.type == MessageType.JOIN || message.type == MessageType.LEAVE) {
-      this.refreshUserList();
-    }
-    // GAME MESSAGE RECEIVED
-
-  }
-
-  private refreshUserList() {
-
-    if(this.uuid != undefined && this.dataBank.getDeclaredAuthObject() != undefined) {
-
-      this.restAccess.getSubscribedUsersByUuid(this.dataBank.getDeclaredAuthObject()!.getJwt(), this.uuid)
-        .subscribe(response => {
-
-          let subscriptions = Object.assign(new TictactoeMatchSubscriptions(), response);
-          this.usersInGame = subscriptions.getSubscribedUsers();
-
-        });
-    }
-  
   }
 
 
