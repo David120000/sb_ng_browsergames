@@ -52,12 +52,9 @@ public class TictactoeMatchRegistryService {
          userRegistry.getUsers().stream()
             .filter(user -> user.getSessions().toString().contains("/topic/" + uuid))
                 .toList()
-                    .forEach(user -> subscribedUsers.add(
-                            new SubscribedUser(
-                                user.getName(), 
-                                user.getSessions().iterator().next().getId())
-                        )
-                    );
+                    .forEach(user -> user.getSessions()
+                        .forEach(session -> subscribedUsers.add(
+                            new SubscribedUser( user.getName(), session.getId()) )));
 
         TictactoeMatchSubscriptions subscriptionsByUuid = new TictactoeMatchSubscriptions(uuid, subscribedUsers);
 
