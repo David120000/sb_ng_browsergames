@@ -12,7 +12,6 @@ import { DataSharingService } from 'src/app/service/common/data-sharing.service'
 import { RestAccessService } from 'src/app/service/common/rest-access.service';
 import { TictactoeGame } from 'src/app/service/tictactoe/tictactoe-game';
 import { WebsocketService } from 'src/app/service/tictactoe/websocket.service';
-import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-onlinegame',
@@ -108,7 +107,11 @@ export class OnlinegameComponent implements OnInit, AfterViewInit, DoCheck, OnDe
 
   ngDoCheck(): void {
     
-    if(this.usersInGame.length >= 2 && this.tictactoeGame.getWinners().length == 0) {
+    if(this.usersInGame.length >= 2 && 
+      this.tictactoeGame.getWinners().length == 0 && 
+      this.tictactoeGame.getPlayerClickCount() < this.tictactoeGame.getTableSize() * this.tictactoeGame.getTableSize()
+      ) {
+     
       this.tictactoeGame.setGameOn(true);
     }
 

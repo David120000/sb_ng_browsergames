@@ -151,19 +151,20 @@ export class LocalgameComponent implements DoCheck{
         || 
         this.tictactoeGame.getPlayerClickCount() == (this.tictactoeGame.getTableSize() * this.tictactoeGame.getTableSize())
       ) {
-
-      this.announcerText = "Waiting for the game to start.";
-
-      let button = this.elementRef.nativeElement.querySelector("#newGameBtn");
-      this.renderer.setStyle(button, "visibility", "hidden");
       
-      this.tictactoeGame = this.newGame(true);
+      this.resetGameView();
+      this.tictactoeGame = new TictactoeGame(true);
     }
 
   }
 
 
-  private newGame(startImmediately: boolean): TictactoeGame {
+  private resetGameView() {
+
+    this.announcerText = "Waiting for the game to start.";
+
+    let button = this.elementRef.nativeElement.querySelector("#newGameBtn");
+    this.renderer.setStyle(button, "visibility", "hidden");
 
     for(let rowId = 0; rowId < 3; rowId++) {
       for(let colId = 0; colId < 3; colId++) {
@@ -173,7 +174,6 @@ export class LocalgameComponent implements DoCheck{
       }
     }
 
-    return new TictactoeGame(true);
   }
 
 
