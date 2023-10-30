@@ -116,6 +116,11 @@ export class MinesweeperGametableComponent implements OnInit, DoCheck {
 
           if(tile.isExplored() == true) {
 
+            if(tile.isFlagged() == true && tile.getContainerDiv().childElementCount > 0) {
+              
+              this.renderer.removeChild(tile.getContainerDiv(), tile.getContainerDiv().firstElementChild);
+            }
+
             if(tile.getContentType() == ContentTypes.NEARBY && tile.getContainerDiv().childElementCount == 0) {
 
               let mineCounter = tile.getAdjacentMineCount();
