@@ -83,6 +83,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       if(this.cachedRoute != "Minesweeper" && this.cachedRoute != "Tictactoe") {
 
         this.minimizeGameMenu();
+        this.contentUp();
         this.cachedRoute = currentRoute;
       }
     }
@@ -91,6 +92,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       if(this.cachedRoute == "Minesweeper" || this.cachedRoute == "Tictactoe") {
 
         this.maximizeGameMenu();
+        this.contentDown();
         this.cachedRoute = currentRoute;
       }
     }
@@ -148,6 +150,30 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.renderer.setStyle(minesweepercard, "height", "78px");
     this.renderer.setStyle(minesweepercard, "padding", "16px");
     this.renderer.setStyle(minesweepercard, "border-radius", "15px");
+  }
+
+
+  private contentUp() {
+
+    let appContentDiv = this.elementRef.nativeElement.querySelector("#content");
+    let titleH1 = this.elementRef.nativeElement.querySelector("#titleh1");
+    let tileH4 = this.elementRef.nativeElement.querySelector("#titleh4")
+
+    this.renderer.setStyle(appContentDiv, "margin", "8px auto 32px");
+    this.renderer.addClass(titleH1, "minimizeTopMargin");
+    this.renderer.addClass(tileH4, "minimizeBottomMargin");
+  }
+
+
+  private contentDown() {
+
+    let appContentDiv = this.elementRef.nativeElement.querySelector("#content");
+    let titleH1 = this.elementRef.nativeElement.querySelector("#titleh1");
+    let tileH4 = this.elementRef.nativeElement.querySelector("#titleh4")
+
+    this.renderer.setStyle(appContentDiv, "margin", "42px auto 32px");
+    this.renderer.removeClass(titleH1, "minimizeTopMargin");
+    this.renderer.removeClass(tileH4, "minimizeBottomMargin");
   }
 
 }

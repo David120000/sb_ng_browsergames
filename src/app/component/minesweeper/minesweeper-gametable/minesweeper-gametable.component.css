@@ -12,12 +12,17 @@ table, tr, td, div {
     padding: 0px;
 }
 
+.flexBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .tiles-style-a {
     background-color: bisque;
     border-style: ridge;
     border-color: blanchedalmond;
     padding: 0px;
-    text-align: center;
 }
 
 .tiles-style-a:hover {
@@ -30,7 +35,6 @@ table, tr, td, div {
     border-style: ridge;
     border-color: blanchedalmond;
     padding: 0px;
-    text-align: center;
 }
 
 .tiles-style-b:hover {
@@ -43,7 +47,6 @@ table, tr, td, div {
     border-style: groove;
     border-color: lightskyblue;
     padding: 0px;
-    text-align: center;
 }
 
 .tiles-explored-style-b {
@@ -51,7 +54,6 @@ table, tr, td, div {
     border-style: groove;
     border-color: lightskyblue;
     padding: 0px;
-    text-align: center;
 }
 
 .counterText {

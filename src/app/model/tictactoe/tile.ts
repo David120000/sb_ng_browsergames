@@ -6,12 +6,10 @@ export class Tile {
     private mark: Marks;
     private victoryAnimation: 'flip' | undefined;
     private recolor: 'color: #a80000' | undefined;
-    private size: '10x';
 
 
     constructor() {
         this.mark = Marks.EMPTY;
-        this.size = '10x';
         this.recolor = undefined;
         this.victoryAnimation = undefined;
     }
@@ -39,10 +37,6 @@ export class Tile {
         }
 
         return returnValue;
-    }
-
-    public getSize() {
-        return this.size;
     }
 
     public getAnimation(): 'flip' | undefined {

@@ -262,7 +262,7 @@ export class MinesweeperGame {
   private revealOtherMines(startingRowPosition: number, startingColumnPosition: number) {
 
     let revealRadius = 2;
-    let revealDelay = 600;
+    let revealDelay = 400;
 
     let intervalObject = setInterval(() => {
 
@@ -283,7 +283,6 @@ export class MinesweeperGame {
       }
 
       revealRadius = revealRadius + 1;
-      revealDelay = revealDelay * 0.35;
 
     }, revealDelay);
 

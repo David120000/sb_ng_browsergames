@@ -24,6 +24,7 @@ export class MinesweeperGametableComponent implements OnInit, DoCheck {
   private minesweeperGame?: MinesweeperGame;
 
   public selectedTableSize: number;
+  private tableWidth: number;
 
 
   constructor(elementRef: ElementRef, renderer: Renderer2) { 
@@ -35,10 +36,16 @@ export class MinesweeperGametableComponent implements OnInit, DoCheck {
     this.boolEmitterEnabled = true;
 
     this.selectedTableSize = 1;
+    this.tableWidth = 600;
   }
 
 
   ngOnInit() {
+
+    if(window.innerWidth < 505) {
+      this.tableWidth = window.innerWidth;
+    }
+    
     this.minesweeperGame = this.newGameView();
   }
 
@@ -65,20 +72,29 @@ export class MinesweeperGametableComponent implements OnInit, DoCheck {
   public newGameView(): MinesweeperGame {
 
     let minesweeperGame = new MinesweeperGame(this.selectedTableSize);
-    let tileSizes = new TileSizeStyles(minesweeperGame.getTableHorizontalSize());
+    let tileSizes = new TileSizeStyles(this.tableWidth, minesweeperGame.getTableHorizontalSize());
 
     let gameTableElement = this.elementRef.nativeElement.querySelector('#gameTable');
 
-    for(let row = 0; row < minesweeperGame.getTableVerticalSize(); row++) {
+    let rowTileCount = minesweeperGame.getTableVerticalSize();
+    let columnTileCount =  minesweeperGame.getTableHorizontalSize();
+
+    if(this.tableWidth < 600) {
+      rowTileCount = minesweeperGame.getTableHorizontalSize();
+      columnTileCount = minesweeperGame.getTableVerticalSize();
+    }
+
+    for(let row = 0; row < rowTileCount; row++) {
       
       let tableRow = this.renderer.createElement("tr");
       this.renderer.appendChild(gameTableElement, tableRow);
 
-      for(let col = 0; col < minesweeperGame.getTableHorizontalSize(); col++) {
+      for(let col = 0; col < columnTileCount; col++) {
 
         let tableCell = this.renderer.createElement("td");
         this.renderer.appendChild(tableRow, tableCell);
         let tileDiv = this.renderer.createElement("div");
+        this.renderer.addClass(tileDiv, "flexBox");
 
         if((row + col) % 2 == 0) {
           this.renderer.addClass(tileDiv, "tiles-style-a");
@@ -95,7 +111,13 @@ export class MinesweeperGametableComponent implements OnInit, DoCheck {
         this.renderer.listen(tileDiv, 'contextmenu', () => this.refreshView());
         this.renderer.appendChild(tableCell, tileDiv);
 
-        minesweeperGame.addTileToGameTable(tileDiv, row, col);
+        if(this.tableWidth == 600) {
+          minesweeperGame.addTileToGameTable(tileDiv, row, col);
+        }
+        else {
+          minesweeperGame.addTileToGameTable(tileDiv, col, row);
+        }
+
       }
 
     }
@@ -139,7 +161,7 @@ export class MinesweeperGametableComponent implements OnInit, DoCheck {
               this.renderer.appendChild(nearbyMineCounterText, this.renderer.createText(mineCounter + ""));
               this.renderer.addClass(nearbyMineCounterText, "counterText");
 
-              let tileSizes = new TileSizeStyles(this.minesweeperGame!.getTableHorizontalSize());
+              let tileSizes = new TileSizeStyles(this.tableWidth, this.minesweeperGame!.getTableHorizontalSize());
               this.renderer.setStyle(nearbyMineCounterText, "font-size", tileSizes.getFontSize());
 
               if(mineCounter == 1) {

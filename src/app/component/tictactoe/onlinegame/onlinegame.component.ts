@@ -36,6 +36,7 @@ export class OnlinegameComponent implements OnInit, AfterViewInit, DoCheck, OnDe
   private connectionStatusSubscription: Subscription | undefined;
 
   private announcerText: string;
+  private iconSize: '10x' | '6x';
   private tictactoeGame: TictactoeGame;
   private usersInGame: Array<SubscribedUser>;
 
@@ -72,6 +73,7 @@ export class OnlinegameComponent implements OnInit, AfterViewInit, DoCheck, OnDe
     this.roomMessageSubscription = this.webSocket.getRoomMessages().subscribe(message => this.onMessageReceived(message));
 
     this.announcerText = "Waiting for the game to start.";
+    this.iconSize = '10x';
     this.tictactoeGame = new TictactoeGame(false);
     this.usersInGame = [];
   }
@@ -92,6 +94,10 @@ export class OnlinegameComponent implements OnInit, AfterViewInit, DoCheck, OnDe
     else {
       /* redirect invalid URL requests */
       this.router.navigate(['tictactoe', {outlets: { 'game':  null }}]);
+    }
+
+    if(window.innerWidth <= 430) {
+      this.iconSize = '6x';
     }
   }
 
@@ -441,6 +447,11 @@ export class OnlinegameComponent implements OnInit, AfterViewInit, DoCheck, OnDe
   
   public getUserInGame(): Array<SubscribedUser> {
     return this.usersInGame;
+  }
+
+
+  public getIconSize() {
+    return this.iconSize;
   }
 
 }

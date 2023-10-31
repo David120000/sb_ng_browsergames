@@ -89,3 +89,9 @@
     background: linear-gradient(45deg, blue, red);
     opacity: 0.4;
 }
+
+@media screen and (max-width: 430px) {
+    #tableHeader {
+        transform: scale(0.8);
+    }
+}

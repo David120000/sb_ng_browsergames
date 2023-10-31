@@ -5,13 +5,13 @@ export class TileSizeStyles {
     private fontSize: string;
 
 
-    constructor(tableHorizontalSize: number) {
+    constructor(tableWidth: number, tableHorizontalSize: number) {
 
-        let tileSizeTotal = Math.floor( 600 / tableHorizontalSize );
+        let tileSizeTotal = Math.floor( tableWidth / tableHorizontalSize );
         let borderSize = Math.ceil( tileSizeTotal * 0.23 );
 
         this.tileSize = (tileSizeTotal - borderSize) + "px";
-        this.borderSize = (borderSize * 0.5) + "px";
+        this.borderSize = Math.floor(borderSize * 0.5) + "px";
         this.fontSize = Math.floor((tileSizeTotal - borderSize) * 0.8) + "px";
     }
 

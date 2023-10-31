@@ -2,6 +2,11 @@ dt {
     padding-top: 10px;
 }
 
+a {
+    text-decoration: none;
+    color: darkslategray;
+}
+
 #homeContainer {
     width: 100%;
     display: flex;

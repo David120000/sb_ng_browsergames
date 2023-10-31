@@ -29,7 +29,10 @@ td {
 }
 
 .headerDiv {
-    margin: 10px;
+    margin-top: 0;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 5px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -112,4 +115,12 @@ td {
     all: unset;
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+@media screen and (max-width: 430px) {
+    td {
+        width: 90px;
+        height: 90px;
+    }
 }

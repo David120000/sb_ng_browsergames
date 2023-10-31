@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
+  public getComponentDate(): string {
+    return new Date(Date.UTC(2023, 9, 13)).toLocaleDateString();
+  }
+
 }

@@ -1,4 +1,4 @@
-import { Component, DoCheck, ElementRef, Renderer2 } from '@angular/core';
+import { Component, DoCheck, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { Marks } from 'src/app/model/tictactoe/marks';
 import { Tile } from 'src/app/model/tictactoe/tile';
 import { TictactoeGame } from 'src/app/service/tictactoe/tictactoe-game';
@@ -8,12 +8,13 @@ import { TictactoeGame } from 'src/app/service/tictactoe/tictactoe-game';
   templateUrl: './localgame.component.html',
   styleUrls: ['./localgame.component.css']
 })
-export class LocalgameComponent implements DoCheck{
+export class LocalgameComponent implements OnInit, DoCheck{
 
   private elementRef: ElementRef;
   private renderer: Renderer2;
 
   private announcerText: string;
+  private iconSize: '10x' | '6x';
   private tictactoeGame: TictactoeGame;
 
 
@@ -23,7 +24,16 @@ export class LocalgameComponent implements DoCheck{
     this.renderer = renderer;
 
     this.announcerText = "Waiting for the game to start.";
+    this.iconSize = '10x';
     this.tictactoeGame = new TictactoeGame(true);
+  }
+
+
+  ngOnInit(): void {
+    
+    if(window.innerWidth <= 430) {
+      this.iconSize = '6x';
+    }
   }
 
 
@@ -179,6 +189,11 @@ export class LocalgameComponent implements DoCheck{
 
   public getTile(rowPosition: number, columnPosition: number): Tile {
     return this.tictactoeGame.getTile(rowPosition, columnPosition);
+  }
+
+
+  public getIconSize() {
+    return this.iconSize;
   }
 
 
