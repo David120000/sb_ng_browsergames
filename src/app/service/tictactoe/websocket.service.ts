@@ -71,7 +71,11 @@ export class WebsocketService {
 
     this.setConnectionStatus(false);
     this.userName = '';
-    this.stompClient.disconnect();
+
+    if(this.stompClient?.connected == true) {
+      this.stompClient.disconnect();
+    }
+
   }
 
 
