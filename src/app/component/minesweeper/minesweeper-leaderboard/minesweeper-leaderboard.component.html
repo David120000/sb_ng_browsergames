@@ -44,9 +44,9 @@
         <tr *ngFor="let score of topScores.getContent(); index as i" [ngClass]="{'oddRows': 1 == i % 2}">
             <td>{{i + 1 + (topScores.getCurrentPageNumber() * 10)}}</td>
             <td>{{ score.score }}</td>
-            <td style="min-width: 115px;" (click)="getCustomUserTopScores(0, score.userName)" class="clickable">{{ score.userName }}</td>
+            <td id="playerNameTd" (click)="getCustomUserTopScores(0, score.userName)" class="clickable">{{ score.userName }}</td>
             <td>{{ score.tableSize }}</td>
-            <td style="min-width: 125px">{{ score.date | date : 'longDate' }}</td>
+            <td id="dateTd">{{ score.date | date : 'longDate' }}</td>
         </tr>
     </table>
 

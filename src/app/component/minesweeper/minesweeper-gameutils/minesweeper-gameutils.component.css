@@ -128,3 +128,22 @@ p {
     background-color: #00000070;
     z-index: 9;
 }
+
+@media screen and (max-width: 390px) {
+    .gameUtilButtons {
+        font-size: 10px;
+    }
+
+    #tutorialButtonBackground {
+        width: 135px;
+    }
+
+    #leaderboardButtonBackground {
+        right: calc(10% + 135px);
+        width: 150px;
+    }
+
+    .componentMain {
+        top: 15%;
+    }
+}
