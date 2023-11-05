@@ -1,27 +1,33 @@
 # SbNgBrowsergames
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
+The app is running live on: 
+https://rd-browsergames.onrender.com/
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+This is a junior full-stack project using Angular 16.2.1 as the frontend, Java 20 (Spring Boot 3.1.4) as the backend, MySQL 8.0.34 as the database, and Docker for packaging and hosting.
 
-## Code scaffolding
+This was my very first time deploying an application. Now that I know Docker Compose exists, I realized it was unnecessary to generate the frontend and backend projects in the same folder. Next time, I won't do that. :)
+However, you can find the Java source code under src/main, and Angular under src/app.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Among many things, I should get to know Angular structures better. I learned many things about components and services during the development of this application, so in my future ones, I can plan the project structure and class responsibilities way better.
+Please note that I am still learning.
 
-## Build
+## Backend Dependencies
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Spring Security
+- Java JWT (Json Web Tokens)
+- Spring WebSocket
+- Spring Data JPA
 
-## Running unit tests
+## Frontend Dependencies
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- Angular JWT
+- UUIDv4
+- SockJS
+- StompJS
+- Node's Net
+- Fortawesome/Fontawesome (as Angular Component)
 
-## Running end-to-end tests
+## Contact
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+[LinkedIn](https://www.linkedin.com/in/d%C3%A1vid-remetei-22aa7497/)
