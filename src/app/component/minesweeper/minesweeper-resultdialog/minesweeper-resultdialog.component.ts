@@ -60,7 +60,10 @@ export class MinesweeperResultdialogComponent implements OnDestroy {
 
   public persistScore() {
 
-    if(this.minesweeperScore != undefined && this.isUserAuthenticated() == true) {
+    if(this.minesweeperScore != undefined && 
+      this.isUserAuthenticated() == true && 
+      (this.restResponse == undefined || this.restResponse?.isSuccessfullyPersisted() == false)
+      ) {
 
       if(this.minesweeperScore.userName == "<no name>") {
         this.minesweeperScore.userName = this.jwtDecoder.getUserNameFromToken(this.authObject);
@@ -70,16 +73,18 @@ export class MinesweeperResultdialogComponent implements OnDestroy {
         .subscribe(response => {
 
           let persistResponse = Object.assign(new MinesweeperScorePersistResponse(), response);
-
           this.restResponse = persistResponse;
-
-          if(persistResponse.isSuccessfullyPersisted() == true) {
-            this.minesweeperScore = undefined;
-          }
         
         });
     }
 
+  }
+
+
+  private dropScorePersistData() {
+
+    this.minesweeperScore = undefined;
+    this.restResponse = undefined;
   }
   
 
@@ -98,14 +103,17 @@ export class MinesweeperResultdialogComponent implements OnDestroy {
 
 
   public closeDialog() {
+
+    this.closeConfirmationDialog();
     this.selfElement?.close();
+    this.dropScorePersistData();
   }
 
 
   public closeConfirmationDialog() {
 
     let confirmationDialogElement = this.elementRef.nativeElement.querySelector('#discardConfirmDialog');
-    confirmationDialogElement.close();
+    confirmationDialogElement?.close();
   }
 
 

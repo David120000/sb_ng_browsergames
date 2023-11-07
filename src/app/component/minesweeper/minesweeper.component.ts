@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, Renderer2, ViewChild } from '@angular/core';
 import { MinesweeperGametableComponent } from './minesweeper-gametable/minesweeper-gametable.component';
 import { MinesweeperTimerComponent } from './minesweeper-timer/minesweeper-timer.component';
 import { Subscription } from 'rxjs';
@@ -18,6 +18,7 @@ import { MinesweeperScore } from 'src/app/model/minesweeper/minesweeper-score';
 export class MinesweeperComponent implements AfterViewInit, OnDestroy {
 
   private elementRef: ElementRef;
+  private renderer: Renderer2;
   private dataBank: DataSharingService;
   private jwtDecoder: JwtDecoderService;
   private subscription: Subscription;
@@ -38,9 +39,10 @@ export class MinesweeperComponent implements AfterViewInit, OnDestroy {
   private timerEnabled: boolean;
   
 
-  constructor(elementRef: ElementRef, dataBank: DataSharingService, jwtDecoder: JwtDecoderService) {
+  constructor(elementRef: ElementRef, renderer: Renderer2, dataBank: DataSharingService, jwtDecoder: JwtDecoderService) {
 
     this.elementRef = elementRef;
+    this.renderer = renderer;
     this.dataBank = dataBank;
     this.jwtDecoder = jwtDecoder;
 
@@ -73,6 +75,9 @@ export class MinesweeperComponent implements AfterViewInit, OnDestroy {
         this.tableSizes = this.minesweeperGametableComponent.getTableSizes();
       }
     }); 
+
+    let dialog = this.elementRef.nativeElement.querySelector('#resultDialog');
+    this.renderer.listen(dialog, 'cancel', (event) => event.preventDefault());
 
   }
 
