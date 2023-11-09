@@ -129,7 +129,7 @@ p {
     z-index: 9;
 }
 
-@media screen and (max-width: 390px) {
+@media screen and (max-width: 450px) {
     .gameUtilButtons {
         font-size: 10px;
     }
