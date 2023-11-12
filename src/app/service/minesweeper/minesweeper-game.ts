@@ -172,6 +172,25 @@ export class MinesweeperGame {
         }
 
       }
+      else if(tile.isExplored() == true && tile.getContentType() == ContentTypes.NEARBY) {
+
+        for(let rowToCheck = rowPosition-1; rowToCheck <= rowPosition+1; rowToCheck++) {
+          for(let colToCheck = columnPosition-1; colToCheck <= columnPosition+1; colToCheck++) {
+            
+            if(rowToCheck >= 0 && colToCheck >= 0 && rowToCheck < this.gameTable.length && colToCheck < this.gameTable[0].length) {
+
+              let adjacentTile = this.gameTable[rowToCheck][colToCheck];
+
+              if(adjacentTile.isFlagged() == false && adjacentTile.isExplored() == false) {
+                this.explore(rowToCheck, colToCheck);
+              }
+
+            }      
+          }
+        }
+
+      }
+
     }
 
     if(this.gameFinished == false && this.tilesToExplore == 0) {

@@ -17,6 +17,7 @@ table, tr, td, div {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: default;
 }
 
 .tiles-style-a {
